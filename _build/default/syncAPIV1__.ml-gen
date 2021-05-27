@@ -1,0 +1,10 @@
+(** @canonical SyncAPIV1.Api *)
+module Api = SyncAPIV1__Api
+
+
+(** @canonical SyncAPIV1.Api_context *)
+module Api_context = SyncAPIV1__Api_context
+
+
+(** @canonical SyncAPIV1.Api_error *)
+module Api_error = SyncAPIV1__Api_error
