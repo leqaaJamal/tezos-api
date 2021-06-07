@@ -1,5 +1,5 @@
 (** This API provides functions to interact with a Tezos node *)
-open Tezos_protocol_009_PsFLoren.Protocol.Alpha_context
+open Tezos_protocol_009_PsFLoren.Row.Alpha_context
 open Tezos_client_009_PsFLoren
 open Api_error
 
