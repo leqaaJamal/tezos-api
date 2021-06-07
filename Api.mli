@@ -1,6 +1,6 @@
 (** This API provides functions to interact with a Tezos node *)
-open Tezos_protocol_007_PsDELPH1.Protocol.Alpha_context
-open Tezos_client_007_PsDELPH1
+open Tezos_protocol_009_PsFLoren.Protocol.Alpha_context
+open Tezos_client_009_PsFLoren
 open Api_error
 
 (** A public key of an account (implicit or originated)*)
