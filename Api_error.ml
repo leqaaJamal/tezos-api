@@ -68,8 +68,8 @@ let catch_last_error errs =
   | [] -> Answer.fail (Unknown "Empty trace")
   | e :: _ -> Answer.return e
   >>=? fun err ->
-  let open Tezos_protocol_007_PsDELPH1.Protocol.Contract_storage in
-  let open Tezos_raw_protocol_007_PsDELPH1.Contract_repr in
+  let open Tezos_protocol_009_PsFLoren.Protocol.Contract_storage in
+  let open Tezos_raw_protocol_009_PsFLoren.Contract_repr in
   match err with
   | Environment.Ecoproto_error (Invalid_contract_notation s) -> Answer.fail (Wrong_contract_notation s)
   | RPC_context.Not_found {uri; _}

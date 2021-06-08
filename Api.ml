@@ -3,7 +3,7 @@ open Tezos_client_009_PsFLoren
 open Tezos_client_009_PsFLoren.Protocol_client_context
 open Tezos_client_009_PsFLoren.Injection
 open Tezos_client_009_PsFLoren.Client_proto_contracts
-open Tezos_protocol_009_PsFLoren.Row.Alpha_context
+open Tezos_protocol_009_PsFLoren.Protocol.Alpha_context
 open Tezos_raw_protocol_009_PsFLoren
 open Tezos_protocol_environment_009_PsFLoren
 open Apply_results
@@ -315,7 +315,7 @@ let get_result ((op, res) : 'kind contents_list * 'kind contents_result_list) (b
     | Single_and_result (Manager_operation _,
                          Manager_operation_result {operation_result;_}) ->
        begin
-         let open Tezos_protocol_007_PsDELPH1.Protocol.Contract_storage in
+         let open Tezos_protocol_009_PsFLoren.Protocol.Contract_storage in
          match operation_result with
            | Failed (_, errs) -> (
              match errs with
