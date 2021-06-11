@@ -143,13 +143,13 @@ let catch_trace errs =
   Answer.fail (Unknown (trace_to_str errs))
 
 let catch_last_env_error err s =
-  let wrapped = Environment.wrap_error err in
+  let wrapped = Environment.wrap_tzerror err in
   match wrapped with
   | Error e -> catch_last_error e
   | Ok _ -> Answer.fail (Unknown s)
 
 let catch_trace_env err errs s =
-  let wrapped = Environment.wrap_error err in
+  let wrapped = Environment.wrap_tzerror err in
   match wrapped with
   | Error e -> catch_trace (e @ errs)
   | Ok _ -> Answer.fail (Unknown s)
