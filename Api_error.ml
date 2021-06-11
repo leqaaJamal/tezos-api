@@ -1,6 +1,7 @@
 open Tezos_protocol_environment_009_PsFLoren
 open Tezos_protocol_009_PsFLoren.Protocol.Alpha_context
 open Tezos_protocol_009_PsFLoren.Protocol.Receipt_repr
+open Tezos_protocol_009_PsFLoren.Protocol.Tez_repr
 open Tezos_protocol_009_PsFLoren.Protocol.Script_interpreter
 open Tezos_protocol_009_PsFLoren.Protocol.Helpers_services
 open Tezos_protocol_009_PsFLoren.Protocol.Michelson_v1_primitives
