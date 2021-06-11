@@ -1,7 +1,7 @@
 open Tezos_protocol_environment_009_PsFLoren
 open Tezos_protocol_009_PsFLoren.Protocol.Alpha_context
 open Tezos_protocol_009_PsFLoren.Protocol.Receipt_repr
-open Tezos_protocol_009_PsFLoren.Protocol.Tez_repr
+
 open Tezos_protocol_009_PsFLoren.Protocol.Script_interpreter
 open Tezos_protocol_009_PsFLoren.Protocol.Helpers_services
 open Tezos_protocol_009_PsFLoren.Protocol.Michelson_v1_primitives
@@ -143,13 +143,13 @@ let catch_trace errs =
   Answer.fail (Unknown (trace_to_str errs))
 
 let catch_last_env_error err s =
-  let wrapped = wrap_error err in
+  let wrapped = Json.wrap_error err in
   match wrapped with
   | Error e -> catch_last_error e
   | Ok _ -> Answer.fail (Unknown s)
 
 let catch_trace_env err errs s =
-  let wrapped = wrap_error err in
+  let wrapped = Json.wrap_error err in
   match wrapped with
   | Error e -> catch_trace (e @ errs)
   | Ok _ -> Answer.fail (Unknown s)
