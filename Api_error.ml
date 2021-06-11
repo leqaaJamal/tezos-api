@@ -152,7 +152,7 @@ let catch_last_env_error err s =
 let catch_trace_env err errs s =
   let wrapped = Environment.wrap_error_lwt err in
   match wrapped with
-  | Error e -> catch_trace (e @ errs)
+  | Error_lwt e -> catch_trace (e @ errs)
   | Ok _ -> Answer.fail (Unknown s)
 
 let pp_rejection_msg = function
