@@ -2,10 +2,10 @@
 open Client_keys
 open Tezos_client_009_PsFLoren
 open Tezos_protocol_009_PsFLoren.Protocol
+open Tezos_protocol_009_PsFLoren.Protocol.Delegate_storage
 open Tezos_protocol_009_PsFLoren.Protocol.Storage
 open Tezos_protocol_009_PsFLoren.Protocol.Apply_results
 open Tezos_protocol_009_PsFLoren.Protocol.Main
-open Tezos_protocol_009_PsFLoren.Protocol.Delegate_storage
 open Tezos_protocol_009_PsFLoren.Protocol.Helpers_services
 open Tezos_protocol_009_PsFLoren.Protocol.Init_storage
 open Tezos_protocol_009_PsFLoren.Protocol.Alpha_context
