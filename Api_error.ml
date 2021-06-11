@@ -146,7 +146,7 @@ let catch_trace errs =
 let catch_last_env_error err s =
   let wrapped = Environment.wrap_tzerror err in
   match wrapped with
-  | Tzerror e -> catch_last_error e
+  | error e -> catch_last_error e
   | Ok _ -> Answer.fail (Unknown s)
 
 let catch_trace_env err errs s =
