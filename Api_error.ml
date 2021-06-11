@@ -144,7 +144,7 @@ let catch_trace errs =
   Answer.fail (Unknown (trace_to_str errs))
 
 let catch_last_env_error err s =
-  let wrapped = Environment.wrap_error_lwt err in
+  let wrapped = Environment.wrap_tzerror err in
   match wrapped with
   | Error_lwt e -> catch_last_error e
   | Ok _ -> Answer.fail (Unknown s)
