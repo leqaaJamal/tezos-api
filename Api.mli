@@ -53,7 +53,7 @@ end
 type op_result = {
     block_hash : blockh; (** Block in which transaction was included *)
     rpc_position : (int * int); (** The indices where the operation can be found within the block *)
-    balance_updates : Delegate.balance_updates; (** List of balance updates *)
+    balance_updates : Helper_services.balance_updates; (** List of balance updates *)
     consumed_gas : int; (** Amount of gas burned during execution *)
     storage : Script.expr option; (** Contents of storage *)
     originated_contracts : contract list; (** List of originated contracts *)
