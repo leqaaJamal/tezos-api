@@ -338,7 +338,7 @@ let get_result ((op, res) : 'kind contents_list * 'kind contents_result_list) (b
                     originated_contracts = r.originated_contracts;
                     storage_size = Z.to_int r.storage_size;
                     paid_storage_size_diff = Z.to_int r.paid_storage_size_diff;
-                    big_map_diff = r.lazy_storage_diff.diffs;
+                    big_map_diff = r.(Lazy_storage_diff.diffs);
                     allocated_destination_contract = r.allocated_destination_contract
                   } in
                 Answer.return (Accepted res)
