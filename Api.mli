@@ -50,7 +50,7 @@ type op_result = {
     originated_contracts : contract list; (** List of originated contracts *)
     storage_size : int; (** Amount of storage used during transaction *)
     paid_storage_size_diff : int ; (** Storage fees paid *)
-    big_map_diff : Lazy_storage_diff.diffs option ; (** Changes in the BigMap *)
+    big_map_diff : Lazy_storage.diffs option ; (** Changes in the BigMap *)
     allocated_destination_contract : bool (** Indicates whether the dest account was empty or not *)
   }
 
