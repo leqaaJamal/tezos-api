@@ -1,4 +1,3 @@
-open Tezos_client_009_PsFLoren
 open Tezos_protocol_009_PsFLoren.Protocol
 open Tezos_protocol_009_PsFLoren.Protocol.Alpha_context
 open Tezos_protocol_009_PsFLoren.Protocol.Script_interpreter
