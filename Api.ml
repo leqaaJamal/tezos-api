@@ -45,13 +45,13 @@ end
 type op_result = {
     block_hash : blockh;
     rpc_position : (int * int);
-    balance_updates : Delegate.balance_updates;
+    balance_updates : Receipt_repr.balance_updates;
     consumed_gas : int;
     storage : Script.expr option;
     originated_contracts : contract list;
     storage_size : int;
     paid_storage_size_diff : int ;
-    big_map_diff : Contract.big_map_diff option;
+    big_map_diff : Lazy_storage_diff.diffs option;
     allocated_destination_contract : bool
   }
 
