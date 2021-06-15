@@ -59,7 +59,7 @@ type op_result = {
     originated_contracts : contract list; (** List of originated contracts *)
     storage_size : int; (** Amount of storage used during transaction *)
     paid_storage_size_diff : int ; (** Storage fees paid *)
-    big_map_diff : Lazy_storage.legacy_big_map_diff_encoding option; (** Changes in the BigMap *)
+    big_map_diff : Contract_storage.Legacy_big_map_diff option; (** Changes in the BigMap *)
     allocated_destination_contract : bool (** Indicates whether the dest account was empty or not *)
   }
 
