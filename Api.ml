@@ -1,5 +1,6 @@
 open Client_keys
 open Tezos_client_009_PsFLoren
+open Tezos_protocol_009_PsFLoren.Protocol.Contract_storage
 open Tezos_client_009_PsFLoren.Protocol_client_context
 open Tezos_client_009_PsFLoren.Injection
 open Tezos_client_009_PsFLoren.Client_proto_contracts
