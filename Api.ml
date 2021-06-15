@@ -6,6 +6,7 @@ open Tezos_client_009_PsFLoren.Client_proto_contracts
 open Tezos_protocol_009_PsFLoren.Protocol.Alpha_context
 open Tezos_raw_protocol_009_PsFLoren
 open Tezos_protocol_environment_009_PsFLoren
+open Tezos_protocol_009_PsFLoren.Protocol.Contract_storage
 open Apply_results
 open Api_error
 open Api_context
@@ -317,7 +318,7 @@ let get_result ((op, res) : 'kind contents_list * 'kind contents_result_list) (b
          let open Tezos_protocol_009_PsFLoren.Protocol.Contract_storage in
          match operation_result with
            | Failed (_, errs) -> (
-             match errs with
+             match Environment.wrap_tztrace errs with
              | (Non_existing_contract _) ::_ ->
                 Answer.return (Rejected (Reason Invalid_receiver))
              | err :: _ ->
