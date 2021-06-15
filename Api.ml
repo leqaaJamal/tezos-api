@@ -6,7 +6,6 @@ open Tezos_client_009_PsFLoren.Client_proto_contracts
 open Tezos_protocol_009_PsFLoren.Protocol.Alpha_context
 open Tezos_raw_protocol_009_PsFLoren
 open Tezos_protocol_environment_009_PsFLoren
-open Tezos_protocol_009_PsFLoren.Protocol.Contract_storage
 open Apply_results
 open Api_error
 open Api_context
@@ -319,10 +318,10 @@ let get_result ((op, res) : 'kind contents_list * 'kind contents_result_list) (b
          match operation_result with
            | Failed (_, errs) -> (
              match Environment.wrap_tztrace errs with
-             | (Non_existing_contract _) ::_ ->
+             | ( Environment.Ecoproto_error (Non_existing_contract _)) ::_ ->
                 Answer.return (Rejected (Reason Invalid_receiver))
              | err :: _ ->
-                let err_str = asprintf "%a" Environment.Error_monad.pp err in
+                let err_str = asprintf "%a" Error_monad.pp err in
                 Answer.return (Rejected (Unknown_reason err_str))
              | _ -> Answer.return (Rejected (Unknown_reason "Empty trace")))
            | Applied (Transaction_result r) ->
