@@ -45,7 +45,7 @@ end
 type op_result = {
     block_hash : blockh;
     rpc_position : (int * int);
-    balance_updates : Receipt_repr.balance_updates;
+    balance_updates : Receipt.balance_updates;
     consumed_gas : int;
     storage : Script.expr option;
     originated_contracts : contract list;
