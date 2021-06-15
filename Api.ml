@@ -1,5 +1,6 @@
 open Client_keys
 open Tezos_client_009_PsFLoren
+open Tezos_protocol_009_PsFLoren.Protocol
 open Tezos_client_009_PsFLoren.Protocol_client_context
 open Tezos_client_009_PsFLoren.Injection
 open Tezos_client_009_PsFLoren.Client_proto_contracts
@@ -338,7 +339,7 @@ let get_result ((op, res) : 'kind contents_list * 'kind contents_result_list) (b
                     originated_contracts = r.originated_contracts;
                     storage_size = Z.to_int r.storage_size;
                     paid_storage_size_diff = Z.to_int r.paid_storage_size_diff;
-                    big_map_diff = r.big_map_diff;
+                    big_map_diff = r.Lazy_storage_diff.diffs;
                     allocated_destination_contract = r.allocated_destination_contract
                   } in
                 Answer.return (Accepted res)
