@@ -122,7 +122,6 @@ let make_context () =
       RPC_client_unix.default_config with
       endpoint = Uri.of_string "http://localhost:8732";
       
-      tls = false;
     }
   in
   new unix_full_silent
