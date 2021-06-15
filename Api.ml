@@ -120,8 +120,8 @@ let current_fee_config : fee_config = {
 let make_context () =
   let rpc_config : RPC_client_unix.config = {
       RPC_client_unix.default_config with
-      host = "127.0.0.1";
-      port = !(current_config.port);
+      endpoint = Uri.of_string "http://localhost:8732";
+      
       tls = false;
     }
   in
