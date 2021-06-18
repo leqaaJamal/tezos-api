@@ -415,10 +415,10 @@ let query oph =
       >>= function
       | Ok op -> (
          match (op.receipt, op.protocol_data) with
-         | (Apply_results.Operation_metadata omd, Operation_data od) ->
+         | (Apply.Operation_metadata omd, Operation_data od) ->
             begin
-              match Apply_results.kind_equal_list od.contents omd.contents with
-              | Some Apply_results.Eq ->
+              match Apply.kind_equal_list od.contents omd.contents with
+              | Some Apply.Eq ->
                  get_result (od.contents, omd.contents) (block, i, j)
               | None -> Answer.fail Unexpected_result
             end
