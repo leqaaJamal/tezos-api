@@ -4,7 +4,6 @@ open Tezos_client_009_PsFLoren.Protocol_client_context
 open Tezos_client_009_PsFLoren.Injection
 open Tezos_client_009_PsFLoren.Client_proto_contracts
 open Tezos_protocol_009_PsFLoren.Protocol.Alpha_context
-open Tezos_protocol_009_PsFLoren.Protocol.Apply_results
 open Tezos_raw_protocol_009_PsFLoren
 open Tezos_protocol_environment_009_PsFLoren
 open Apply_results
