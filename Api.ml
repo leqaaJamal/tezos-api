@@ -4,7 +4,7 @@ open Tezos_client_009_PsFLoren.Protocol_client_context
 open Tezos_client_009_PsFLoren.Injection
 open Tezos_client_009_PsFLoren.Client_proto_contracts
 open Tezos_protocol_009_PsFLoren.Protocol.Alpha_context
-open Tezos_protocol_009_PsFLoren.Protocol.Main
+open Tezos_protocol_009_PsFLoren.Protocol.Apply_resultss
 open Tezos_raw_protocol_009_PsFLoren
 open Tezos_protocol_environment_009_PsFLoren
 open Apply_results
@@ -416,7 +416,7 @@ let query oph =
       >>= function
       | Ok op -> (
          match (op.receipt, op.protocol_data) with
-         | (Apply_operation.Operation_metadata omd, Operation_data od) ->
+         | (Operation_metadata omd, Operation_data od) ->
             begin
               match Apply_results.kind_equal_list od.contents omd.contents with
               | Some Apply_results.Eq ->
