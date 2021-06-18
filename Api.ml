@@ -415,12 +415,12 @@ let query oph =
         j
       >>= function
       | Ok op -> (
-         match Some (op.receipt, op.protocol_data) with
+         match (op.receipt, op.protocol_data) with
          | (Apply_results.Operation_metadata omd, Operation_data od) ->
             begin
               match Apply_results.kind_equal_list od.contents omd.contents with
               | Some Apply_results.Eq ->
-                 get_result (od.contents, omd.contents) (block, i, j)
+                 get_result (od.contents, omd.contents) (Some (block, i, j))
               | None -> Answer.fail Unexpected_result
             end
          | _ -> Answer.fail Unexpected_result
