@@ -416,7 +416,7 @@ let query oph =
       >>= function
       | Ok op -> (
          match (op.receipt, op.protocol_data) with
-         | (Apply_results.Operation_metadata omd, Operation_data od) ->
+         | (Some (Apply_results.Operation_metadata omd, Operation_data od)) ->
             begin
               match Apply_results.kind_equal_list od.contents omd.contents with
               | Some Apply_results.Eq ->
