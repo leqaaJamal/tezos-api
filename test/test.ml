@@ -48,34 +48,34 @@ let str_of_status st = match st with
   | Api.Unprocessed -> "Unprocessed"
 
 let run_puk_from_alias () =
-  Api.get_puk_from_alias "testuser"
+  Api.get_puk_from_alias "id1"
    >>= function
   | Ok _ -> print_endline "Ok" ; Lwt.return_ok ()
   | Error err -> Lwt.return_error err
 
 let run_puk_from_hash () =
-  Api.get_puk_from_hash "tz1XGXdyCAeAsZ8Qo4BFQVkLCnfQ4ZyLgJ1S"
+  Api.get_puk_from_hash "KT1APJqJSsFh66Q6CvZq13esQSS7V3NLxSwk"
   >>= function
   | Ok _ -> print_endline "Ok" ; Lwt.return_ok ()
   | Error err -> Lwt.return_error err
 
 let run_pukh_from_alias () =
-  Api.get_pukh_from_alias "testuser"
+  Api.get_pukh_from_alias "id1"
   >>= function
   | Ok _ -> print_endline "Ok"; Lwt.return_ok ()
   | Error err -> Lwt.return_error err
 
 let run_get_contract () =
-  Api.get_contract "testuser"
+  Api.get_contract "id1"
   (* Api.get_contract "tz1XGXdyCAeAsZ8Qo4BFQVkLCnfQ4ZyLgJ1S" alternatively *)
   >>= function
   | Ok _ -> print_endline "Ok" ; Lwt.return_ok ()
   | Error err -> Lwt.return_error err
 
 let run_transfer () =
-  Api.get_pukh_from_alias "testuser"
+  Api.get_pukh_from_alias "id1"
   >>=? fun pukh ->
-  Api.get_contract "testuser"
+  Api.get_contract "id1"
   >>=? fun contr ->
   let amount = Api.Tez_t.tez 10.0 in
   let fees = Api.Tez_t.tez 0.0001 in
@@ -85,7 +85,7 @@ let run_transfer () =
     | Error err -> Lwt.return_error err
 
 let run_query () =
- Api.get_pukh_from_alias "testuser"
+ Api.get_pukh_from_alias "id1"
  >>=? fun pukh ->
  Api.get_contract "auction"
  >>=? fun contr ->
@@ -106,7 +106,7 @@ let run_tez () =
   Lwt.return_ok ()
 
 let run_get_balance () =
-  Api.get_contract "testuser"
+  Api.get_contract "id1"
   >>=? fun contr ->
   Api.get_balance contr
   >>= function
@@ -114,7 +114,7 @@ let run_get_balance () =
     | Error err -> Lwt.return_error err
 
 let run_call_contract () =
-  Api.get_pukh_from_alias "testuser"
+  Api.get_pukh_from_alias "id1"
   >>=? fun pukh ->
   Api.get_contract "auction"
   >>=? fun contr ->
