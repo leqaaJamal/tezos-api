@@ -48,13 +48,13 @@ let str_of_status st = match st with
   | Api.Unprocessed -> "Unprocessed"
 
 let run_puk_from_alias () =
-  Api.get_puk_from_alias "id1"
+  Api.get_puk_from_alias "bob2"
    >>= function
   | Ok _ -> print_endline "Ok" ; Lwt.return_ok ()
   | Error err -> Lwt.return_error err
 
 let run_puk_from_hash () =
-  Api.get_puk_from_hash "KT1APJqJSsFh66Q6CvZq13esQSS7V3NLxSwk"
+  Api.get_puk_from_hash "tz1cKW5yoWQVu9UFVBHqD3YyTb63rf5Ja8yd"
   >>= function
   | Ok _ -> print_endline "Ok" ; Lwt.return_ok ()
   | Error err -> Lwt.return_error err
