@@ -159,7 +159,7 @@ let main =
   if !basedir <> "" then Api.set_basedir !basedir;
   if !debug then Api.set_debugmode true;
   begin
-    print_endline "Test puk_from_alias";
+    print_endline "Test puk_from_alias11";
     run_puk_from_alias ()
     >>=? fun _ ->
     print_endline "Test puk_from_hash";
