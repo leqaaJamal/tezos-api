@@ -2,7 +2,7 @@ open SyncAPIV1
 open SyncAPIV1.Api_error.Answer
 
 let port = ref 8732
-let basedir = ref "/home/tezos/.tezos-client/"
+let basedir = ref "/home/fouad/.tezos-client/"
 let debug = ref false
 
 let usage = "Usage: " ^ Sys.argv.(0) ^ "[-p port] [-d client_dir] [-v]"
