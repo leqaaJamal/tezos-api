@@ -168,11 +168,11 @@ let main =
     print_endline "Test pukh_from_alias";
     run_pukh_from_alias ()
     >>=? fun _ ->
-    print_endline "Test transfer";
-    run_transfer ()
-    >>=? fun _ ->
     print_endline "Test get_contract";
     run_get_contract ()
+    >>=? fun _ ->
+    print_endline "Test transfer";
+    run_transfer ()
     >>=? fun _ ->
     (* print_endline "Test query";
     run_query ()
