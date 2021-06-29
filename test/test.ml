@@ -69,7 +69,7 @@ let run_get_contract () =
   Api.get_contract "id1"
   (* Api.get_contract "tz1XGXdyCAeAsZ8Qo4BFQVkLCnfQ4ZyLgJ1S" alternatively *)
   >>= function
-  | Ok _ -> print_endline "Ok" ; Printf.fprintf (Api.get_contract "id1"); Lwt.return_ok ()
+  | Ok _ -> print_endline "Ok" ; printf (Api.get_contract "id1"); Lwt.return_ok ()
   | Error err -> Lwt.return_error err
 
 let run_transfer () =
