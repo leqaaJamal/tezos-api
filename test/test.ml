@@ -89,7 +89,7 @@ let run_query () =
  >>=? fun pukh ->
  Api.get_contract "id1"
  >>=? fun contr ->
- let amount = Api.Tez_t.tez 10.0 in
+ let amount = Api.Tez_t.tez 1.0 in
  let fees = Api.Tez_t.tez 0.0001 in
  Api.call_contract amount pukh contr fees
  >>=? fun oph ->
