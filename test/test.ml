@@ -48,9 +48,9 @@ let str_of_status st = match st with
   | Api.Unprocessed -> "Unprocessed"
 
 let run_puk_from_alias () =
-  Api.get_puk_from_alias "bob2"
+  let h = Api.get_puk_from_alias "bob2"
    >>= function
-  | Ok _ -> print_endline "Ok" ; Lwt.return_ok ()
+  | Ok _ -> print_endline h ; Lwt.return_ok ()
   | Error err -> Lwt.return_error err
 
 let run_puk_from_hash () =
