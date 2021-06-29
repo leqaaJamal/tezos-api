@@ -50,7 +50,7 @@ let str_of_status st = match st with
 let run_puk_from_alias () =
   Api.get_puk_from_alias "bob2"
    >>= function
-  | Ok _ -> print_endline "its"^(Api.get_puk_from_alias "bob2")^"." ; Lwt.return_ok ()
+  | Ok _ -> print_endline (Api.get_puk_from_alias "bob2").to_string ; Lwt.return_ok ()
   | Error err -> Lwt.return_error err
 
 let run_puk_from_hash () =
