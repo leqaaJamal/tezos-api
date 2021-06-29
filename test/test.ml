@@ -63,7 +63,7 @@ let run_puk_from_hash () =
 let run_pukh_from_alias () =
   Api.get_pukh_from_alias "bob2"
   >>= function
-  | Ok _ -> asprintf "%a" ^(Api.get_pukh_from_alias "bob2")^""; Lwt.return_ok ()
+  | Ok _ -> print_endline "Ok"; Lwt.return_ok ()
   | Error err -> Lwt.return_error err
 
 let run_get_contract () =
