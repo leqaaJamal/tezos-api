@@ -48,34 +48,34 @@ let str_of_status st = match st with
   | Api.Unprocessed -> "Unprocessed"
 
 let run_puk_from_alias () =
-  Api.get_puk_from_alias "bob2"
+  Api.get_puk_from_alias "test3"
    >>= function
   | Ok _ -> print_endline "Ok" ; Lwt.return_ok ()
   | Error err -> Lwt.return_error err
 
 let run_puk_from_hash () =
-  Api.get_puk_from_hash "tz1cKW5yoWQVu9UFVBHqD3YyTb63rf5Ja8yd"
+  Api.get_puk_from_hash "tz1Qa35ij4nnTT31bLouFL4rmTDp7EotDyQW"
   >>= function
   | Ok _ -> print_endline "Ok" ; Lwt.return_ok ()
   | Error err -> Lwt.return_error err
 
 let run_pukh_from_alias () =
-  Api.get_pukh_from_alias "bob2"
+  Api.get_pukh_from_alias "test3"
   >>= function
   | Ok _ -> print_endline "Ok"; Lwt.return_ok ()
   | Error err -> Lwt.return_error err
 
 let run_get_contract () =
-  Api.get_contract "bob2"
+  Api.get_contract "id1"
   (* Api.get_contract "tz1XGXdyCAeAsZ8Qo4BFQVkLCnfQ4ZyLgJ1S" alternatively *)
   >>= function
   | Ok _ -> print_endline "Ok" ; Lwt.return_ok ()
   | Error err -> Lwt.return_error err
 
 let run_transfer () =
-  Api.get_pukh_from_alias "bob2"
+  Api.get_pukh_from_alias "test3"
   >>=? fun pukh ->
-  Api.get_contract "bob2"
+  Api.get_contract "id1"
   >>=? fun contr ->
   let amount = Api.Tez_t.tez 10.0 in
   let fees = Api.Tez_t.tez 0.0001 in
@@ -85,9 +85,9 @@ let run_transfer () =
     | Error err -> Lwt.return_error err
 
 let run_query () =
- Api.get_pukh_from_alias "bob2"
+ Api.get_pukh_from_alias "test3"
  >>=? fun pukh ->
- Api.get_contract "auction"
+ Api.get_contract "id1"
  >>=? fun contr ->
  let amount = Api.Tez_t.tez 10.0 in
  let fees = Api.Tez_t.tez 0.0001 in
@@ -106,7 +106,7 @@ let run_tez () =
   Lwt.return_ok ()
 
 let run_get_balance () =
-  Api.get_contract "bob2"
+  Api.get_contract "id1"
   >>=? fun contr ->
   Api.get_balance contr
   >>= function
@@ -174,26 +174,26 @@ let main =
     print_endline "Test get_contract";
     run_get_contract ()
     >>=? fun _ ->
-    print_endline "Test query";
+    (* print_endline "Test query";
     run_query ()
-    >>=? fun _ ->
-    print_endline "Test tez";
+    >>=? fun _ -> *)
+    (* print_endline "Test tez";
     run_tez ()
-    >>=? fun _ ->
+    >>=? fun _ -> *)
     print_endline "Test get_balance";
     run_get_balance ()
-    >>=? fun _ ->
-    print_endline "Test call_contract";
+    (* >>=? fun _ -> *)
+    (* print_endline "Test call_contract";
     run_call_contract ()
-    >>=? fun _ ->
-    print_endline "Test get_code";
+    >>=? fun _ -> *)
+    (* print_endline "Test get_code";
     run_get_code ()
-    >>=? fun _ ->
-    print_endline "Test parse_toplevel";
+    >>=? fun _ -> *)
+    (* print_endline "Test parse_toplevel";
     run_parse_top ()
     >>=? fun _ ->
     print_endline "Test parse_expression";
-    run_parse_expr ()
+    run_parse_expr () *)
   end
   >>= function
           | Ok () -> Lwt.return 0
