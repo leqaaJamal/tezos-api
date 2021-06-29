@@ -75,9 +75,9 @@ let run_get_contract () =
 let run_transfer () =
   Api.get_pukh_from_alias "test3"
   >>=? fun pukh ->
-  Api.get_contract "id1"
+  Api.get_contract "KT1APJqJSsFh66Q6CvZq13esQSS7V3NLxSwk"
   >>=? fun contr ->
-  let amount = Api.Tez_t.tez 10.0 in
+  let amount = Api.Tez_t.tez 1.0 in
   let fees = Api.Tez_t.tez 0.0001 in
   Api.transfer amount pukh contr fees
   >>= function
