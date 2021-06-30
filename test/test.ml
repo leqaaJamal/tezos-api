@@ -171,8 +171,8 @@ let main =
     print_endline "Test get_contract";
     run_get_contract ()
     >>=? fun _ ->
-    print_endline "Test transfer";
-    run_transfer ()
+    print_endline "Test get_balance";
+    run_get_balance ()
     >>=? fun _ ->
     (* print_endline "Test query";
     run_query ()
@@ -180,8 +180,8 @@ let main =
     (* print_endline "Test tez";
     run_tez ()
     >>=? fun _ -> *)
-    print_endline "Test get_balance";
-    run_get_balance ()
+    print_endline "Test transfer";
+    run_transfer ()
     (* >>=? fun _ -> *)
     (* print_endline "Test call_contract";
     run_call_contract ()

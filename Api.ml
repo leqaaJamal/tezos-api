@@ -132,7 +132,7 @@ let make_context () =
     ~base_dir: !(current_config.basedir)
     ~rpc_config:rpc_config
 
-let ctxt = ref (make_context ())
+let ctxt = ref (make_context ()) (*Client_context.wallet *)
 let catch_error_f err = if !(current_config.debug_mode) then catch_trace err
                         else catch_last_error err
 let catch_error_env_f err errs s = if !(current_config.debug_mode) then
