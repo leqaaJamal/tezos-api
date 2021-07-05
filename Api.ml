@@ -519,28 +519,3 @@ let get_balance1 s =
 
 let get_float tz = 
   Stdlib.print_endline (Alpha_context.Tez.to_string tz)
-
-  
-
-(* let get_balance c =
-  let ctxt_proto = new wrap_full !ctxt in
-  Client_proto_context.get_balance
-    ctxt_proto
-    ~chain:ctxt_proto#chain
-    ~block:ctxt_proto#block
-    c
-  >>= function
-  | Ok amount -> Answer.return amount
-  | Error err -> catch_error_f err *)
-
-  (* let get_contract s =
-  ContractAlias.get_contract !ctxt s
-  >>= function
-  | Ok (_,v) -> Answer.return v
-  | Error err -> (
-    match Contract.of_b58check s with
-    | Ok v -> Answer.return v
-    | Error _ as err2 -> catch_error_env_f
-                           err2
-                           err
-                           "B58 check of address failed") *)
