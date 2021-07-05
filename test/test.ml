@@ -117,8 +117,12 @@ let run_get_balance () =
 let run_get_balance1 () =
   Api.get_balance1 "id1"
   >>= function 
-    |Ok _ -> print_endline "ok"; Lwt.return_ok ()
-    |Error err -> Lwt.return_error err
+    | Ok tamount -> 
+      (Api.to_float tamount 
+      >>=? fun famount ->
+      print_endline @@ string_of_float tz ; Lwt.return_ok ()
+      )
+    | Error err -> Lwt.return_error err
 
 let run_call_contract () =
   Api.get_pukh_from_alias "bob2"
