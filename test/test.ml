@@ -118,7 +118,7 @@ let run_get_balance1 () =
   Api.get_balance1 "id1"
   >>= function 
     | Ok tamount -> 
-      (Api.to_float tamount 
+      (Api.Tez_t.to_float tamount 
       >>= fun famount ->
       print_endline @@ string_of_float famount ; Lwt.return_ok ()
       )
