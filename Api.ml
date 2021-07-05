@@ -498,8 +498,8 @@ let get_balance1 s =
   (* takes cleint_context.wallet "ctxt" and a string s and 
   returns (string"we don't care about it now and we will not use it"*contract.t "cont") *)
   ContractAlias.get_contract !ctxt s 
-  >>=function 
-    |OK (_,cont) -> (
+  >>= function 
+  | Ok (_,cont) -> (
       (* takes 1- prortocol_client_context.rpc_context "we make this from wrap_full of ctxt",
       2- shell_service.chain 
       3- shell_service.block 
@@ -507,15 +507,15 @@ let get_balance1 s =
       returns tez.t "tamount" *)
       let ctxt_rpc = new wrap_full !ctxt in 
       Client_proto_context.get_balance
-      ctxt_rpc
-      ~chain:ctxt_rpc#chain
-      ~block:ctxt_rpc#block
-      cont
+        ctxt_rpc
+        ~chain:ctxt_rpc#chain
+        ~block:ctxt_rpc#block
+        cont
       >>=function
-        |Ok tamount -> Answer.return tamount
-        |Error err -> catch_error_f err
+      | Ok tamount -> Answer.return tamount
+      | Error err -> catch_error_f err
      )
-    |Error err -> catch_error_f err
+  | Error err -> catch_error_f err
   
 
 (* let get_balance c =
