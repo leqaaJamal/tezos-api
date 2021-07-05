@@ -199,4 +199,4 @@ val parse_expression : string -> parsed_michelson Answer.t
 val list_entrypoints : parsed_michelson -> (tag * expression_michelson) list Answer.t
 
 
-val get_balance1 : String -> Tez_t.t Answer.t
+val get_balance1 : string -> Tez_t.t Answer.t

@@ -181,6 +181,9 @@ let main =
     print_endline "Test get_balance";
     run_get_balance ()
     >>=? fun _ ->
+    print_endline "Test get_balance1";
+    run_get_balance1 ()
+    >>=? fun _ ->
     (* print_endline "Test query";
     run_query ()
     >>=? fun _ -> *)
