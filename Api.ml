@@ -499,7 +499,7 @@ let get_balance1 s =
   returns (string"we don't care about it now and we will not use it"*contract.t "cont") *)
   ContractAlias.get_contract !ctxt s 
   >>=function 
-    | OK (_,cont) -> (
+    |OK (_,cont) -> (
       (* takes 1- prortocol_client_context.rpc_context "we make this from wrap_full of ctxt",
       2- shell_service.chain 
       3- shell_service.block 
