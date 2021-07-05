@@ -200,5 +200,3 @@ val list_entrypoints : parsed_michelson -> (tag * expression_michelson) list Ans
 
 
 val get_balance1 : string -> Tez_t.t Answer.t
-
-val get_float : Tez_t.t -> float
