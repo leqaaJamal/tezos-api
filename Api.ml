@@ -518,7 +518,7 @@ let get_balance1 s =
   | Error err -> catch_error_f err
 
 let get_float tz = 
-  Format.printf (Alpha_context.Tez.to_string tz)
+  Formatter.t.printf (Alpha_context.Tez.to_string tz)
 
   
 
