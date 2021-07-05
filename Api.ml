@@ -12,7 +12,6 @@ open Api_context
 open Format
 open Base
 open Int64
-open Stdlib
 
 type puk = Signature.public_key
 type pukh = Signature.public_key_hash
@@ -519,7 +518,7 @@ let get_balance1 s =
   | Error err -> catch_error_f err
 
 let get_float tz = 
-  Stdio.print_endline (Alpha_context.Tez.to_string tz)
+  Stdlib.print_endline (Alpha_context.Tez.to_string tz)
 
   
 
