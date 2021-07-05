@@ -170,6 +170,7 @@ val get_balance : contract -> Tez_t.t Answer.t
     @param ?arg argument passed to the contract's script (if needed)
     @param fee the amount of fees to pay to the baker
  *)
+ (* what is the differnce between call_contract and transfer *)
 val call_contract : Tez_t.t -> pukh -> contract -> ?entrypoint:string -> ?arg:string -> Tez_t.t -> oph Answer.t
 
 (** [get_contract_code dst] retrieves the code of a smart contract.
@@ -182,6 +183,7 @@ val get_contract_code : contract -> parsed_michelson Answer.t
     @param code Michelson script
     @return the result of parsing and expanding a Michelson script
  *)
+ (* I don't really aunderstand what is the parsed_michelson *)
 val parse_script : string -> parsed_michelson Answer.t
 
 (** [parse_expression expr] parses a Michelson expression/data
@@ -195,3 +197,6 @@ val parse_expression : string -> parsed_michelson Answer.t
     @return the entrypoints with tag and script
  *)
 val list_entrypoints : parsed_michelson -> (tag * expression_michelson) list Answer.t
+
+
+val get_balance1 : String -> Tez_t.t Answer.t

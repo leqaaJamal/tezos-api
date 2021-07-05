@@ -65,6 +65,7 @@ let run_pukh_from_alias () =
   | Ok _ -> print_endline "Ok"; Lwt.return_ok ()
   | Error err -> Lwt.return_error err
 
+(* type contrant -> contract.id *)
 let run_get_contract () =
   Api.get_contract "id1"
   (* Api.get_contract "tz1XGXdyCAeAsZ8Qo4BFQVkLCnfQ4ZyLgJ1S" alternatively *)
@@ -112,6 +113,12 @@ let run_get_balance () =
   >>= function
     | Ok _ -> print_endline "Ok"; Lwt.return_ok ()
     | Error err -> Lwt.return_error err
+
+let run_get_balance1 () =
+  Api.get_balance1 "id1"
+  >>= function 
+    |Ok _ -> print_endline "ok"; Lwt.return_ok ()
+    |Error err -> Lwt.return_error err
 
 let run_call_contract () =
   Api.get_pukh_from_alias "bob2"

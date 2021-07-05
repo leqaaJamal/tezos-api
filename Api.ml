@@ -490,3 +490,53 @@ let list_entrypoints (s : Michelson_v1_parser.parsed)  =
   >>= function
   | Ok eps -> Answer.return eps
   | Error err -> catch_error_f err
+
+
+(* get_balance in Cleint_proto_context takes as parameter a contract 
+so I need to have the type contract from the alias string and then call the function get_balance on it *)
+let get_balance1 s = 
+  (* takes cleint_context.wallet "ctxt" and a string s and 
+  returns (string"we don't care about it now and we will not use it"*contract.t "cont") *)
+  ContractAlias.get_contract !ctxt s 
+  >>=function 
+    | OK (_,cont) -> (
+      (* takes 1- prortocol_client_context.rpc_context "we make this from wrap_full of ctxt",
+      2- shell_service.chain 
+      3- shell_service.block 
+      4- contract.t "cont"
+      returns tez.t "tamount" *)
+      let ctxt_rpc = new wrap_full !ctxt in 
+      Client_proto_context.get_balance
+      ctxt_rpc
+      ~chain:ctxt_rpc#chain
+      ~block:ctxt_rpc#block
+      cont
+      >>=function
+        |Ok tamount -> Answer.return tamount
+        |Error err -> catch_error_f err
+     )
+    |Error err -> catch_error_f err
+  
+
+(* let get_balance c =
+  let ctxt_proto = new wrap_full !ctxt in
+  Client_proto_context.get_balance
+    ctxt_proto
+    ~chain:ctxt_proto#chain
+    ~block:ctxt_proto#block
+    c
+  >>= function
+  | Ok amount -> Answer.return amount
+  | Error err -> catch_error_f err *)
+
+  (* let get_contract s =
+  ContractAlias.get_contract !ctxt s
+  >>= function
+  | Ok (_,v) -> Answer.return v
+  | Error err -> (
+    match Contract.of_b58check s with
+    | Ok v -> Answer.return v
+    | Error _ as err2 -> catch_error_env_f
+                           err2
+                           err
+                           "B58 check of address failed") *)
