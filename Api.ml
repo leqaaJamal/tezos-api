@@ -12,7 +12,7 @@ open Api_context
 open Format
 open Base
 open Int64
-open Stdio
+open Stdlib
 
 type puk = Signature.public_key
 type pukh = Signature.public_key_hash
