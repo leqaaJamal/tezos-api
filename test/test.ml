@@ -1,6 +1,9 @@
 open SyncAPIV1
 open SyncAPIV1.Api_error.Answer
 open Int64
+open Api
+open Format
+open Base
 
 let port = ref 8732
 let basedir = ref "/home/fouad/.tezos-client/"
