@@ -119,8 +119,8 @@ let run_get_balance1 () =
   >>= function 
     | Ok tamount -> 
       (Api.to_float tamount 
-      >>=? fun famount ->
-      print_endline @@ string_of_float tz ; Lwt.return_ok ()
+      >>= fun famount ->
+      print_endline @@ string_of_float famount ; Lwt.return_ok ()
       )
     | Error err -> Lwt.return_error err
 
