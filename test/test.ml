@@ -124,6 +124,12 @@ let run_get_balance1 () =
       ) *)
     | Error err -> Lwt.return_error err
 
+let run_get_parameter_type () =
+  Api.get_parmeter_type "id1"
+  >>= function 
+    | Ok _ -> print_endline "Ok" ; Lwt.return_ok ()
+    | Error err -> Lwt.return_error err
+
 let run_call_contract () =
   Api.get_pukh_from_alias "bob2"
   >>=? fun pukh ->

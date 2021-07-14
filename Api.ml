@@ -480,6 +480,10 @@ let parse_expression s =
    | Ok parsed -> Answer.return parsed
    | Error err -> catch_error_f err
 
+
+(* (s : Michelson_v1_parser.parsed) same thing as (program : Script.expr) *)
+(* s.expand same thing as ~script:program *)
+(* needs the contarct representation of the contract*)
 let list_entrypoints (s : Michelson_v1_parser.parsed)  =
   let ctxt_proto = new wrap_full !ctxt in
   Michelson_v1_entrypoints.list_entrypoints
@@ -519,3 +523,76 @@ let get_balance1 s =
 
 let get_float tz = 
   Stdlib.print_endline (Alpha_context.Tez.to_string tz)
+
+let get_parmeter_type s =
+  (* s is the string name of the contract, get_contract returns contract.t of s *)
+  ContractAlias.get_contract !ctxt s 
+  >>= function
+  | Ok (_,cont) -> 
+    (
+      (* get_script :
+  #Protocol_client_context.rpc_context ->
+  chain:Shell_services.chain ->
+  block:Shell_services.block ->
+  Contract.t ->
+  Script.t option tzresult Lwt.t *)
+    let ctxt_rpc = new wrap_full !ctxt in 
+    Client_proto_context.get_script 
+      ctxt_rpc
+      ~chain:ctxt_rpc#chain
+      ~block:ctxt_rpc#block
+      cont
+      >>=function 
+      | Ok None -> Answer.fail Not_callable
+      | Ok (Some {code; storage = _}) ->
+        (
+          match Script_repr.force_decode code with
+          | Error _ as err2 ->
+            catch_error_env_f err2 [] "Error while decoding contract code"
+          | Ok (code1, _) -> 
+            (
+              let ctxt_proto = new wrap_full !ctxt in
+              Michelson_v1_entrypoints.list_entrypoints
+                ctxt_proto
+                ~chain:ctxt_proto#chain
+                ~block:ctxt_proto#block
+                code1
+                >>=function
+                | Ok listofentrypoints -> Answer.return type
+                | Error err -> catch_error_f err
+            )      
+        )
+      | Error errs -> catch_error_f errs
+    )
+  | Error err -> catch_error_f err
+
+(* let get_contract_code c =
+  let ctxt_proto = new wrap_full !ctxt in
+  Client_proto_context.get_script
+    ctxt_proto
+    ~chain:ctxt_proto#chain
+    ~block:ctxt_proto#block
+    c
+  >>= function
+  | Ok None -> Answer.fail Not_callable
+  | Ok (Some {code; storage = _}) ->
+     begin
+       match Script_repr.force_decode code with
+       | Error _ as err2 ->
+          catch_error_env_f err2 [] "Error while decoding contract code"
+       | Ok (code, _) ->
+          Answer.return @@ Michelson_v1_printer.unparse_toplevel code
+     end
+  | Error errs -> catch_error_f errs *)
+
+
+(* let list_entrypoints (s : Michelson_v1_parser.parsed)  =
+  let ctxt_proto = new wrap_full !ctxt in
+  Michelson_v1_entrypoints.list_entrypoints
+    ctxt_proto
+    ~chain:Client_config.default_chain
+    ~block:Client_config.default_block
+    s.expanded
+  >>= function
+  | Ok eps -> Answer.return eps
+  | Error err -> catch_error_f err *)
