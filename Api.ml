@@ -574,8 +574,6 @@ let rec print_elements mylist =
   (Michelson_v1_entrypoints.print_entrypoint_type
     !ctxt
     ~emacs:false
-    ~contract
-    ~script_name
     ~entrypoint:entrypoint
     typ
   )
