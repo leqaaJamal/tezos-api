@@ -203,4 +203,5 @@ val get_balance1 : string -> Tez_t.t Answer.t
 
 val get_float : Tez_t.t -> unit
 
-val get_parmeter_type: string -> (string, Alpha_context.Script.expr) list Answer.t
+
+val get_parmeter_type: string -> (string * Alpha_context.Script.expr) list Answer.t
