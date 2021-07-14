@@ -200,8 +200,8 @@ let main =
     (* print_endline "Test tez";
     run_tez ()
     >>=? fun _ -> *)
-    print_endline "Test transfer";
-    run_transfer ()
+    print_endline "Test parametertype";
+    run_get_parameter_type ()
     (* >>=? fun _ -> *)
     (* print_endline "Test call_contract";
     run_call_contract ()
