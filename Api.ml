@@ -570,7 +570,8 @@ let get_parmeter_type s =
 let rec print_elements mylist =
   match mylist with
   [] -> Stdlib.print_endline "   "
-  | (parametertype,_)::l -> Stdlib.print_endline parametertype; Stdlib.print_endline "   "; print_elements l
+  | (entrypoint,typ)::l -> Stdlib.print_endline entrypoint; Stdlib.print_endline ", "; 
+  Stdlib.print_endline (Michelson_v1_emacs.print_expr typ); print_elements l
 
 (* let get_contract_code c =
   let ctxt_proto = new wrap_full !ctxt in
