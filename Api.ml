@@ -570,10 +570,20 @@ let get_parmeter_type s =
 let rec print_elements mylist =
   match mylist with
   [] -> Stdlib.print_endline "   "
-  | (entrypoint,typ)::l -> Stdlib.print_endline entrypoint; Stdlib.print_endline ", "; print_elements l
+  | (entrypoint,typ)::l -> Stdlib.print_endline entrypoint; Stdlib.print_endline ", "; 
+  (Michelson_v1_entrypoints.print_entrypoint_type
+    ctxt
+    ~on_errors
+    ~emacs:false
+    ~contract
+    ~script_name
+    ~entrypoint:entrypoint
+    typ
+  )
+  ; print_elements l
 
 
-let rec print_elements_types mylist =
+(* let rec print_elements_types mylist =
   match mylist with
   [] -> Stdlib.print_endline "   "
-  | (entrypoint,typ)::l -> Michelson_v1_emacs.print_expr typ ; print_elements_types l
+  | (entrypoint,typ)::l -> Michelson_v1_emacs.print_expr typ ; print_elements_types l *)
