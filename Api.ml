@@ -572,7 +572,7 @@ let rec print_elements mylist =
   [] -> Stdlib.print_endline "   "
   | (entrypoint,typ)::l -> Stdlib.print_endline entrypoint; Stdlib.print_endline ", "; 
   (Michelson_v1_entrypoints.print_entrypoint_type
-    ctxt
+    !ctxt
     ~on_errors
     ~emacs:false
     ~contract
