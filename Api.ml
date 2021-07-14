@@ -569,7 +569,7 @@ let get_parmeter_type s =
 
 let rec print_elements mylist =
   match mylist with
-  [(paramty,_)] -> Stdlib.print_endline paramty; Stdlib.print_endline "   "
+  [] -> Stdlib.print_endline "   "
   | (parametertype,_)::l -> Stdlib.print_endline parametertype; Stdlib.print_endline "   "; print_elements l
 
 (* let get_contract_code c =
