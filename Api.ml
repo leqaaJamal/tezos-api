@@ -576,4 +576,4 @@ let rec print_elements mylist =
 let rec print_elements_types mylist =
   match mylist with
   [] -> Stdlib.print_endline "   "
-  | (entrypoint,typ)::l -> Format.fprintf "@[%a@]@" Michelson_v1_emacs.print_expr typ ; print_elements l
+  | (entrypoint,typ)::l -> Michelson_v1_emacs.print_expr typ ; print_elements_types l
