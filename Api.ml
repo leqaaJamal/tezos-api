@@ -566,6 +566,11 @@ let get_parmeter_type s =
     )
   | Error err -> catch_error_f err
 
+
+let rec print_elements = function
+  | [] -> ()
+  | (parametertype,_)::l -> Stdlib.print_endline parametertype; Stdlib.print_endline "   "; print_elements l
+
 (* let get_contract_code c =
   let ctxt_proto = new wrap_full !ctxt in
   Client_proto_context.get_script
