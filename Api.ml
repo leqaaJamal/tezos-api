@@ -567,7 +567,7 @@ let get_parmeter_type s =
   | Error err -> catch_error_f err
 
 
-let rec print_elements mylist = function
+let rec print_elements mylist =
   match myList with
   [(paramty,_)] -> Stdlib.print_endline paramty; Stdlib.print_endline "   "
   | (parametertype,_)::l -> Stdlib.print_endline parametertype; Stdlib.print_endline "   "; print_elements l
