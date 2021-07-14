@@ -206,4 +206,4 @@ val get_float : Tez_t.t -> unit
 
 val get_parmeter_type: string -> (string * Script.expr) list Answer.t
 
-val print_elements: (tag * 'a) list -> unit
+(* val print_elements: (tag * 'a) list -> unit *)
