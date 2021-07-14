@@ -558,7 +558,7 @@ let get_parmeter_type s =
                 ~block:ctxt_proto#block
                 code1
                 >>=function
-                | Ok listofentrypoints -> Answer.return type
+                | Ok listofentrypoints -> Answer.return listofentrypoints
                 | Error err -> catch_error_f err
             )      
         )
