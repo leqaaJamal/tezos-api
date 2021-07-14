@@ -567,8 +567,8 @@ let get_parmeter_type s =
   | Error err -> catch_error_f err
 
 
-let rec print_elements x= function
-  | [] -> Stdlib.print_endline "   "
+let rec print_elements mylist = function
+  | [(paramty,_)] -> Stdlib.print_endline parametertype; Stdlib.print_endline "   "
   | (parametertype,_)::l -> Stdlib.print_endline parametertype; Stdlib.print_endline "   "; print_elements l
 
 (* let get_contract_code c =
