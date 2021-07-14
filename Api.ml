@@ -576,35 +576,4 @@ let rec print_elements mylist =
 let rec print_elements_types mylist =
   match mylist with
   [] -> Stdlib.print_endline "   "
-  | (entrypoint,typ)::l -> (Michelson_v1_emacs.print_expr typ) ; print_elements l
-
-(* let get_contract_code c =
-  let ctxt_proto = new wrap_full !ctxt in
-  Client_proto_context.get_script
-    ctxt_proto
-    ~chain:ctxt_proto#chain
-    ~block:ctxt_proto#block
-    c
-  >>= function
-  | Ok None -> Answer.fail Not_callable
-  | Ok (Some {code; storage = _}) ->
-     begin
-       match Script_repr.force_decode code with
-       | Error _ as err2 ->
-          catch_error_env_f err2 [] "Error while decoding contract code"
-       | Ok (code, _) ->
-          Answer.return @@ Michelson_v1_printer.unparse_toplevel code
-     end
-  | Error errs -> catch_error_f errs *)
-
-
-(* let list_entrypoints (s : Michelson_v1_parser.parsed)  =
-  let ctxt_proto = new wrap_full !ctxt in
-  Michelson_v1_entrypoints.list_entrypoints
-    ctxt_proto
-    ~chain:Client_config.default_chain
-    ~block:Client_config.default_block
-    s.expanded
-  >>= function
-  | Ok eps -> Answer.return eps
-  | Error err -> catch_error_f err *)
+  | (entrypoint,typ)::l -> Format.fprintf "@[%a@]@" Michelson_v1_emacs.print_expr typ ; print_elements l
