@@ -127,7 +127,7 @@ let run_get_balance1 () =
 let run_get_parameter_type () =
   Api.get_parmeter_type "id1"
   >>= function 
-    | Ok _ -> print_endline "Ok" ; Lwt.return_ok ()
+    | Ok entrypoints -> Api.print_elements entrypoints; print_endline "Ok" ; Lwt.return_ok ()
     | Error err -> Lwt.return_error err
 
 let run_call_contract () =
