@@ -567,10 +567,15 @@ let get_parmeter_type s =
   | Error err -> catch_error_f err
 
 
+
 let rec print_elements mylist =
   match mylist with
   [] -> Stdlib.print_endline " "
   | (entrypoint,_)::l -> Stdlib.print_endline entrypoint;print_elements l
+
+
+let print_entrypoints entrylist =
+  print_entrypoints_list ~emacs:false entrylist
 (* val print_entrypoints_list :
   #Client_context.printer ->
   ?on_errors:(error list -> unit tzresult Lwt.t) ->
