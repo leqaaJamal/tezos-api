@@ -570,8 +570,7 @@ let get_parmeter_type s =
 let rec print_elements mylist =
   match mylist with
   [] -> Stdlib.print_endline " "
-  | (entrypoint,typ)::l -> Stdlib.print_endline entrypoint; 
-  ; print_elements l
+  | (entrypoint,typ)::l -> Stdlib.print_endline entrypoint;print_elements l
 (* val print_entrypoints_list :
   #Client_context.printer ->
   ?on_errors:(error list -> unit tzresult Lwt.t) ->
