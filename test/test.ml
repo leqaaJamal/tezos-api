@@ -127,7 +127,7 @@ let run_get_balance1 () =
 let run_get_entrypoints () =
   Api.get_entrypoints "id1"
   >>= function 
-    | Ok entrypoints -> Api.print_elements entrypoints; print_endline "Ok" ; Api.print_entrypoints entrypoints; Lwt.return_ok ()
+    | Ok entrypoints -> Api.print_elements entrypoints; print_endline "Ok" ; Api.print_entrypoints (entrypoints:(string * Api.expression_michelson) list tzresult); Lwt.return_ok ()
     | Error err -> Lwt.return_error err
 
 let run_call_contract () =
