@@ -571,11 +571,14 @@ let rec print_elements mylist =
   match mylist with
   [] -> Stdlib.print_endline "   "
   | (entrypoint,typ)::l -> Stdlib.print_endline entrypoint; Stdlib.print_endline ", "; 
-  (>>=Michelson_v1_entrypoints.print_entrypoint_type
+  (Michelson_v1_entrypoints.print_entrypoint_type
     !ctxt
     ~emacs:false
     ~entrypoint:entrypoint
     typ
+    >>= function
+    | Ok toprint -> print_endline toprint; Lwt.return_ok ()
+    | Error err -> Lwt.return_error err
   )
   ; print_elements l
 
