@@ -575,7 +575,8 @@ let rec print_elements mylist =
 
 
 let print_entrypoints entrylist =
-  Michelson_v1_entrypoints.print_entrypoints_list ctxt ~emacs:false entrylist
+  let cctxt = new wrap_full !ctxt in 
+  Michelson_v1_entrypoints.print_entrypoints_list cctxt ~emacs:false entrylist
 (* val print_entrypoints_list :
   #Client_context.printer ->
   ?on_errors:(error list -> unit tzresult Lwt.t) ->
