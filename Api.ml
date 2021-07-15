@@ -569,19 +569,17 @@ let get_parmeter_type s =
 
 let rec print_elements mylist =
   match mylist with
-  [] -> Stdlib.print_endline "   "
-  | (entrypoint,typ)::l -> Stdlib.print_endline entrypoint; Stdlib.print_endline ", "; 
-  (Michelson_v1_entrypoints.print_entrypoint_type
-    !ctxt
-    ~emacs:false
-    ~entrypoint:entrypoint
-    typ
-    >>= function
-    | Ok toprint -> Stdlib.print_endline toprint.out_string; Lwt.return_ok ()
-    | Error err -> Lwt.return_error err
-  )
+  [] -> Stdlib.print_endline " "
+  | (entrypoint,typ)::l -> Stdlib.print_endline entrypoint; 
   ; print_elements l
-
+(* val print_entrypoints_list :
+  #Client_context.printer ->
+  ?on_errors:(error list -> unit tzresult Lwt.t) ->
+  emacs:bool ->
+  ?contract:Alpha_context.Contract.t ->
+  ?script_name:string ->
+  (string * Alpha_context.Script.expr) list tzresult ->
+  unit tzresult Lwt.t *)
 
 (* let rec print_elements_types mylist =
   match mylist with
