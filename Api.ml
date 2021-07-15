@@ -575,7 +575,7 @@ let rec print_elements mylist =
 
 
 let print_entrypoints entrylist =
-  Michelson_v1_entrypoints.print_entrypoints_list ~emacs:false entrylist
+  Michelson_v1_entrypoints.print_entrypoints_list ctxt ~emacs:false entrylist
 (* val print_entrypoints_list :
   #Client_context.printer ->
   ?on_errors:(error list -> unit tzresult Lwt.t) ->
