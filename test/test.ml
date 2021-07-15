@@ -124,8 +124,8 @@ let run_get_balance1 () =
       ) *)
     | Error err -> Lwt.return_error err
 
-let run_get_parameter_type () =
-  Api.get_parmeter_type "id1"
+let run_get_entrypoints () =
+  Api.get_entrypoints "id1"
   >>= function 
     | Ok entrypoints -> Api.print_elements entrypoints; print_endline "Ok" ; Api.print_entrypoints entrypoints; Lwt.return_ok ()
     | Error err -> Lwt.return_error err
@@ -200,8 +200,8 @@ let main =
     (* print_endline "Test tez";
     run_tez ()
     >>=? fun _ -> *)
-    print_endline "Test parametertype";
-    run_get_parameter_type ()
+    print_endline "Test get entrypoints";
+    run_get_entrypoints ()
     (* >>=? fun _ -> *)
     (* print_endline "Test call_contract";
     run_call_contract ()

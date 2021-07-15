@@ -204,7 +204,7 @@ val get_balance1 : string -> Tez_t.t Answer.t
 val get_float : Tez_t.t -> unit
 
 
-val get_parmeter_type: string -> (string * Script.expr) list Answer.t
+val get_entrypoints: string -> (string * Script.expr) list Answer.t
 
 val print_elements: (tag * Script.expr) list -> unit 
 

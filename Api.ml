@@ -524,7 +524,7 @@ let get_balance1 s =
 let get_float tz = 
   Stdlib.print_endline (Alpha_context.Tez.to_string tz)
 
-let get_parmeter_type s =
+let get_entrypoints s =
   (* s is the string name of the contract, get_contract returns contract.t of s *)
   ContractAlias.get_contract !ctxt s 
   >>= function
