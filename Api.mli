@@ -206,7 +206,7 @@ val get_float : Tez_t.t -> unit
 
 val get_parmeter_type: string -> (string * Script.expr) list tzresult Lwt.t
 
-val print_elements: (tag * Script.expr) list -> unit 
+val print_elements: (tag * Script.expr) list tzresult -> unit 
 
 val print_entrypoints: (tag * Script.expr) list tzresult -> unit tzresult Lwt.t
 
