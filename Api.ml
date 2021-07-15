@@ -577,7 +577,7 @@ let rec print_elements mylist =
     ~entrypoint:entrypoint
     typ
     >>= function
-    | Ok toprint -> Stdlib.print_endline toprint.to_string; Lwt.return_ok ()
+    | Ok toprint -> Stdlib.print_endline toprint.out_string; Lwt.return_ok ()
     | Error err -> Lwt.return_error err
   )
   ; print_elements l
