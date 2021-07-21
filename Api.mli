@@ -23,6 +23,12 @@ type parsed_michelson = Michelson_v1_parser.parsed
 type expression_michelson = Script.expr
 type tag = string
 
+type _ mtype =
+| Tstring : string mtype
+| Tint : int mtype
+| Tbool : bool mtype
+| Tunit : unit mtype
+
 val string_of_argty : mtype -> string
 
 (** Representation of Tezos tokens (tez) *)
