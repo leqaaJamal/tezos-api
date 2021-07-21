@@ -30,6 +30,12 @@ type _ mvalue =
 | Mbool : bool -> bool mvalue
 | Munit : unit -> unit mvalue 
 
+type _ mtype =
+| Tstring : string mtype
+| Tint : int mtype
+| Tbool : bool mtype
+| Tunit : unit mtype
+
 
 module Tez_t : sig
   type t = Tez.t
