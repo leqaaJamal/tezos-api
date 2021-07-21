@@ -23,6 +23,14 @@ type expression_michelson = Script.expr
 type tag = string
 type mtype = Michelson_v1_primitives.prim
 
+
+type argty =
+  | string
+  | bytes 
+  | int
+  | bool
+  | unit
+
 module Tez_t : sig
   type t = Tez.t
   val tez : float -> t
