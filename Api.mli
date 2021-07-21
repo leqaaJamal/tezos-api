@@ -29,7 +29,7 @@ type _ mtype =
 | Tbool : bool mtype
 | Tunit : unit mtype
 
-val string_of_argty : mtype _ -> string
+val string_of_argty : _ mtype -> string
 
 (** Representation of Tezos tokens (tez) *)
 module Tez_t : sig
