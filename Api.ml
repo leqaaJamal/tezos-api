@@ -42,6 +42,9 @@ end = struct
     (mutez_f /. conversion_factor)
 end
 
+type Mtype = Michelson_v1_primitives.prim
+
+
 type op_result = {
     block_hash : blockh;
     rpc_position : (int * int);
@@ -270,6 +273,7 @@ let transfer amount src destination fee =
        | Error err -> catch_error_f err
      end
 
+(* entrypoint int arg=5  *)
 let call_contract amount src destination ?entrypoint ?arg fee =
   let open Answer in
   (match Contract.is_implicit destination with
