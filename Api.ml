@@ -36,6 +36,12 @@ type _ mtype =
 | Tbool : bool mtype
 | Tunit : unit mtype
 
+let string_of_argty _ =
+  | Tstring -> "string"
+  | Tint : "int"
+  | Tbool : "bool"
+  | Tunit : "unit"
+
 
 module Tez_t : sig
   type t = Tez.t
