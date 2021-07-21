@@ -21,20 +21,20 @@ type blockh = Block_hash.t
 type parsed_michelson = Michelson_v1_parser.parsed
 type expression_michelson = Script.expr
 type tag = string
-type mty = Michelson_v1_primitives.prim
+(* type mty = Michelson_v1_primitives.prim *)
 
 
-type _ mvalue =
+(* type _ mvalue =
 | Mstring : string -> string mvalue
 | Mint : int -> int mvalue
 | Mbool : bool -> bool mvalue
-| Munit : unit -> unit mvalue 
+| Munit : unit -> unit mvalue  *)
 
-type _ mtype =
-| Tstring : string mtype
-| Tint : int mtype
-| Tbool : bool mtype
-| Tunit : unit mtype
+type mtype =
+| Tstring : string
+| Tint : int
+| Tbool : bool
+| Tunit : unit
 
 let string_of_argty _ = function
   | Tstring -> "string"
