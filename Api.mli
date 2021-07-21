@@ -29,7 +29,7 @@ type tag = string
 | Tbool : bool mtype
 | Tunit : unit mtype *)
 type mtype =
-| Tstring : string
+| string
 | Tint : int
 | Tbool : bool
 | Tunit : unit
