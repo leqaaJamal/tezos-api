@@ -25,11 +25,11 @@ type mtype = Michelson_v1_primitives.prim
 
 
 type argty =
-  |string
-  |bytes 
-  |int
-  |bool
-  |unit
+  | Mstring: string
+  | Mbytes: bytes
+  | Mint: int
+  | Mbool: bool
+  | Munit: unit
 
 module Tez_t : sig
   type t = Tez.t
