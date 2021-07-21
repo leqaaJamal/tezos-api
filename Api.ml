@@ -36,7 +36,7 @@ type mtype =
 | Tbool
 | Tunit
 
-let string_of_argty _ = function
+let string_of_argty= function
   | Tstring -> "string"
   | Tint -> "int"
   | Tbool -> "bool"
