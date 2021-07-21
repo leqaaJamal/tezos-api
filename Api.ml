@@ -24,12 +24,12 @@ type tag = string
 type mtype = Michelson_v1_primitives.prim
 
 
-type argty =
-  | Mstring: string
-  | Mbytes: bytes
-  | Mint: int
-  | Mbool: bool
-  | Munit: unit
+type _ Mvalue =
+| Mstring : string -> string Mvalue
+| Mint : int -> int Mvalue
+| Mbool : bool -> bool Mvalue
+| Munit : unit -> unit Mvalue | Mnil : ’t list Mvalue
+
 
 module Tez_t : sig
   type t = Tez.t
