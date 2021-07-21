@@ -21,7 +21,7 @@ type blockh = Block_hash.t
 type parsed_michelson = Michelson_v1_parser.parsed
 type expression_michelson = Script.expr
 type tag = string
-type mtype = Michelson_v1_primitives.prim
+type mty = Michelson_v1_primitives.prim
 
 
 type _ mvalue =
@@ -30,7 +30,7 @@ type _ mvalue =
 | Mbool : bool -> bool mvalue
 | Munit : unit -> unit mvalue 
 
-type mtype =
+type _ mtype =
 | Tstring : string mtype
 | Tint : int mtype
 | Tbool : bool mtype
