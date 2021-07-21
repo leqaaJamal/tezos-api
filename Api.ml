@@ -21,6 +21,7 @@ type blockh = Block_hash.t
 type parsed_michelson = Michelson_v1_parser.parsed
 type expression_michelson = Script.expr
 type tag = string
+type mtype = Michelson_v1_primitives.prim
 
 module Tez_t : sig
   type t = Tez.t
@@ -42,7 +43,6 @@ end = struct
     (mutez_f /. conversion_factor)
 end
 
-type Mtype = Michelson_v1_primitives.prim
 
 
 type op_result = {
