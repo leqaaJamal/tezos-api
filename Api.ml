@@ -24,11 +24,11 @@ type tag = string
 type mtype = Michelson_v1_primitives.prim
 
 
-type _ Mvalue =
-| Mstring : string -> string Mvalue
-| Mint : int -> int Mvalue
-| Mbool : bool -> bool Mvalue
-| Munit : unit -> unit Mvalue | Mnil : ’t list Mvalue
+type _ mvalue =
+| Mstring : string -> string mvalue
+| Mint : int -> int mvalue
+| Mbool : bool -> bool mvalue
+| Munit : unit -> unit mvalue 
 
 
 module Tez_t : sig
