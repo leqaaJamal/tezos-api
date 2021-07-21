@@ -30,7 +30,7 @@ type _ mvalue =
 | Mbool : bool -> bool mvalue
 | Munit : unit -> unit mvalue 
 
-type _ mtype =
+type mtype =
 | Tstring : string mtype
 | Tint : int mtype
 | Tbool : bool mtype
