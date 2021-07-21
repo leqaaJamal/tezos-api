@@ -38,9 +38,9 @@ type _ mtype =
 
 let string_of_argty _ = function
   | Tstring -> "string"
-  | Tint : "int"
-  | Tbool : "bool"
-  | Tunit : "unit"
+  | Tint -> "int"
+  | Tbool -> "bool"
+  | Tunit -> "unit"
 
 
 module Tez_t : sig
