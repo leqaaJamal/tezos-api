@@ -31,10 +31,10 @@ type tag = string
 | Munit : unit -> unit mvalue  *)
 
 type mtype =
-| Tstring : string
-| Tint : int
-| Tbool : bool
-| Tunit : unit
+| Tstring
+| Tint
+| Tbool
+| Tunit
 
 let string_of_argty _ = function
   | Tstring -> "string"

@@ -29,10 +29,10 @@ type tag = string
 | Tbool : bool mtype
 | Tunit : unit mtype *)
 type mtype =
-| string
-| Tint : int
-| Tbool : bool
-| Tunit : unit
+| Tstring
+| Tint
+| Tbool
+| Tunit
 val string_of_argty : mtype -> string
 
 (** Representation of Tezos tokens (tez) *)
