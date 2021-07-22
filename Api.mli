@@ -28,12 +28,13 @@ type tag = string
 | Tint : int mtype
 | Tbool : bool mtype
 | Tunit : unit mtype *)
-type mtype =
+
+(* type mtype =
 | Tstring: string
 | Tint: int
 | Tbool: bool
 | Tunit: unit
-val string_of_argty : mtype -> string
+val string_of_argty : mtype -> string *)
 
 (** Representation of Tezos tokens (tez) *)
 module Tez_t : sig

@@ -23,24 +23,24 @@ type expression_michelson = Script.expr
 type tag = string
 (* type mty = Michelson_v1_primitives.prim *)
 
-
+type s = string
 (* type _ mvalue =
 | Mstring : string -> string mvalue
 | Mint : int -> int mvalue
 | Mbool : bool -> bool mvalue
 | Munit : unit -> unit mvalue  *)
 
-type mtype =
+(* type mtype =
 | Tstring: string
 | Tint: int
 | Tbool: bool
-| Tunit: unit
+| Tunit: unit *)
 
-let string_of_argty= function
+(* let string_of_argty= function
   | Tstring -> "string"
   | Tint -> "int"
   | Tbool -> "bool"
-  | Tunit -> "unit"
+  | Tunit -> "unit" *)
 
 
 module Tez_t : sig
