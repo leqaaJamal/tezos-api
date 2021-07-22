@@ -23,7 +23,7 @@ type expression_michelson = Script.expr
 type tag = string
 (* type mty = Michelson_v1_primitives.prim *)
 
-type s = string
+type s = string | int
 (* type _ mvalue =
 | Mstring : string -> string mvalue
 | Mint : int -> int mvalue
