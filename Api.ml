@@ -631,10 +631,10 @@ let check_type entrypointname contr arg =
     ~contract:contr
     ~entrypoint:entrypointname
     >>=function
-    | None -> ctxt_rpc#error
+    | Ok (None) -> ctxt_rpc#error
                    "Cannot find a %%do or %%set_delegate entrypoint in \
                     contract@."
-    | Some entrytype -> (
+    | Ok (Some entrytype) -> (
         Michelson_v1_primitives.string_of_prim entrypoint >>= fun stringty ->
         (
           mtype_to_string arg >>= fun argty ->
@@ -645,4 +645,5 @@ let check_type entrypointname contr arg =
           )
         )
     )
+    | Error err -> catch_error_f err
     (* Answer.return listofentrypoints *)
