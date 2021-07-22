@@ -30,10 +30,10 @@ type mtype =
 | Tunit of unit
 
 let mtype_to_string = function
-| Tstring -> "string"
-| Tint -> "int"
-| Tbool -> "bool"
-| Tunit -> "unit"
+| Tstring _-> "string"
+| Tint _-> "int"
+| Tbool _ -> "bool"
+| Tunit _ -> "unit"
 
 (* let check_type entrypointname contr arg =
   let ctxt_rpc = new wrap_full !ctxt in 
