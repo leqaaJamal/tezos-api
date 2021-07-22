@@ -35,7 +35,7 @@ let mtype_to_string = function
 | Tbool _ -> "bool"
 | Tunit _ -> "unit"
 
-(* let check_type entrypointname contr arg =
+let check_type entrypointname contr arg =
   let ctxt_rpc = new wrap_full !ctxt in 
   Michelson_v1_entrypoints.contract_entrypoint_type 
     ctxt_rpc
@@ -50,9 +50,14 @@ let mtype_to_string = function
     | Some entrytype -> (
         Michelson_v1_primitives.string_of_prim entrypoint >>= fun stringty ->
         (
-
+          mtype_to_string arg >>= fun argty ->
+          (
+            if stringty = argty
+            then Answer.return true
+            else Answer.return false
+          )
         )
-    ) *)
+    )
     (* Answer.return listofentrypoints *)
     
 
