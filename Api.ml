@@ -35,30 +35,7 @@ let mtype_to_string = function
 | Tbool _ -> "bool"
 | Tunit _ -> "unit"
 
-let check_type entrypointname contr arg =
-  let ctxt_rpc = new wrap_full !ctxt in 
-  Michelson_v1_entrypoints.contract_entrypoint_type 
-    ctxt_rpc
-    ~chain:ctxt_rpc#chain
-    ~block:ctxt_rpc#block
-    ~contract:contr
-    ~entrypoint:entrypointname
-    >>=function
-    | None -> ctxt_rpc#error
-                   "Cannot find a %%do or %%set_delegate entrypoint in \
-                    contract@."
-    | Some entrytype -> (
-        Michelson_v1_primitives.string_of_prim entrypoint >>= fun stringty ->
-        (
-          mtype_to_string arg >>= fun argty ->
-          (
-            if stringty = argty
-            then Answer.return true
-            else Answer.return false
-          )
-        )
-    )
-    (* Answer.return listofentrypoints *)
+
     
 
 
@@ -642,16 +619,30 @@ let rec print_elements mylist =
 let print_entrypoints entrylist =
   let cctxt = new wrap_full !ctxt in 
   Michelson_v1_entrypoints.print_entrypoints_list cctxt ~emacs:false entrylist
-(* val print_entrypoints_list :
-  #Client_context.printer ->
-  ?on_errors:(error list -> unit tzresult Lwt.t) ->
-  emacs:bool ->
-  ?contract:Alpha_context.Contract.t ->
-  ?script_name:string ->
-  (string * Alpha_context.Script.expr) list tzresult ->
-  unit tzresult Lwt.t *)
 
-(* let rec print_elements_types mylist =
-  match mylist with
-  [] -> Stdlib.print_endline "   "
-  | (entrypoint,typ)::l -> Michelson_v1_emacs.print_expr typ ; print_elements_types l *)
+
+
+let check_type entrypointname contr arg =
+  let ctxt_rpc = new wrap_full !ctxt in 
+  Michelson_v1_entrypoints.contract_entrypoint_type 
+    ctxt_rpc
+    ~chain:ctxt_rpc#chain
+    ~block:ctxt_rpc#block
+    ~contract:contr
+    ~entrypoint:entrypointname
+    >>=function
+    | None -> ctxt_rpc#error
+                   "Cannot find a %%do or %%set_delegate entrypoint in \
+                    contract@."
+    | Some entrytype -> (
+        Michelson_v1_primitives.string_of_prim entrypoint >>= fun stringty ->
+        (
+          mtype_to_string arg >>= fun argty ->
+          (
+            if stringty = argty
+            then Answer.return true
+            else Answer.return false
+          )
+        )
+    )
+    (* Answer.return listofentrypoints *)
