@@ -21,9 +21,45 @@ type blockh = Block_hash.t
 type parsed_michelson = Michelson_v1_parser.parsed
 type expression_michelson = Script.expr
 type tag = string
+
+
+type mtype = 
+| Tstring of string
+| Tint of int
+| Tbool of bool
+| Tunit of unit
+
+let mtype_to_string = function
+| Tstring -> "string"
+| Tint -> "int"
+| Tbool -> "bool"
+| Tunit -> "unit"
+
+(* let check_type entrypointname contr arg =
+  let ctxt_rpc = new wrap_full !ctxt in 
+  Michelson_v1_entrypoints.contract_entrypoint_type 
+    ctxt_rpc
+    ~chain:ctxt_rpc#chain
+    ~block:ctxt_rpc#block
+    ~contract:contr
+    ~entrypoint:entrypointname
+    >>=function
+    | None -> ctxt_rpc#error
+                   "Cannot find a %%do or %%set_delegate entrypoint in \
+                    contract@."
+    | Some entrytype -> (
+        Michelson_v1_primitives.string_of_prim entrypoint >>= fun stringty ->
+        (
+
+        )
+    ) *)
+    (* Answer.return listofentrypoints *)
+    
+
+
 (* type mty = Michelson_v1_primitives.prim *)
 
-type s = string | int
+(* type s = string | int *)
 (* type _ mvalue =
 | Mstring : string -> string mvalue
 | Mint : int -> int mvalue
