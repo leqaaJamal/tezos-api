@@ -641,7 +641,7 @@ let check_type entrypointname contr arg =
           (
             (* Answer.return true *)
             (* Stdlib.print_endline stringty *)
-            print_endline stringty;
+            Stdio.print_endline stringty;
             if Int64.of_int (String.compare stringty argty) = Int64.zero
             then Answer.return "true"
             else Answer.return "false"
