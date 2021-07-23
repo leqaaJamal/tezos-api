@@ -641,7 +641,7 @@ let check_type entrypointname contr arg =
           (
             (* Answer.return true *)
             (* Stdlib.print_endline stringty *)
-            if stringty = argty
+            if String.compar stringty argty = 0
             then Answer.return true
             else Answer.return false
           )
