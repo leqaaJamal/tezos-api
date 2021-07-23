@@ -636,7 +636,7 @@ let check_type entrypointname contr arg =
                     contract@."
     | Ok (Some (Michelson_v1_primitives.prim (loc, name, items, annot))) -> (
         (* let stringty = Michelson_v1_printer.micheline_string_of_expression ~zero_loc:false entrytype in *)
-        (
+        
           let argty = mtype_to_string arg in 
           (
             (* Answer.return true *)
@@ -646,7 +646,7 @@ let check_type entrypointname contr arg =
             then Answer.return "true"
             else Answer.return "false"
           )
-        )
+        
     )
     | Error err -> catch_error_f err
     (* Answer.return listofentrypoints *)
