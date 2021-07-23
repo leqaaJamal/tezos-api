@@ -639,9 +639,11 @@ let check_type entrypointname contr arg =
         (
           let argty = mtype_to_string arg in 
           (
-            if stringty = argty
+            Stdlib.print_endline stringty
+            Answer.return true
+            (* if stringty = argty
             then Answer.return true
-            else Answer.return false
+            else Answer.return false *)
           )
         )
     )
