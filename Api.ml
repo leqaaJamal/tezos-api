@@ -635,9 +635,9 @@ let check_type entrypointname contr arg =
                    "Cannot find a %%do or %%set_delegate entrypoint in \
                     contract@."
     | Ok (Some entrytype) -> (
-        Michelson_v1_printer.micheline_string_of_expression ~zero_loc:false entrytype >>=? function stringty ->
+        Michelson_v1_printer.micheline_string_of_expression ~zero_loc:false entrytype >>= function stringty ->
         (
-          mtype_to_string arg >>=? function argty ->
+          mtype_to_string arg >>= function argty ->
           (
             if stringty = argty
             then Answer.return true
