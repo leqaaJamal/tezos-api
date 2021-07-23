@@ -637,7 +637,7 @@ let check_type entrypointname contr arg =
     | Ok (Some entrytype) -> (
         let stringty = Michelson_v1_printer.micheline_string_of_expression ~zero_loc:false entrytype in
         (
-          let argty mtype_to_string arg in
+          let argty = mtype_to_string arg in 
           (
             if stringty = argty
             then Answer.return true
