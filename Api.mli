@@ -30,7 +30,7 @@ type mtype =
 | Tunit of unit
 
 val mtype_to_string: mtype -> string
-val check_type: string -> contract -> mtype -> bool
+val check_type: string -> contract -> mtype -> unit
 (* type _ mtype =
 | Tstring : string mtype
 | Tint : int mtype
