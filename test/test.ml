@@ -142,6 +142,14 @@ let run_call_contract () =
     | Ok _ -> print_endline "Ok" ; Lwt.return_ok ()
     | Error err -> Lwt.return_error err
 
+let run_check_entrypointty () =
+  Api.get_contract "id1"
+  >>=? fun contr ->
+  Api.check_type "default" contr (Tstring "bla")
+  >>= function
+    | Ok out -> print_endline "Ok"; print_endline out; Lwt.return_ok ()
+    | Error err -> Lwt.return_error err
+
 let run_get_code () =
   Api.get_contract "auction"
   >>=? fun c ->
