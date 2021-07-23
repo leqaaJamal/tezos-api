@@ -210,7 +210,9 @@ let main =
     >>=? fun _ -> *)
     print_endline "Test get entrypoints";
     run_get_entrypoints ()
-    (* >>=? fun _ -> *)
+    >>=? fun _ ->
+    print_endline "Test check entrypointty";
+    run_check_entrypointty ()
     (* print_endline "Test call_contract";
     run_call_contract ()
     >>=? fun _ -> *)
