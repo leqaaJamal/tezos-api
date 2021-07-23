@@ -634,15 +634,15 @@ let check_type entrypointname contr arg =
     | Ok (None) -> ctxt_rpc#error
                    "Cannot find a %%do or %%set_delegate entrypoint in \
                     contract@."
-    | Ok (Some entrytype) -> (
-        let stringty = Michelson_v1_printer.micheline_string_of_expression ~zero_loc:false entrytype in
+    | Ok (Some (Prim (loc, name, items, annot))) -> (
+        (* let stringty = Michelson_v1_printer.micheline_string_of_expression ~zero_loc:false entrytype in *)
         (
           let argty = mtype_to_string arg in 
           (
             (* Answer.return true *)
             (* Stdlib.print_endline stringty *)
-            Stdlib.print_endline stringty;
-            if Int64.of_int (String.compare stringty argty) = Int64.zero
+            Stdlib.print_endline name;
+            if Int64.of_int (String.compare name argty) = Int64.zero
             then Answer.return "true"
             else Answer.return "false"
           )
