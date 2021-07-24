@@ -634,7 +634,7 @@ let check_type entrypointname contr arg =
     | Ok (None) -> ctxt_rpc#error
                    "Cannot find a %%do or %%set_delegate entrypoint in \
                     contract@."
-    | Ok Some (_,prim,_,_) -> (
+    | Ok Some Alpha_context.Script.prim (_,prim,_,_) -> (
         let stringty = Michelson_v1_printer.micheline_string_of_expression ~zero_loc:false entrytype in
         (
           let argty = mtype_to_string arg in 
