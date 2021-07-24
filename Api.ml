@@ -636,7 +636,7 @@ let check_type entrypointname contr arg =
                     contract@."
     | Ok Some entrytype -> (
       match entrytype with
-      | Alpha_context.Script.prim (_, prim, _, _) ->
+      | _ (_, prim, _, _) ->
         (* let stringty = Michelson_v1_printer.micheline_string_of_expression ~zero_loc:false entrytype in *)
         (
           let argty = mtype_to_string arg in 
