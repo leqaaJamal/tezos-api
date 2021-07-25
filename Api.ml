@@ -12,6 +12,10 @@ open Api_context
 open Format
 open Base
 open Int64
+open Tezos_micheline
+open Micheline
+open Micheline_printer
+
 
 type puk = Signature.public_key
 type pukh = Signature.public_key_hash
