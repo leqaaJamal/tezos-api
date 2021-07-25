@@ -621,6 +621,29 @@ let print_entrypoints entrylist =
   Michelson_v1_entrypoints.print_entrypoints_list cctxt ~emacs:false entrylist
 
 
+let string_of_expression ~zero_loc expression =
+  let show_loc loc = if zero_loc then 0 else loc in
+  let string_of_node = function
+    | Int (loc, i) ->
+        Format.asprintf "Int"
+    | String (loc, s) ->
+        Format.asprintf "String"
+    | Bytes (loc, b) ->
+        Format.asprintf
+          "Bytes"
+    | Prim (loc, prim, nodes, annot) ->
+        Format.asprintf
+          "%s"
+          (ocaml_constructor_of_prim prim)
+    | Seq (loc, nodes) ->
+        Format.asprintf
+          "Seq"
+  in
+  string_of_node (Micheline.root expression)
+
+
+
+
 
 let check_type entrypointname contr arg =
   let ctxt_rpc = new wrap_full !ctxt in 
@@ -652,22 +675,3 @@ let check_type entrypointname contr arg =
     | Error err -> catch_error_f err
     (* Answer.return listofentrypoints *)
 
-let string_of_expression ~zero_loc expression =
-  let show_loc loc = if zero_loc then 0 else loc in
-  let string_of_node = function
-    | Int (loc, i) ->
-        Format.asprintf "Int"
-    | String (loc, s) ->
-        Format.asprintf "String"
-    | Bytes (loc, b) ->
-        Format.asprintf
-          "Bytes"
-    | Prim (loc, prim, nodes, annot) ->
-        Format.asprintf
-          "%s"
-          (ocaml_constructor_of_prim prim)
-    | Seq (loc, nodes) ->
-        Format.asprintf
-          "Seq"
-  in
-  string_of_node (Micheline.root expression)
