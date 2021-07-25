@@ -638,7 +638,7 @@ let string_of_expression ~zero_loc expression =
     |Prim (loc, prim, nodes, annot) ->
         Format.asprintf
           "%s"
-          (Michelson_V1_printer.ocaml_constructor_of_prim prim)
+          (Michelson_v1_printer.ocaml_constructor_of_prim prim)
     |Seq (loc, nodes) ->
         Format.asprintf
           "Seq"
