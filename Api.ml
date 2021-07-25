@@ -33,10 +33,10 @@ type mtype =
 | Tunit of unit
 
 let mtype_to_string = function
-| Tstring _-> "string"
-| Tint _-> "int"
-| Tbool _ -> "bool"
-| Tunit _ -> "unit"
+| Tstring _-> "T_string"
+| Tint _-> "T_int"
+| Tbool _ -> "T_bool"
+| Tunit _ -> "T_unit"
 
 
     
