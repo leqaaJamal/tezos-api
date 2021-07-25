@@ -232,4 +232,4 @@ val print_elements: (tag * Script.expr) list -> unit
 val print_entrypoints: (tag * Script.expr) list tzresult -> unit tzresult Lwt.t
 
 (* val print_elements_types: (tag * Script.expr) list -> (expression_michelson -> unit) *)
-val string_of_expression: zero_loc:bool -> Script.expr -> string
+val string_of_expression: Script.expr -> string

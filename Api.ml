@@ -625,8 +625,7 @@ let print_entrypoints entrylist =
   Michelson_v1_entrypoints.print_entrypoints_list cctxt ~emacs:false entrylist
 
 
-let string_of_expression ~zero_loc expression =
-  let show_loc loc = if zero_loc then 0 else loc in
+let string_of_expression expression =
   let string_of_node = function
     |Int (_, _) ->
         Format.asprintf "Int"
@@ -663,7 +662,7 @@ let check_type entrypointname contr arg =
                     contract@."
     | Ok Some entrytype -> (
       (* let stringty = (Michelson_v1_primitives.strings_of_prims entrytype) in *)
-        let stringty = string_of_expression ~zero_loc:false entrytype in
+        let stringty = string_of_expression entrytype in
         (
           let argty = mtype_to_string arg in 
           (
