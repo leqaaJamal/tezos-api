@@ -627,18 +627,18 @@ let print_entrypoints entrylist =
 let string_of_expression expression =
   let string_of_node = function
     |Int (_, _) ->
-        Format.asprintf "Int"
+        asprintf "Int"
     |String (_, _) ->
-        Format.asprintf "String"
+        asprintf "String"
     |Bytes (_, _) ->
-        Format.asprintf
+        asprintf
           "Bytes"
     |Prim (_, prim, _, _) ->
-        Format.asprintf
+        asprintf
           "%s"
           (Michelson_v1_printer.ocaml_constructor_of_prim prim)
     |Seq (_, _) ->
-        Format.asprintf
+        asprintf
           "Seq"
   in
   string_of_node (Micheline.root expression)
