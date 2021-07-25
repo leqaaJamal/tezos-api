@@ -635,8 +635,8 @@ let check_type entrypointname contr arg =
                    "Cannot find a %%do or %%set_delegate entrypoint in \
                     contract@."
     | Ok Some entrytype -> (
-      let stringty _ = (Michelson_v1_primitives.strings_of_prims entrytype) in
-        (* let stringty = Michelson_v1_printer.micheline_string_of_expression ~zero_loc:false entrytype in *)
+      (* let stringty = (Michelson_v1_primitives.strings_of_prims entrytype) in *)
+        let stringty = string_of_expression ~zero_loc:false entrytype in
         (
           let argty = mtype_to_string arg in 
           (
@@ -651,3 +651,23 @@ let check_type entrypointname contr arg =
     )
     | Error err -> catch_error_f err
     (* Answer.return listofentrypoints *)
+
+let string_of_expression ~zero_loc expression =
+  let show_loc loc = if zero_loc then 0 else loc in
+  let string_of_node = function
+    | Int (loc, i) ->
+        Format.asprintf "Int"
+    | String (loc, s) ->
+        Format.asprintf "String"
+    | Bytes (loc, b) ->
+        Format.asprintf
+          "Bytes"
+    | Prim (loc, prim, nodes, annot) ->
+        Format.asprintf
+          "%s"
+          (ocaml_constructor_of_prim prim)
+    | Seq (loc, nodes) ->
+        Format.asprintf
+          "Seq"
+  in
+  string_of_node (Micheline.root expression)
