@@ -628,18 +628,18 @@ let print_entrypoints entrylist =
 let string_of_expression ~zero_loc expression =
   let show_loc loc = if zero_loc then 0 else loc in
   let string_of_node = function
-    |Int (loc, i) ->
+    |Int (_, _) ->
         Format.asprintf "Int"
-    |String (loc, s) ->
+    |String (_, _) ->
         Format.asprintf "String"
-    |Bytes (loc, b) ->
+    |Bytes (_, _) ->
         Format.asprintf
           "Bytes"
-    |Prim (loc, prim, nodes, annot) ->
+    |Prim (_, prim, _, _) ->
         Format.asprintf
           "%s"
           (Michelson_v1_printer.ocaml_constructor_of_prim prim)
-    |Seq (loc, nodes) ->
+    |Seq (_, _) ->
         Format.asprintf
           "Seq"
   in
