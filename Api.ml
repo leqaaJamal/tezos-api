@@ -14,7 +14,6 @@ open Base
 open Int64
 open Tezos_micheline
 open Micheline
-open Micheline_printer
 
 
 type puk = Signature.public_key
