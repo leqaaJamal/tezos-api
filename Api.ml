@@ -42,7 +42,7 @@ let value_to_string = function
 | Tstring x -> asprintf "%s" x
 | Tint x -> asprintf "%i" x
 | Tbool x -> asprintf "%b" x
-| Tunit x -> asprintf x
+| Tunit x -> Unit.to_string x
     
 
 
