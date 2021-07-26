@@ -31,6 +31,7 @@ type mtype =
 
 val mtype_to_string: mtype -> string
 val check_type: string -> contract -> mtype -> string Answer.t
+val value_to_string: mtype -> string
 (* type _ mtype =
 | Tstring : string mtype
 | Tint : int mtype
