@@ -40,7 +40,7 @@ let mtype_to_string = function
 
 let value_to_string = function
 | Tstring x -> asprintf "%s" x
-| Tint x -> asprintf "%a" x
+| Tint x -> asprintf "%i" x
 | Tbool x -> asprintf "%a" x
 | Tunit x -> asprintf "%a" x
     
