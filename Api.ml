@@ -39,7 +39,7 @@ let mtype_to_string = function
 | Tunit _ -> "T_unit"
 
 let value_to_string = function
-| Tstring x -> asprintf "%a" x
+| Tstring x -> asprintf x
 | Tint x -> asprintf "%a" x
 | Tbool x -> asprintf "%a" x
 | Tunit x -> asprintf "%a" x
