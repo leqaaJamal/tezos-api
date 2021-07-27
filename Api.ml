@@ -696,10 +696,10 @@ let call_contract1 amount src destination ?entrypoint ?arg fee =
   | Ok (_, src_pk, src_sk) ->
      begin
      (* here should check the type and change the arg to string *)
-      let check = check_type entrypoint destination arg -> (
+      let check = check_type entrypoint destination arg in (
         if check 
         then (
-          let argvalue = value_to_string arg ->
+          let argvalue = value_to_string arg in
           (
             let ctxt_proto = new wrap_full !ctxt in
             Lwt.catch
