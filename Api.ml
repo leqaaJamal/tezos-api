@@ -704,7 +704,7 @@ let call_contract1 amount src destination ?entrypoint ?arg fee =
   | Ok (_, src_pk, src_sk) ->
      begin
      (* here should check the type and change the arg to string *)
-      let check = check_type (entrypoint_to_string entrypoint) destination (arg_to_mtype arg) in (
+      let check = check_type (entrypoint_to_string ?entrypoint) destination (arg_to_mtype ?arg) in (
         if Int64.of_int (String.compare check "true") = Int64.zero
         then (
           let argvalue = value_to_string (arg_to_mtype ?arg) in
