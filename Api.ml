@@ -692,7 +692,7 @@ let arg_to_mtype ?arg =
   | None -> Tstring ""
   | Some x -> x
 (* entrypoint int arg=5  *)
-let call_contract1 amount src destination ?entrypoint ?arg fee =
+(* let call_contract1 amount src destination ?entrypoint ?arg fee =
   let open Answer in
   (match Contract.is_implicit destination with
    | None -> Answer.return ()
@@ -741,4 +741,4 @@ let call_contract1 amount src destination ?entrypoint ?arg fee =
         Answer.return (Rejected (Unknown_reason "types do not match"))
       ) 
       )
-     end
+     end *)
