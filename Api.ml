@@ -683,12 +683,12 @@ let check_type entrypointname contr arg =
     (* Answer.return listofentrypoints *)
 
 let entrypoint_to_string ?entrypoint =
-  match ?entrypoint with 
+  match entrypoint with 
   | None -> ""
   | Some x -> x
 
 let arg_to_mtype ?arg =
-  match ?arg with 
+  match arg with 
   | None -> Tstring ""
   | Some x -> x
 (* entrypoint int arg=5  *)
