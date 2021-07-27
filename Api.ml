@@ -688,7 +688,7 @@ let entrypoint_to_string ?entrypoint =
   | Some x -> x
 
 let arg_to_mtype ?arg =
-  match entrypoint with 
+  match arg with 
   | None -> Tstring ""
   | Some x -> x
 (* entrypoint int arg=5  *)
