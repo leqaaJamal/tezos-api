@@ -236,3 +236,5 @@ val print_entrypoints: (tag * Script.expr) list tzresult -> unit tzresult Lwt.t
 val string_of_expression: Script.expr -> string
 
 val call_contract1 : Tez_t.t -> pukh -> contract -> ?entrypoint:string -> ?arg:mtype -> Tez_t.t -> oph Answer.t
+
+val entrypoint_to_string : ?entrypoint:string -> string

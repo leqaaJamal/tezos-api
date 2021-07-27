@@ -682,7 +682,10 @@ let check_type entrypointname contr arg =
     | Error err -> catch_error_f err
     (* Answer.return listofentrypoints *)
 
-
+let entrypoint_to_string ?entrypoint =
+  match entrypoint with 
+  | None -> ""
+  | Some x -> x
 (* entrypoint int arg=5  *)
 let call_contract1 amount src destination ?entrypoint ?arg fee =
   let open Answer in
@@ -696,7 +699,7 @@ let call_contract1 amount src destination ?entrypoint ?arg fee =
   | Ok (_, src_pk, src_sk) ->
      begin
      (* here should check the type and change the arg to string *)
-      let check = check_type entrypoint destination arg in (
+      let check = check_type (entrypoint_to_string entrypoint) destination arg in (
         if check 
         then (
           let argvalue = value_to_string arg in
