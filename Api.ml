@@ -682,3 +682,56 @@ let check_type entrypointname contr arg =
     | Error err -> catch_error_f err
     (* Answer.return listofentrypoints *)
 
+
+(* entrypoint int arg=5  *)
+let call_contract1 amount src destination ?entrypoint ?arg fee =
+  let open Answer in
+  (match Contract.is_implicit destination with
+   | None -> Answer.return ()
+   | Some _ -> Answer.fail Not_callable )
+  >>=? fun () ->
+  Client_keys.get_key !ctxt src
+  >>= function
+  | Error err -> catch_error_f err
+  | Ok (_, src_pk, src_sk) ->
+     begin
+     (* here should check the type and change the arg to string *)
+      let check = check_type entrypoint destination arg -> (
+        if check 
+        then (
+          let argvalue = value_to_string arg ->
+          (
+            let ctxt_proto = new wrap_full !ctxt in
+            Lwt.catch
+            (fun () ->
+              Client_proto_context.transfer
+              ctxt_proto
+              ~chain:!ctxt#chain
+              ~block:!ctxt#block
+              ?confirmations:!ctxt#confirmations
+              ~dry_run:false
+              ~verbose_signing:false
+              ~source:src
+              ~fee
+              ~src_pk
+              ~src_sk
+              ~destination
+              ?entrypoint
+              ?arg:argvalue
+              ~amount
+              ~fee_parameter: !fee_parameter
+              ())
+            exception_handler
+            >>= fun res ->
+            match res with
+            | Ok ((oph,_,_),_) -> Answer.return oph
+            | Error err -> catch_error_f err
+          )
+        )
+      )
+      else 
+      (
+        Answer.return (Rejected (Reason Invalid_receiver))
+      )
+       
+     end
