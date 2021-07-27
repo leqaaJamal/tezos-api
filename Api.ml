@@ -687,12 +687,12 @@ let entrypoint_to_string entrypoint =
   | None -> ""
   | Some x -> x
 
-(* let arg_to_mtype ?arg =
+let arg_to_mtype arg =
   match arg with 
   | None -> Tstring ""
-  | Some x -> x *)
-(* entrypoint int arg=5  *)
-(* let call_contract1 amount src destination ?entrypoint ?arg fee =
+  | Some x -> x 
+
+let call_contract1 amount src destination ?entrypoint ?arg fee =
   let open Answer in
   (match Contract.is_implicit destination with
    | None -> Answer.return ()
@@ -704,7 +704,7 @@ let entrypoint_to_string entrypoint =
   | Ok (_, src_pk, src_sk) ->
      begin
      (* here should check the type and change the arg to string *)
-      let check = check_type (entrypoint_to_string ?entrypoint) destination (arg_to_mtype ?arg) in (
+      let check = check_type (entrypoint_to_string entrypoint) destination (arg_to_mtype arg) in (
         if Int64.of_int (String.compare check "true") = Int64.zero
         then (
           let argvalue = value_to_string (arg_to_mtype ?arg) in
@@ -741,4 +741,4 @@ let entrypoint_to_string entrypoint =
         Answer.return (Rejected (Unknown_reason "types do not match"))
       ) 
       )
-     end *)
+     end
