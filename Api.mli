@@ -30,7 +30,6 @@ type mtype =
 | Tunit of unit
 
 val mtype_to_string: mtype -> string
-val check_type: string -> contract -> mtype -> string Answer.t
 val value_to_string: mtype -> string
 (* type _ mtype =
 | Tstring : string mtype
@@ -240,3 +239,5 @@ val call_contract1 : Tez_t.t -> pukh -> contract -> ?entrypoint:string -> ?arg:m
 val entrypoint_to_string : ?entrypoint:string -> string
 
 val arg_to_mtype : ?arg:mtype -> mtype
+
+val check_type: string -> contract -> mtype -> string Answer.t
