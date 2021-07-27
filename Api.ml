@@ -682,10 +682,10 @@ let check_type entrypointname contr arg =
     | Error err -> catch_error_f err
     (* Answer.return listofentrypoints *)
 
-(* let entrypoint_to_string ?entrypoint =
+let entrypoint_to_string ?entrypoint =
   match entrypoint with 
   | None -> ""
-  | Some x -> x *)
+  | Some x -> x
 
 (* let arg_to_mtype ?arg =
   match arg with 
