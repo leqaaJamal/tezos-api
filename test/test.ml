@@ -145,7 +145,7 @@ let run_call_contract () =
 let run_check_entrypointty () =
   Api.get_contract "id1"
   >>=? fun contr ->
-  Api.check_type "default" contr (Tstring "bla")
+  Api.check_type "default" contr (Tstring 1)
   >>= function
     | Ok out -> print_endline "Ok"; print_endline out; Lwt.return_ok ()
     | Error err -> Lwt.return_error err

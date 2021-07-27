@@ -330,6 +330,7 @@ let call_contract amount src destination ?entrypoint ?arg fee =
   | Error err -> catch_error_f err
   | Ok (_, src_pk, src_sk) ->
      begin
+     (* here should check the type and change the arg to string *)
        let ctxt_proto = new wrap_full !ctxt in
        Lwt.catch
          (fun () ->
