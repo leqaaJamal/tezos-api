@@ -731,7 +731,7 @@ let call_contract1 amount src destination ?entrypoint ?arg fee =
       )
       else 
       (
-        Answer.return (Rejected (Reason Invalid_receiver))
+        Answer.return (Rejected (Unknown_reason "types do not match"))
       )
        
      end
