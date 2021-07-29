@@ -687,7 +687,7 @@ let get_expr_from_lexpr lexpr =
   let ctxt_rpc = new wrap_full !ctxt in (
   match Script_repr.force_decode lexpr with
   | Ok (expr,_) -> Answer.return expr 
-  | Error err -> ctxt_rpc#error "%a" Environment.Error_monad.pp_trace errs
+  | Error err -> ctxt_rpc#error "%a" Environment.Error_monad.pp_trace err
   )
 
 let check_type1 entrypointname contr ?arg =
