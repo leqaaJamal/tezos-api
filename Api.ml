@@ -732,7 +732,9 @@ let check_type1 entrypointname contr ?arg =
           
         )
     )
-    | Error err -> ctxt_rpc#error "%a" Environment.Error_monad.error_encoding err
+    | Error _ -> ctxt_rpc#error
+                   "Cannot find a %%do or %%set_delegate entrypoint in \
+                    contract@."
 
 
 (* let entrypoint_to_string entrypoint =
