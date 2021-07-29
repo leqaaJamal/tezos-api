@@ -240,6 +240,9 @@ val string_of_expression: Script.expr -> string
 
 (* val arg_to_mtype : mtype option -> mtype *)
 
+val get_expr_from_lexpr: Script.lazy_expr -> Script.expr Answer.t
+
+
 val check_type: string -> contract -> mtype -> string Answer.t
 
-val check_type1: string -> contract -> ?arg:string -> string 
+val check_type1: string -> contract -> ?arg:string -> string Answer.t

@@ -682,6 +682,12 @@ let check_type entrypointname contr arg =
     | Error err -> catch_error_f err
     (* Answer.return listofentrypoints *)
 
+
+let get_expr_from_lexpr lexpr = 
+  match Script_repr.force_decode lexpr with
+  | Ok (expr,_) -> Answer.return expr 
+  | Error _ -> Answer.return "error"
+
 let check_type1 entrypointname contr ?arg =
   let ctxt_rpc = new wrap_full !ctxt in 
   Michelson_v1_entrypoints.contract_entrypoint_type 
