@@ -245,4 +245,4 @@ val get_expr_from_lexpr: Script.lazy_expr -> Script.expr Answer.t
 
 val check_type: string -> contract -> mtype -> string Answer.t
 
-val check_type1: string -> contract -> ?arg:string -> (string,tztrace) Result.t Lwt.t
+val check_type1: string -> contract -> ?arg:string -> unit -> (string,tztrace) Result.t Lwt.t

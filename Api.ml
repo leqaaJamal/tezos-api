@@ -690,7 +690,7 @@ let get_expr_from_lexpr lexpr =
   | Error err -> ctxt_rpc#error "%a" Environment.Error_monad.pp_trace err
   )
 
-let check_type1 entrypointname contr ?arg =
+let check_type1 entrypointname contr ?arg ()=
   let ctxt_rpc = new wrap_full !ctxt in 
   Michelson_v1_entrypoints.contract_entrypoint_type 
     ctxt_rpc
