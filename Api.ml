@@ -712,11 +712,11 @@ let check_type1 entrypointname contr ?arg =
                 Stdlib.print_endline stringty;
                 Stdlib.print_endline argty;
                 if Int64.of_int (String.compare stringty argty) = Int64.zero
-                then Answer.return "true"
-                else Answer.return "false"
+                then "true"
+                else "false"
               )
             )
-            | Error _ -> Answer.return "error"
+            | Error _ -> "error"
             
           )
           
