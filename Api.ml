@@ -720,11 +720,11 @@ let check_type1 entrypointname contr ?arg =
                 Stdlib.print_endline stringty;
                 Stdlib.print_endline argty;
                 if Int64.of_int (String.compare stringty argty) = Int64.zero
-                then "true"
-                else "false"
+                then Answer.return "true"
+                else Answer.return "false"
               )
             )
-            | Error _ -> "error"
+            | Error err -> ctxt_rpc#error "%a" Environment.Error_monad.pp_trace err
             
           )
           
