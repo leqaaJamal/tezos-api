@@ -716,7 +716,7 @@ let check_type1 entrypointname contr ?arg =
                 else Answer.return "false"
               )
             )
-            | Error err -> Answer.return err
+            | Error err -> Answer.return "error"
             
           )
           | Error err -> catch_error_f err
