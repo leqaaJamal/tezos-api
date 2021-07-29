@@ -234,10 +234,10 @@ val print_entrypoints: (tag * Script.expr) list tzresult -> unit tzresult Lwt.t
 (* val print_elements_types: (tag * Script.expr) list -> (expression_michelson -> unit) *)
 val string_of_expression: Script.expr -> string
 
-val call_contract1 : Tez_t.t -> pukh -> contract -> ?entrypoint:string -> ?arg:mtype -> Tez_t.t -> oph Answer.t
+(* val call_contract1 : Tez_t.t -> pukh -> contract -> ?entrypoint:string -> ?arg:mtype -> Tez_t.t -> oph Answer.t *)
 
-val entrypoint_to_string : string option -> string
+(* val entrypoint_to_string : string option -> string *)
 
-val arg_to_mtype : mtype option -> mtype
+(* val arg_to_mtype : mtype option -> mtype *)
 
 val check_type: string -> contract -> mtype -> string Answer.t

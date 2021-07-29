@@ -682,7 +682,8 @@ let check_type entrypointname contr arg =
     | Error err -> catch_error_f err
     (* Answer.return listofentrypoints *)
 
-let entrypoint_to_string entrypoint =
+
+(* let entrypoint_to_string entrypoint =
   match entrypoint with 
   | None -> ""
   | Some x -> x
@@ -741,4 +742,4 @@ let call_contract1 amount src destination ?entrypoint ?arg fee =
         Answer.return (Rejected (Unknown_reason "types do not match"))
       ) 
       )
-     end
+     end *)
