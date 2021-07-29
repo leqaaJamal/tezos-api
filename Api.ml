@@ -710,8 +710,8 @@ let check_type1 entrypointname contr ?arg =
           >>=? fun
           lexpr -> 
           (
-            match Script_repr.force_decode lexpr with
-            | Ok (expr,_) ->
+            get_expr_from_lexpr lexpr >>= function
+            | Ok expr ->
             (
               let argty = string_of_expression expr in 
               (
