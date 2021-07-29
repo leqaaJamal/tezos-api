@@ -700,7 +700,7 @@ let check_type1 entrypointname contr ?arg =
         (
           Client_proto_context.parse_arg_transfer arg
           >>= function 
-          lexpr -> 
+          | Ok lexpr -> 
           (
             match Script_repr.force_decode lexpr with
             | Ok (expr,_) ->
@@ -719,6 +719,7 @@ let check_type1 entrypointname contr ?arg =
             | Error err -> catch_error_f err
             
           )
+          | Error err -> catch_error_f err
           
           
         )
