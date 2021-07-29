@@ -716,7 +716,9 @@ let check_type1 entrypointname contr arg =
                 else Answer.return "false"
               )
             )
-            | None -> Answer.return (Rejected (Unknown_reason "types do not match"))
+            | None -> ctxt_rpc#error
+                   "Cannot find a %%do or %%set_delegate entrypoint in \
+                    contract@."
             
           )
           | Error err -> catch_error_f err
