@@ -698,7 +698,7 @@ let check_type1 entrypointname contr ?arg =
     ~block:ctxt_rpc#block
     ~contract:contr
     ~entrypoint:entrypointname
-    >>=function
+    >>=?function
     | Ok (None) -> ctxt_rpc#error
                    "Cannot find a %%do or %%set_delegate entrypoint in \
                     contract@."
