@@ -702,8 +702,8 @@ let check_type1 entrypointname contr ?arg =
           >>= function 
           lexpr -> 
           (
-            match Data_encoding.force_decode lexpr with
-            | Some expr ->
+            match Script_repr.force_decode lexpr with
+            | Ok (expr,_) ->
             (
               let argty = string_of_expression expr in 
               (
@@ -716,9 +716,7 @@ let check_type1 entrypointname contr ?arg =
                 else Answer.return "false"
               )
             )
-            | None -> ctxt_rpc#error
-                   "Cannot find a %%do or %%set_delegate entrypoint in \
-                    contract@."
+            | Error err -> catch_error_f err
             
           )
           
