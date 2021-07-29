@@ -698,7 +698,7 @@ let check_type1 entrypointname contr ?arg =
       (* let stringty = (Michelson_v1_primitives.strings_of_prims entrytype) in *)
         let stringty = string_of_expression entrytype in
         (
-          Client_proto_context.parse_arg_transfer arg
+          Client_proto_context.parse_arg_transfer ?arg
           >>= function 
           | Ok lexpr -> 
           (
