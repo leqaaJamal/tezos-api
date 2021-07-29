@@ -724,7 +724,8 @@ let check_type1 entrypointname contr ?arg =
                 else Answer.return "false"
               )
             )
-            | Error err -> catch_error_f err
+            | Error _ -> ctxt_rpc#error
+                   "error"
             
           )
           
