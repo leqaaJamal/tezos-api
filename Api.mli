@@ -241,3 +241,5 @@ val string_of_expression: Script.expr -> string
 (* val arg_to_mtype : mtype option -> mtype *)
 
 val check_type: string -> contract -> mtype -> string Answer.t
+
+val check_type1: string -> contract -> string option -> string Answer.t
