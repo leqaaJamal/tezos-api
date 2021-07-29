@@ -152,11 +152,13 @@ let run_check_entrypointty () =
 
 let run_check_entrypointty1 () =
   Api.get_contract "id1"
-  >>=? fun contr ->
-  Api.check_type1 "default" contr "bla" ()
+  >>=? fun contr ->(
+    let x = "bla" in 
+  Api.check_type1 "default" contr ?x ()
   >>= function
     | Ok out -> print_endline "Ok"; print_endline out; Lwt.return_ok ()
     | Error err -> Lwt.return_error err
+  )
 
 
 let run_get_code () =
