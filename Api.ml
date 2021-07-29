@@ -711,7 +711,7 @@ let check_type1 entrypointname contr ?arg =
           lexpr -> 
           (
             get_expr_from_lexpr lexpr >>= function
-            | Ok expr ->
+            expr ->
             (
               let argty = string_of_expression expr in 
               (
@@ -724,7 +724,7 @@ let check_type1 entrypointname contr ?arg =
                 else Answer.return "false"
               )
             )
-            | Error err -> catch_error_f err
+            
             
           )
           
