@@ -724,7 +724,7 @@ let check_type1 entrypointname contr ?arg =
                 else Answer.return "false"
               )
             )
-            | Error err -> Answer.fail err
+            | Error err -> Lwt.return_error err
             
           )
           
