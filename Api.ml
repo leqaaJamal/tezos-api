@@ -682,7 +682,7 @@ let check_type entrypointname contr arg =
     | Error err -> catch_error_f err
     (* Answer.return listofentrypoints *)
 
-let check_type1 entrypointname contr arg =
+let check_type1 entrypointname contr ?arg =
   let ctxt_rpc = new wrap_full !ctxt in 
   Michelson_v1_entrypoints.contract_entrypoint_type 
     ctxt_rpc
