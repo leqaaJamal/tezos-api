@@ -242,4 +242,4 @@ val string_of_expression: Script.expr -> string
 
 val check_type: string -> contract -> mtype -> string Answer.t
 
-val check_type1: string -> contract -> ?arg:string -> string Answer.t
+val check_type1: string -> contract -> ?arg:string -> string tzresult
