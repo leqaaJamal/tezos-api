@@ -700,7 +700,7 @@ let check_type1 entrypointname contr ?arg =
         (
           Client_proto_context.parse_arg_transfer arg
           >>= function 
-          | Ok lexpr -> 
+          lexpr -> 
           (
             match Data_encoding.force_decode lexpr with
             | Some expr ->
@@ -721,7 +721,7 @@ let check_type1 entrypointname contr ?arg =
                     contract@."
             
           )
-          | Error err -> catch_error_f err
+          
           
         )
     )
