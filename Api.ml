@@ -699,10 +699,10 @@ let check_type1 entrypointname contr ?arg =
     ~contract:contr
     ~entrypoint:entrypointname
     >>=?function
-    | Ok (None) -> ctxt_rpc#error
+    | None -> ctxt_rpc#error
                    "Cannot find a %%do or %%set_delegate entrypoint in \
                     contract@."
-    | Ok Some entrytype -> (
+    | Some entrytype -> (
       (* let stringty = (Michelson_v1_primitives.strings_of_prims entrytype) in *)
         let stringty = string_of_expression entrytype in
         (
@@ -732,9 +732,7 @@ let check_type1 entrypointname contr ?arg =
           
         )
     )
-    | Error _ -> ctxt_rpc#error
-                   "Cannot find a %%do or %%set_delegate entrypoint in \
-                    contract@."
+
 
 
 (* let entrypoint_to_string entrypoint =
