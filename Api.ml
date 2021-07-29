@@ -702,19 +702,19 @@ let check_type1 entrypointname contr arg =
           >>= function 
           | Ok lexpr -> 
           (
-            Data_encoding.force_decode lexpr >>= function
+            match Data_encoding.force_decode lexpr with
             | Some expr ->
             (
               let argty = string_of_expression expr in 
-            (
-              (* Answer.return true *)
-              (* Stdlib.print_endline stringty *)
-              Stdlib.print_endline stringty;
-              Stdlib.print_endline argty;
-              if Int64.of_int (String.compare stringty argty) = Int64.zero
-              then Answer.return "true"
-              else Answer.return "false"
-            )
+              (
+                (* Answer.return true *)
+                (* Stdlib.print_endline stringty *)
+                Stdlib.print_endline stringty;
+                Stdlib.print_endline argty;
+                if Int64.of_int (String.compare stringty argty) = Int64.zero
+                then Answer.return "true"
+                else Answer.return "false"
+              )
             )
             | None -> error Lazy_script_decode
             
