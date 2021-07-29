@@ -732,7 +732,7 @@ let check_type1 entrypointname contr ?arg =
           
         )
     )
-    | Error err -> ctxt_rpc#error "%a" Environment.Error_monad.fail err
+    | Error err -> ctxt_rpc#error "%a" Environment.Error_monad.pp err
 
 
 (* let entrypoint_to_string entrypoint =
