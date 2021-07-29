@@ -150,13 +150,13 @@ let run_check_entrypointty () =
     | Ok out -> print_endline "Ok"; print_endline out; Lwt.return_ok ()
     | Error err -> Lwt.return_error err
 
-(* let run_check_entrypointty1 () =
+let run_check_entrypointty1 () =
   Api.get_contract "id1"
   >>=? fun contr ->
-  Api.check_type1 "default" contr ?arg:"bla"
+  Api.check_type1 "default" contr ?arg:"bla" ()
   >>= function
     | Ok out -> print_endline "Ok"; print_endline out; Lwt.return_ok ()
-    | Error err -> Lwt.return_error err *)
+    | Error err -> Lwt.return_error err
 
 
 let run_get_code () =
@@ -222,9 +222,9 @@ let main =
     >>=? fun _ ->
     print_endline "Test check entrypointty";
     run_check_entrypointty ()
-    (* >>=? fun _ ->
+    >>=? fun _ ->
     print_endline "Test check entrypointty";
-    run_check_entrypointty1 () *)
+    run_check_entrypointty1 ()
     (* print_endline "Test call_contract";
     run_call_contract ()
     >>=? fun _ -> *)
