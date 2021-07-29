@@ -699,8 +699,8 @@ let check_type1 entrypointname contr ?arg =
         let stringty = string_of_expression entrytype in
         (
           Client_proto_context.parse_arg_transfer arg
-          >>=? function 
-          | Ok lexpr -> 
+          >>=? fun
+          lexpr -> 
           (
             match Script_repr.force_decode lexpr with
             | Ok (expr,_) ->
@@ -719,7 +719,7 @@ let check_type1 entrypointname contr ?arg =
             | Error _ -> Answer.return "error"
             
           )
-          | Error err -> catch_error_f err
+          
           
           
         )
