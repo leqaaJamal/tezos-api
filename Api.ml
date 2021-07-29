@@ -716,7 +716,7 @@ let check_type1 entrypointname contr arg =
                 else Answer.return "false"
               )
             )
-            | None -> error Rejected (Unknown_reason "types do not match")
+            | None -> error (Rejected (Unknown_reason "types do not match"))
             
           )
           | Error err -> catch_error_f err
