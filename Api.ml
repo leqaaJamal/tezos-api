@@ -686,7 +686,7 @@ let check_type entrypointname contr arg =
 let get_expr_from_lexpr lexpr = 
   match Script_repr.force_decode lexpr with
   | Ok (expr,_) -> Answer.return expr 
-  | Error _ -> Answer.return "error"
+  | Error err -> catch_error_f err
 
 let check_type1 entrypointname contr ?arg =
   let ctxt_rpc = new wrap_full !ctxt in 
