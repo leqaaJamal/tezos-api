@@ -710,8 +710,8 @@ let check_type1 entrypointname contr ?arg =
           >>=? fun
           lexpr -> 
           (
-            get_expr_from_lexpr lexpr >>= function
-            | Ok expr ->
+            match Script_repr.force_decode lexpr with 
+            | Ok (expr,_) ->
             (
               let argty = string_of_expression expr in 
               (
@@ -724,7 +724,7 @@ let check_type1 entrypointname contr ?arg =
                 else Answer.return "false"
               )
             )
-            | Error err -> Lwt.return_error err
+            | Error err -> ctxt_rpc#error "%a" Environment.Error_monad.pp_trace err
             
           )
           
