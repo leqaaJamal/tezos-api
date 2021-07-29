@@ -724,8 +724,7 @@ let check_type1 entrypointname contr ?arg =
                 else Answer.return "false"
               )
             )
-            | Error _ -> ctxt_rpc#error
-                   "error"
+            | Error err -> ctxt_rpc#error "%a" Environment.Error_monad.pp_trace err
             
           )
           
