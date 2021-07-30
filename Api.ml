@@ -697,10 +697,17 @@ let get_expr_from_lexpr lexpr =
     Script_repr.force_decode lexpr  >>? fun (expr, _) -> expr
   ) *)
 
-let parse_expression arg =
+(* let parse_expression arg =
   Lwt.return
     (Micheline_parser.no_parsing_error
-       (Michelson_v1_parser.parse_expression arg))
+       (Michelson_v1_parser.parse_expression arg)) *)
+
+let parse_arg_transfer arg =
+  ( match arg with
+  | Some arg ->
+      parse_expression arg >>=? fun {expanded = arg; _} -> return_some arg
+  | None ->
+      return_none )
 
 
 
