@@ -690,12 +690,19 @@ let get_expr_from_lexpr lexpr =
   | Error err -> ctxt_rpc#error "%a" Environment.Error_monad.pp_trace err
   )
 
-let get_arg_type ?arg () = 
+(* let get_arg_type ?arg () = 
   Client_proto_context.parse_arg_transfer arg 
   >>=? function lexpr ->
   (
     Script_repr.force_decode lexpr  >>? fun (expr, _) -> expr
-  )
+  ) *)
+
+let parse_expression arg =
+  Lwt.return
+    (Micheline_parser.no_parsing_error
+       (Michelson_v1_parser.parse_expression arg))
+
+
 
 
 (* let check_type1 entrypointname contr ?arg ()=
