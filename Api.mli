@@ -1,8 +1,8 @@
 (** This API provides functions to interact with a Tezos node *)
 
 open Tezos_client_009_PsFLoren
+open Tezos_client_009_PsFLoren.Protocol
 open Tezos_protocol_009_PsFLoren.Protocol.Alpha_context
-open Tezos_client_009_PsFLoren.Script_repr
 open Api_error
 
 (** A public key of an account (implicit or originated)*)
