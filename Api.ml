@@ -710,9 +710,12 @@ let parse_arg_transfer arg =
   )
 
 let try1 ?arg () =
-  parse_arg_transfer arg >>=? fun expr ->(
+  parse_arg_transfer arg >>=? fun expr ->
     let exprstring = string_of_expression expr 
-  )
+
+
+
+
 (* let check_type1 entrypointname contr ?arg ()= 
   let ctxt_rpc = new wrap_full !ctxt in 
   Michelson_v1_entrypoints.contract_entrypoint_type 
