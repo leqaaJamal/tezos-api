@@ -705,8 +705,8 @@ let get_expr_from_lexpr lexpr =
 let parse_arg_transfer arg =
   ( match arg with
   | Some arg ->
-      parse_expression arg >>=? fun {expanded = arg; _} -> arg
-   )
+      parse_expression arg >>=? fun {expanded = arg; _} -> Answer.return arg
+  )
 
 
 
