@@ -5,6 +5,23 @@ open Tezos_protocol_environment_009_PsFLoren
 open Tezos_protocol_009_PsFLoren.Protocol.Alpha_context
 open Api_error
 
+open Client_keys
+open Tezos_client_009_PsFLoren
+open Tezos_client_009_PsFLoren.Protocol_client_context
+open Tezos_client_009_PsFLoren.Injection
+open Tezos_client_009_PsFLoren.Client_proto_contracts
+open Tezos_protocol_009_PsFLoren.Protocol.Alpha_context
+open Tezos_raw_protocol_009_PsFLoren
+open Tezos_protocol_environment_009_PsFLoren
+open Apply_results
+open Api_error
+open Api_context
+open Format
+open Base
+open Int64
+open Tezos_micheline
+open Micheline
+
 (** A public key of an account (implicit or originated)*)
 type puk
 
