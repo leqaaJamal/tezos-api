@@ -711,7 +711,7 @@ let parse_arg_transfer arg =
 
 let try1 ?arg () =
   parse_arg_transfer arg >>=? fun expr ->(
-    string_of_expression expr >>=? function exprstring -> exprstring
+    string_of_expression expr = function exprstring -> exprstring
   )
 (* let check_type1 entrypointname contr ?arg ()= 
   let ctxt_rpc = new wrap_full !ctxt in 
