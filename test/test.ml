@@ -158,6 +158,12 @@ let run_check_entrypointty () =
     | Ok out -> print_endline "Ok"; print_endline out; Lwt.return_ok ()
     | Error err -> Lwt.return_error err *)
 
+let run_try1 () =
+  Api.try1 ?arg:"x" ()
+  >>= function
+    | Ok out -> print_endline "Ok"; print_endline out; Lwt.return_ok ()
+    | Error err -> Lwt.return_error err
+
 
 let run_get_code () =
   Api.get_contract "auction"
