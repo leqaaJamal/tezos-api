@@ -695,8 +695,8 @@ let get_arg_type ?arg () =
   >>=? function lexpr ->
   (
     match Script_repr.force_decode lexpr with
-    | Ok (expr, _) -> Answer.return expr
-    | Error err -> ctxt_rpc#error "%a" Environment.Error_monad.pp_trace err
+    | Ok (expr, _) -> expr
+    | Error err -> ()
   )
 
 
