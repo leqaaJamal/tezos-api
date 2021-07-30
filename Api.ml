@@ -706,6 +706,7 @@ let parse_arg_transfer arg =
   ( match arg with
   | Some arg ->
       parse_expression arg >>=? fun {expanded = arg; _} -> Answer.return arg
+  | None -> Answer.return ()
   )
 
 
