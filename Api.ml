@@ -694,7 +694,7 @@ let get_arg_type ?arg () =
   Client_proto_context.parse_arg_transfer arg 
   >>=? function lexpr ->
   (
-    Script_repr.force_decode lexpr >>= function
+    Script_repr.force_decode lexpr >>=? function
     | Ok (expr, _) -> expr
     | Error err -> ctxt_rpc#error "%a" Environment.Error_monad.pp_trace err
   )
