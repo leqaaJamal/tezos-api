@@ -694,9 +694,7 @@ let get_arg_type ?arg () =
   Client_proto_context.parse_arg_transfer arg 
   >>=? function lexpr ->
   (
-    match Script_repr.force_decode lexpr with
-    | Ok (expr, _) -> expr
-    | Error err -> ()
+    Script_repr.force_decode lexpr  >>? fun (expr, _) -> expr
   )
 
 
