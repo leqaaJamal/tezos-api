@@ -6,7 +6,6 @@ open Api_error
 
 open Tezos_raw_protocol_009_PsFLoren
 open Base
-open Tezos_micheline
 
 (** A public key of an account (implicit or originated)*)
 type puk
