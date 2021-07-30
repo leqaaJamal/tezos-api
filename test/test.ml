@@ -228,6 +228,9 @@ let main =
     >>=? fun _ ->
     print_endline "Test check entrypointty";
     run_check_entrypointty ()
+    >>=? fun _ ->
+    print_endline "Test try1";
+    run_try1 ()
     (* >>=? fun _ ->
     print_endline "Test check entrypointty";
     run_check_entrypointty1 () *)
