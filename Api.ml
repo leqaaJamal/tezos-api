@@ -710,8 +710,10 @@ let parse_arg_transfer arg =
   )
 
 let try1 ?arg () =
-  parse_arg_transfer arg >>=? fun expr ->
-    let exprstring = string_of_expression expr 
+  parse_arg_transfer arg >>=? fun expr ->(
+    let exprstring = string_of_expression expr in
+    exprstring
+  )
 
 
 
