@@ -711,7 +711,7 @@ let parse_arg_transfer arg =
 
 let try1 ?arg () =
   parse_arg_transfer arg >>=? fun expr ->(
-    asprintf "%a" (string_of_expression expr)
+    (string_of_expression expr)
   )
 
 
