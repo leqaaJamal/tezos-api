@@ -15,7 +15,7 @@ open Int64
 open Tezos_micheline
 open Micheline
 
-
+(* "String (%d, \"%s\")" *)
 type puk = Signature.public_key
 type pukh = Signature.public_key_hash
 type contract = Contract.t
