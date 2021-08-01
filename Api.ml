@@ -630,9 +630,6 @@ let print_entrypoints entrylist =
 
 
 let string_of_expression expression =
-  let string_of_list : string list -> string =
-   fun xs -> String.concat "; " xs |> asprintf "[%s]"
-  in (
   let rec string_of_node = function
     |Int (_, _) ->
         asprintf "Int"
@@ -645,13 +642,13 @@ let string_of_expression expression =
         asprintf
           "Prim (%s, %s)"
           (Michelson_v1_printer.ocaml_constructor_of_prim prim)
-          (string_of_list @@ List.map (asprintf "\"%s\"") annot)
+          ( (asprintf "\"%s\"") annot)
     |Seq (_, _) ->
         asprintf
           "Seq"
   in
   string_of_node (Micheline.root expression)
-  )
+  
 
 
 
