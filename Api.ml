@@ -633,6 +633,8 @@ let string_of_expression expression =
   let string_of_node = function
     |Int (_, _) ->
         asprintf "Int"
+    |Bool (_, _) ->
+        asprintf "Bool"
     |String (_, _) ->
         asprintf "String"
     |Bytes (_, _) ->
