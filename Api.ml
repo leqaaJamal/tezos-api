@@ -630,7 +630,7 @@ let print_entrypoints entrylist =
 
 
 let string_of_expression expression =
-  let rec string_of_node = function
+  let string_of_node = function
     |Int (_, _) ->
         asprintf "Int"
     |String (_, _) ->
