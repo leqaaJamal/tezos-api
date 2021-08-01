@@ -26,6 +26,12 @@ type expression_michelson = Script.expr
 type tag = string
 
 
+type 'p mtype1 = 
+| Tstring of string
+| Tint of int
+| Tbool of bool
+| Tunit of unit
+
 type mtype = 
 | Tstring of string
 | Tint of int
