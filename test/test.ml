@@ -159,7 +159,14 @@ let run_check_entrypointty () =
     | Error err -> Lwt.return_error err *)
 
 let run_try1 () =
-  Api.try1 ?arg:(Some "") ()
+  Api.try1 ?arg:(Some "int \"1\"") ()
+  >>= function
+    | Ok out -> print_endline "Ok"; print_endline out; Lwt.return_ok ()
+    | Error err -> Lwt.return_error err
+
+
+let run_mtype1_to_string () =
+  Api.mtype1_to_string "s"
   >>= function
     | Ok out -> print_endline "Ok"; print_endline out; Lwt.return_ok ()
     | Error err -> Lwt.return_error err
