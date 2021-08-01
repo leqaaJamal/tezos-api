@@ -631,8 +631,8 @@ let print_entrypoints entrylist =
 
 let string_of_expression expression =
   let string_of_list : string list -> string =
-   fun xs -> String.concat "; " xs |> Format.asprintf "[%s]"
-  in
+   fun xs -> String.concat "; " xs |> asprintf "[%s]"
+  in (
   let rec string_of_node = function
     |Int (_, _) ->
         asprintf "Int"
@@ -651,6 +651,7 @@ let string_of_expression expression =
           "Seq"
   in
   string_of_node (Micheline.root expression)
+  )
 
 
 
