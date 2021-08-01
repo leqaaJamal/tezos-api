@@ -165,11 +165,11 @@ let run_try1 () =
     | Error err -> Lwt.return_error err
 
 
-(* let run_mtype1_to_string () =
-  Api.mtype1_to_string "s"
+let run_mtype1_to_string () =
+  Api.mtype1_to_string (Tstring "sss")
   >>= function
     | Ok out -> print_endline "Ok"; print_endline out; Lwt.return_ok ()
-    | Error err -> Lwt.return_error err *)
+    | Error err -> Lwt.return_error err
 
 
 let run_get_code () =
@@ -238,6 +238,9 @@ let main =
     >>=? fun _ ->
     print_endline "Test try1";
     run_try1 ()
+    >>=? fun _ ->
+    print_endline "Test try1";
+    run_mtype1_to_string ()
     (* >>=? fun _ ->
     print_endline "Test check entrypointty";
     run_check_entrypointty1 () *)

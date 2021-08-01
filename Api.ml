@@ -38,6 +38,20 @@ let mtype1_to_string = function
 | Tbool _ -> "T_bool"
 | Tunit _ -> "T_unit"
 
+(* let try2 arg =
+  let string_of = function
+    |Tint _ ->
+      asprintf "Int"
+    |Tstring _ ->
+      asprintf "String"
+    |Tbool _ ->
+      asprintf "Bool"
+    |Tunit _ ->
+      asprintf "Unit"
+  in
+  string_of (mtype1 arg) *)
+
+
 
 
 type mtype = 
@@ -661,19 +675,7 @@ let string_of_expression expression =
           "Seq"
   in
   string_of_node (Micheline.root expression)
-  
-let try2 arg =
-  let string_of = function
-    |Tint _ ->
-      asprintf "Int"
-    |Tstring _ ->
-      asprintf "String"
-    |Tbool _ ->
-      asprintf "Bool"
-    |Tunit _ ->
-      asprintf "Unit"
-  in
-  string_of (mtype1 arg)
+
 
 
 
