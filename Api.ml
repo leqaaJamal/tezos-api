@@ -631,7 +631,7 @@ let print_entrypoints entrylist =
 
 let string_of_expression expression =
   let string_of_list : string list -> string =
-   fun xs -> String.concat "; " xs |> asprintf "[%s]"
+   fun xs -> String.concat "; " xs |> Format.asprintf "[%s]"
   in
   let rec string_of_node = function
     |Int (_, _) ->
