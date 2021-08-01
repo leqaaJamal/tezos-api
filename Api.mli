@@ -26,6 +26,14 @@ type parsed_michelson = Michelson_v1_parser.parsed
 type expression_michelson = Script.expr
 type tag = string
 
+type 'p mtype1 = 
+| Tstring of string
+| Tint of int
+| Tbool of bool
+| Tunit of unit
+
+val mtype_to_string: mtype1 -> string
+
 type mtype = 
 | Tstring of string
 | Tint of int

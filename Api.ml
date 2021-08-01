@@ -32,6 +32,13 @@ type 'p mtype1 =
 | Tbool of bool
 | Tunit of unit
 
+let mtype1_to_string = function
+| Tstring _-> "T_string"
+| Tint _-> "T_int"
+| Tbool _ -> "T_bool"
+| Tunit _ -> "T_unit"
+
+
 type mtype = 
 | Tstring of string
 | Tint of int
