@@ -32,7 +32,7 @@ type 'p mtype1 =
 | Tbool of bool
 | Tunit of unit
 
-val mtype_to_string: mtype1 -> string
+val mtype_to_string: 'p mtype1 -> string
 
 type mtype = 
 | Tstring of string
