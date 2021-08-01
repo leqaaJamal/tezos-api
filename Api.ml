@@ -640,9 +640,8 @@ let string_of_expression expression =
           "Bytes"
     |Prim (_, prim, _, annot) ->
         asprintf
-          "Prim (%s, %s)"
+          "%s"
           (Michelson_v1_printer.ocaml_constructor_of_prim prim)
-          ( (asprintf "\"%s\"") annot)
     |Seq (_, _) ->
         asprintf
           "Seq"
