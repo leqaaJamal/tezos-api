@@ -260,6 +260,8 @@ val parse_arg_transfer: string option -> Script.expr Answer.t
 
 val try1: ?arg:string -> unit -> string Answer.t
 
+val try2: 'p -> string
+
 (* val try2: 'p mtype1 -> string *)
 
 (* val get_arg_type: ?arg:string -> unit -> Script_repr.expr *)

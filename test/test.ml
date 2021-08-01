@@ -165,11 +165,11 @@ let run_try1 () =
     | Error err -> Lwt.return_error err
 
 
-let run_mtype1_to_string () =
-  Api.mtype1_to_string (Api.mtype1 "s")
+(* let run_mtype1_to_string () =
+  Api.mtype1_to_string "s"
   >>= function
     | Ok out -> print_endline "Ok"; print_endline out; Lwt.return_ok ()
-    | Error err -> Lwt.return_error err
+    | Error err -> Lwt.return_error err *)
 
 
 let run_get_code () =
