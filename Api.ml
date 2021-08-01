@@ -663,19 +663,7 @@ let string_of_expression expression =
   string_of_node (Micheline.root expression)
   
 let try2 arg =
-  let string_of_node = function
-    |Tint _ ->
-        asprintf "Int"
-    |Tstring _ ->
-        asprintf "String"
-    |Tbool _ ->
-        asprintf
-          "Bool"
-    |Tunit _ ->
-        asprintf
-          "Unit"
-  in
-  try2 (mtype1 arg)
+  mtype1_to_string (mtype1 arg)
 
 
 
