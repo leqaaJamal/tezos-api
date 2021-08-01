@@ -638,7 +638,7 @@ let string_of_expression expression =
     |Bytes (_, _) ->
         asprintf
           "Bytes"
-    |Prim (_, prim, _, annot) ->
+    |Prim (_, prim, _, _) ->
         asprintf
           "%s"
           (Michelson_v1_printer.ocaml_constructor_of_prim prim)
