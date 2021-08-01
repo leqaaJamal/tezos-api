@@ -630,7 +630,7 @@ let print_entrypoints entrylist =
 
 
 let string_of_expression expression =
-  let string_of_node = function
+  let rec string_of_node = function
     |Int (_, _) ->
         asprintf "Int"
     |String (_, _) ->
@@ -638,10 +638,11 @@ let string_of_expression expression =
     |Bytes (_, _) ->
         asprintf
           "Bytes"
-    |Prim (_, prim, _, _) ->
+    |Prim (_, prim, _, annot) ->
         asprintf
-          "%s"
+          "Prim (%s, %s)"
           (Michelson_v1_printer.ocaml_constructor_of_prim prim)
+          (string_of_list @@ List.map (asprintf "\"%s\"") annot)
     |Seq (_, _) ->
         asprintf
           "Seq"
