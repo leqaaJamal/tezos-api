@@ -26,13 +26,13 @@ type parsed_michelson = Michelson_v1_parser.parsed
 type expression_michelson = Script.expr
 type tag = string
 
-type _ mtype1 = 
+type 'a mtype1 = 
 | Tstring of string
 | Tint of int
 | Tbool of bool
 | Tunit of unit
 
-val mtype1_to_string: _ mtype1 -> string
+val mtype1_to_string: 'a mtype1 -> string
 
 type mtype = 
 | Tstring of string
