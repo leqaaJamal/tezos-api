@@ -166,7 +166,7 @@ let run_try1 () =
 
 
 let run_mtype1_to_string () =
-  Api.mtype1_to_string "s"
+  Api.mtype1_to_string (mtype1 "s")
   >>= function
     | Ok out -> print_endline "Ok"; print_endline out; Lwt.return_ok ()
     | Error err -> Lwt.return_error err
