@@ -663,7 +663,7 @@ let string_of_expression expression =
   string_of_node (Micheline.root expression)
   
 let try2 arg =
-  let string_of_node = function
+  let string_of = function
     |Tint _ ->
       asprintf "Int"
     |Tstring _ ->
@@ -673,7 +673,7 @@ let try2 arg =
     |Tunit _ ->
       asprintf "Unit"
   in
-  try2 (mtype1 arg)
+  string_of (mtype1 arg)
 
 
 
