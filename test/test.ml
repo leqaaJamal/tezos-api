@@ -131,7 +131,7 @@ let run_get_entrypoints () =
     | Error err -> Lwt.return_error err
 
 let run_call_contract () =
-  Api.get_pukh_from_alias "bob2"
+  Api.get_pukh_from_alias "test3"
   >>=? fun pukh ->
   Api.get_contract "id1"
   >>=? fun contr ->
