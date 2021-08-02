@@ -133,11 +133,11 @@ let run_get_entrypoints () =
 let run_call_contract () =
   Api.get_pukh_from_alias "bob2"
   >>=? fun pukh ->
-  Api.get_contract "auction"
+  Api.get_contract "id1"
   >>=? fun contr ->
-  let amount = Api.Tez_t.tez 10.0 in
+  let amount = Api.Tez_t.tez 1.0 in
   let fees = Api.Tez_t.tez 0.0001 in
-  Api.call_contract amount pukh contr fees
+  Api.call_contract amount pukh contr ?entrypoint:(Some "default") ?arg:(Some "xxx") fees
   >>= function
     | Ok _ -> print_endline "Ok" ; Lwt.return_ok ()
     | Error err -> Lwt.return_error err

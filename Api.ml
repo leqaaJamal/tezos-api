@@ -738,7 +738,8 @@ let parse_arg_transfer arg =
 
 let try1 ?arg () =
   parse_arg_transfer arg >>=? fun expr ->(
-    Answer.return (string_of_expression expr)
+    (* Answer.return (string_of_expression expr) *)
+    Answer.return (Michelson_v1_printer.micheline_string_of_expression ~zero_loc:false expr)
   )
 
 
