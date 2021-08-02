@@ -159,7 +159,7 @@ let run_check_entrypointty () =
     | Error err -> Lwt.return_error err *)
 
 let run_try1 () =
-  Api.try1 ?arg:(Some "1") ()
+  Api.try1 ?arg:(Some "pair 1 2") ()
   >>= function
     | Ok out -> print_endline "Ok"; print_endline out; Lwt.return_ok ()
     | Error err -> Lwt.return_error err
