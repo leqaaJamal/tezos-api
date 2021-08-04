@@ -253,6 +253,6 @@ val check_type: string -> contract -> mtype -> string Answer.t
 
 val parse_arg_transfer: string option -> Script.expr Answer.t
 
-val try1: ?arg:string -> unit -> string 
+val try1: ?arg:string -> unit -> string Answer.t
 
 val check_type2: string -> contract -> ?arg:string -> unit -> string Answer.t

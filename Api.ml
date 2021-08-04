@@ -720,7 +720,7 @@ let parse_arg_transfer arg =
 (* try1 is to get the type of arg *)
 let try1 ?arg () =
   parse_arg_transfer arg >>=? fun expr ->(
-    asprintf "%s" (string_of_expression expr)
+    Answer.return (string_of_expression expr)
     (* Answer.return (Michelson_v1_printer.micheline_string_of_expression ~zero_loc:false expr) *)
   )
 
@@ -743,7 +743,8 @@ let check_type2 entrypointname contr arg =
       (* let stringty = (Michelson_v1_primitives.strings_of_prims entrytype) in *)
         let stringty = string_of_expression entrytype in
         (
-          let argty = try1 ?arg () in 
+          try1 try1 ?arg () >>=? fun argty ->
+          (* let argty = try1 ?arg () in  *)
           (
             (* Answer.return true *)
             (* Stdlib.print_endline stringty *)
