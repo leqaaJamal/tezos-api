@@ -689,36 +689,6 @@ let check_type entrypointname contr arg =
     | Error err -> catch_error_f err
     (* Answer.return listofentrypoints *)
 
-(* val check_type2: string -> contract -> ?arg:string -> unit -> string Answer.t *)
-let check_type2 entrypointname contr arg =
-  let ctxt_rpc = new wrap_full !ctxt in 
-  Michelson_v1_entrypoints.contract_entrypoint_type 
-    ctxt_rpc
-    ~chain:ctxt_rpc#chain
-    ~block:ctxt_rpc#block
-    ~contract:contr
-    ~entrypoint:entrypointname
-    >>=function
-    | Ok (None) -> ctxt_rpc#error
-                   "Cannot find a %%do or %%set_delegate entrypoint in \
-                    contract@."
-    | Ok Some entrytype -> (
-      (* let stringty = (Michelson_v1_primitives.strings_of_prims entrytype) in *)
-        let stringty = string_of_expression entrytype in
-        (
-          let argty = try1 ?arg () in 
-          (
-            (* Answer.return true *)
-            (* Stdlib.print_endline stringty *)
-            Stdlib.print_endline stringty;
-            if Int64.of_int (String.compare stringty argty) = Int64.zero
-            then Answer.return "true"
-            else Answer.return "false"
-          )
-        )
-    )
-    | Error err -> catch_error_f err
-    (* Answer.return listofentrypoints *)
 
 
 let get_expr_from_lexpr lexpr = 
@@ -756,8 +726,33 @@ let try1 ?arg () =
 
 
 
-
-
-
-
-
+(* val check_type2: string -> contract -> ?arg:string -> unit -> string Answer.t *)
+let check_type2 entrypointname contr arg =
+  let ctxt_rpc = new wrap_full !ctxt in 
+  Michelson_v1_entrypoints.contract_entrypoint_type 
+    ctxt_rpc
+    ~chain:ctxt_rpc#chain
+    ~block:ctxt_rpc#block
+    ~contract:contr
+    ~entrypoint:entrypointname
+    >>=function
+    | Ok (None) -> ctxt_rpc#error
+                   "Cannot find a %%do or %%set_delegate entrypoint in \
+                    contract@."
+    | Ok Some entrytype -> (
+      (* let stringty = (Michelson_v1_primitives.strings_of_prims entrytype) in *)
+        let stringty = string_of_expression entrytype in
+        (
+          let argty = try1 ?arg () in 
+          (
+            (* Answer.return true *)
+            (* Stdlib.print_endline stringty *)
+            Stdlib.print_endline stringty;
+            if Int64.of_int (String.compare stringty argty) = Int64.zero
+            then Answer.return "true"
+            else Answer.return "false"
+          )
+        )
+    )
+    | Error err -> catch_error_f err
+    (* Answer.return listofentrypoints *)
