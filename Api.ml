@@ -743,7 +743,7 @@ let check_type2 entrypointname contr arg =
       (* let stringty = (Michelson_v1_primitives.strings_of_prims entrytype) in *)
         let stringty = string_of_expression entrytype in
         (
-          try1 try1 ?arg () >>=? fun argty ->
+          try1 ?arg () >>=? fun argty ->
           (* let argty = try1 ?arg () in  *)
           (
             (* Answer.return true *)
