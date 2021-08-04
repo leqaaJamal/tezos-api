@@ -727,7 +727,7 @@ let try1 ?arg () =
 
 
 (* val check_type2: string -> contract -> ?arg:string -> unit -> string Answer.t *)
-let check_type2 entrypointname contr arg =
+let check_type2 entrypointname contr ?arg ()=
   let ctxt_rpc = new wrap_full !ctxt in 
   Michelson_v1_entrypoints.contract_entrypoint_type 
     ctxt_rpc
