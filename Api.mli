@@ -258,3 +258,5 @@ val try1: ?arg:string -> unit -> string Answer.t
 val check_type2: string -> contract -> ?arg:string -> unit -> string Answer.t
 
 val get_entry: ?entrypoint:string -> unit -> string
+
+val call_contract2: Tez_t.t -> pukh -> contract -> ?entrypoint:string -> ?arg:string -> Tez_t.t -> oph Answer.t
