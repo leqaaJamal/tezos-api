@@ -26,13 +26,13 @@ type parsed_michelson = Michelson_v1_parser.parsed
 type expression_michelson = Script.expr
 type tag = string
 
-type 'p mtype1 = 
+(* type 'p mtype1 = 
 | Tstring of string
 | Tint of int
 | Tbool of bool
 | Tunit of unit
 
-val mtype1_to_string: 'p mtype1 -> string
+val mtype1_to_string: 'p mtype1 -> string *)
 
 type mtype = 
 | Tstring of string
@@ -245,11 +245,6 @@ val print_entrypoints: (tag * Script.expr) list tzresult -> unit tzresult Lwt.t
 (* val print_elements_types: (tag * Script.expr) list -> (expression_michelson -> unit) *)
 val string_of_expression: Script.expr -> string
 
-(* val call_contract1 : Tez_t.t -> pukh -> contract -> ?entrypoint:string -> ?arg:mtype -> Tez_t.t -> oph Answer.t *)
-
-(* val entrypoint_to_string : string option -> string *)
-
-(* val arg_to_mtype : mtype option -> mtype *)
 
 val get_expr_from_lexpr: Script.lazy_expr -> Script.expr Answer.t
 
@@ -260,10 +255,4 @@ val parse_arg_transfer: string option -> Script.expr Answer.t
 
 val try1: ?arg:string -> unit -> string Answer.t
 
-(* val try2: _ -> string *)
-
-(* val try2: 'p mtype1 -> string *)
-
-(* val get_arg_type: ?arg:string -> unit -> Script_repr.expr *)
-
-(* val check_type1: string -> contract -> ?arg:string -> unit -> (string,tztrace) Result.t Lwt.t *)
+val check_type2: string -> contract -> ?arg:string -> unit -> string Answer.t

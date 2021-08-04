@@ -26,7 +26,7 @@ type expression_michelson = Script.expr
 type tag = string
 
 
-type 'p mtype1 = 
+(* type 'p mtype1 = 
 | Tstring of string
 | Tint of int
 | Tbool of bool
@@ -36,7 +36,7 @@ let mtype1_to_string = function
 | Tstring _-> "T_string"
 | Tint _-> "T_int"
 | Tbool _ -> "T_bool"
-| Tunit _ -> "T_unit"
+| Tunit _ -> "T_unit" *)
 
 (* let try2 arg =
   let string_of = function
@@ -74,26 +74,6 @@ let value_to_string = function
     
 
 
-(* type mty = Michelson_v1_primitives.prim *)
-
-(* type s = string | int *)
-(* type _ mvalue =
-| Mstring : string -> string mvalue
-| Mint : int -> int mvalue
-| Mbool : bool -> bool mvalue
-| Munit : unit -> unit mvalue  *)
-
-(* type mtype =
-| Tstring: string
-| Tint: int
-| Tbool: bool
-| Tunit: unit *)
-
-(* let string_of_argty= function
-  | Tstring -> "string"
-  | Tint -> "int"
-  | Tbool -> "bool"
-  | Tunit -> "unit" *)
 
 
 module Tez_t : sig
@@ -660,12 +640,12 @@ let print_entrypoints entrylist =
 let string_of_expression expression =
   let string_of_node = function
     |Int (_, _) ->
-        asprintf "Int"
+        asprintf "T_int"
     |String (_, _) ->
-        asprintf "String"
+        asprintf "T_string"
     |Bytes (_, _) ->
         asprintf
-          "Bytes"
+          "T_bytes"
     |Prim (_, prim, _, _) ->
         asprintf
           "%s"
@@ -678,7 +658,7 @@ let string_of_expression expression =
 
 
 
-
+(* check_type is for my 1st appraoch, will use check_type2 for the 2nd approach *)
 let check_type entrypointname contr arg =
   let ctxt_rpc = new wrap_full !ctxt in 
   Michelson_v1_entrypoints.contract_entrypoint_type 
@@ -696,6 +676,37 @@ let check_type entrypointname contr arg =
         let stringty = string_of_expression entrytype in
         (
           let argty = mtype_to_string arg in 
+          (
+            (* Answer.return true *)
+            (* Stdlib.print_endline stringty *)
+            Stdlib.print_endline stringty;
+            if Int64.of_int (String.compare stringty argty) = Int64.zero
+            then Answer.return "true"
+            else Answer.return "false"
+          )
+        )
+    )
+    | Error err -> catch_error_f err
+    (* Answer.return listofentrypoints *)
+
+(* val check_type2: string -> contract -> ?arg:string -> unit -> string Answer.t *)
+let check_type2 entrypointname contr arg =
+  let ctxt_rpc = new wrap_full !ctxt in 
+  Michelson_v1_entrypoints.contract_entrypoint_type 
+    ctxt_rpc
+    ~chain:ctxt_rpc#chain
+    ~block:ctxt_rpc#block
+    ~contract:contr
+    ~entrypoint:entrypointname
+    >>=function
+    | Ok (None) -> ctxt_rpc#error
+                   "Cannot find a %%do or %%set_delegate entrypoint in \
+                    contract@."
+    | Ok Some entrytype -> (
+      (* let stringty = (Michelson_v1_primitives.strings_of_prims entrytype) in *)
+        let stringty = string_of_expression entrytype in
+        (
+          let argty = try1 ?arg () in 
           (
             (* Answer.return true *)
             (* Stdlib.print_endline stringty *)
@@ -736,150 +747,17 @@ let parse_arg_transfer arg =
   | None -> Answer.fail (Unknown "no arg")
   )
 
+(* try1 is to get the type of arg *)
 let try1 ?arg () =
   parse_arg_transfer arg >>=? fun expr ->(
-    (* Answer.return (string_of_expression expr) *)
-    Answer.return (Michelson_v1_printer.micheline_string_of_expression ~zero_loc:false expr)
+    Answer.return (string_of_expression expr)
+    (* Answer.return (Michelson_v1_printer.micheline_string_of_expression ~zero_loc:false expr) *)
   )
 
 
 
 
 
-(* let check_type1 entrypointname contr ?arg ()= 
-  let ctxt_rpc = new wrap_full !ctxt in 
-  Michelson_v1_entrypoints.contract_entrypoint_type 
-    ctxt_rpc
-    ~chain:ctxt_rpc#chain
-    ~block:ctxt_rpc#block
-    ~contract:contr
-    ~entrypoint:entrypointname
-    >>=function
-    | Ok (None) -> ctxt_rpc#error
-                   "Cannot find a %%do or %%set_delegate entrypoint in \
-                    contract@."
-    | Ok Some entrytype -> (
-      (* let stringty = (Michelson_v1_primitives.strings_of_prims entrytype) in *)
-        let stringty = string_of_expression entrytype in
-        (
-          let argty = string_of_expression arg in 
-          (
-            (* Answer.return true *)
-            (* Stdlib.print_endline stringty *)
-            Stdlib.print_endline stringty;
-            if Int64.of_int (String.compare stringty argty) = Int64.zero
-            then Answer.return "true"
-            else Answer.return "false"
-          )
-        )
-    )
-    | Error err -> catch_error_f err
- *)
 
 
 
-(* let check_type1 entrypointname contr ?arg ()=
-  let ctxt_rpc = new wrap_full !ctxt in 
-  Michelson_v1_entrypoints.contract_entrypoint_type 
-    ctxt_rpc
-    ~chain:ctxt_rpc#chain
-    ~block:ctxt_rpc#block
-    ~contract:contr
-    ~entrypoint:entrypointname
-    >>=?function
-    | None -> ctxt_rpc#error
-                   "Cannot find a %%do or %%set_delegate entrypoint in \
-                    contract@."
-    | Some entrytype -> (
-      (* let stringty = (Michelson_v1_primitives.strings_of_prims entrytype) in *)
-        let stringty = string_of_expression entrytype in
-        (
-          Client_proto_context.parse_arg_transfer arg
-          >>=? fun
-          lexpr -> 
-          (
-            match Script_repr.force_decode lexpr with 
-            | Ok (expr,_) ->
-            (
-              let argty = string_of_expression expr in 
-              (
-                (* Answer.return true *)
-                (* Stdlib.print_endline stringty *)
-                Stdlib.print_endline stringty;
-                Stdlib.print_endline argty;
-                if Int64.of_int (String.compare stringty argty) = Int64.zero
-                then Lwt.return (Result.Ok "true")
-                else Lwt.return (Result.Ok "false")
-              )
-            )
-            | Error err -> ctxt_rpc#error "%a" Environment.Error_monad.pp_trace err
-            
-          )
-          
-          
-          
-        )
-    ) *)
-
-
-
-(* let entrypoint_to_string entrypoint =
-  match entrypoint with 
-  | None -> ""
-  | Some x -> x
-
-let arg_to_mtype arg =
-  match arg with 
-  | None -> Tstring ""
-  | Some x -> x 
-
-let call_contract1 amount src destination ?entrypoint ?arg fee =
-  let open Answer in
-  (match Contract.is_implicit destination with
-   | None -> Answer.return ()
-   | Some _ -> Answer.fail Not_callable )
-  >>=? fun () ->
-  Client_keys.get_key !ctxt src
-  >>= function
-  | Error err -> catch_error_f err
-  | Ok (_, src_pk, src_sk) ->
-     begin
-     (* here should check the type and change the arg to string *)
-      let check = check_type (entrypoint_to_string ?entrypoint) destination (arg_to_mtype ?arg) in (
-        if Int64.of_int (String.compare check "true") = Int64.zero
-        then (
-          let argvalue = value_to_string (arg_to_mtype ?arg) in
-          (
-            let ctxt_proto = new wrap_full !ctxt in
-            Lwt.catch
-            (fun () ->
-              Client_proto_context.transfer
-              ctxt_proto
-              ~chain:!ctxt#chain
-              ~block:!ctxt#block
-              ?confirmations:!ctxt#confirmations
-              ~dry_run:false
-              ~verbose_signing:false
-              ~source:src
-              ~fee
-              ~src_pk
-              ~src_sk
-              ~destination
-              ?entrypoint
-              ?arg:argvalue
-              ~amount
-              ~fee_parameter: !fee_parameter
-              ())
-            exception_handler
-            >>= fun res ->
-            match res with
-            | Ok ((oph,_,_),_) -> Answer.return oph
-            | Error err -> catch_error_f err
-          )
-        )
-      else 
-      (
-        Answer.return (Rejected (Unknown_reason "types do not match"))
-      ) 
-      )
-     end *)
