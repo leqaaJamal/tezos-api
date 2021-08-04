@@ -765,7 +765,7 @@ let get_entry ?entrypoint () =
   | None -> "default"
 
 (* entrypoint int arg=5  *)
-(* let call_contract2 amount src destination ?entrypoint ?arg fee =
+let call_contract2 amount src destination ?entrypoint ?arg fee =
   let open Answer in
   (match Contract.is_implicit destination with
    | None -> Answer.return ()
@@ -777,29 +777,46 @@ let get_entry ?entrypoint () =
   | Ok (_, src_pk, src_sk) ->
      begin
      (* here should check the type and change the arg to string *)
-       let ctxt_proto = new wrap_full !ctxt in
-       Lwt.catch
-         (fun () ->
-           Client_proto_context.transfer
-             ctxt_proto
-             ~chain:!ctxt#chain
-             ~block:!ctxt#block
-             ?confirmations:!ctxt#confirmations
-             ~dry_run:false
-             ~verbose_signing:false
-             ~source:src
-             ~fee
-             ~src_pk
-             ~src_sk
-             ~destination
-             ?entrypoint
-             ?arg
-             ~amount
-             ~fee_parameter: !fee_parameter
-             ())
-         exception_handler
-       >>= fun res ->
-       match res with
-       | Ok ((oph,_,_),_) -> Answer.return oph
-       | Error err -> catch_error_f err
-     end *)
+     let entryp = get_entry ?entrypoint:entrypoint () in 
+     (
+       check_type2 entryp destination ?arg:arg () >>= function 
+        | Ok out -> 
+        (
+          if Int64.of_int (String.compare out "true") = Int64.zero 
+          then 
+          (
+            let ctxt_proto = new wrap_full !ctxt in
+            Lwt.catch
+              (fun () ->
+                Client_proto_context.transfer
+                  ctxt_proto
+                  ~chain:!ctxt#chain
+                  ~block:!ctxt#block
+                  ?confirmations:!ctxt#confirmations
+                  ~dry_run:false
+                  ~verbose_signing:false
+                  ~source:src
+                  ~fee
+                  ~src_pk
+                  ~src_sk
+                  ~destination
+                  ?entrypoint
+                  ?arg
+                  ~amount
+                  ~fee_parameter: !fee_parameter
+                  ())
+                exception_handler
+              >>= fun res ->
+              match res with
+              | Ok ((oph,_,_),_) -> Answer.return oph
+              | Error err -> catch_error_f err
+          )
+          else
+          (
+            Answer.fail (Unknown "types of the entrypoint and arg do not match")
+          )
+        )
+        | Error _ -> Answer.fail (Unknown "Cannot find entry point")
+       
+     )
+     end
