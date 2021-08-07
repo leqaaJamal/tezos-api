@@ -260,3 +260,33 @@ val check_type2: string -> contract -> ?arg:string -> unit -> string Answer.t
 val get_entry: ?entrypoint:string -> unit -> string
 
 val call_contract2: Tez_t.t -> pukh -> contract -> ?entrypoint:string -> ?arg:string -> Tez_t.t -> oph Answer.t
+
+val originate: 
+    (* the next 8 can be not used *)
+  (* ?confirmations:int ->
+  ?dry_run:bool ->
+  ?verbose_signing:bool ->
+  ?branch:int ->
+  ?fee:Tez.t ->
+  ?gas_limit:Gas.Arith.integral ->
+  ?storage_limit:Z.t ->
+  (* will put delegate with none now *)
+  delegate:public_key_hash option -> *)
+  (* I am not really sure but maybe this will be compared to the storage type from the script of the contract code, 
+  take a string with the initial storage *)
+  (* initial_storage:string -> *)
+  string ->
+  (* the transfered balanced from source to the "to be originated" contract, take Tez_t.t*)
+  (* balance:Tez.t -> *)
+  Tez_t.t ->
+  (* pukh, pk, sk for source -> will use pukh instead of the next 3*)
+  (* source:public_key_hash ->
+  src_pk:public_key ->
+  src_sk:Client_keys.sk_uri -> *)
+  pukh ->
+  (* the code of the contract in the script code of the contract instead of it I will take the string of the michelson contract*)
+  (* code:Script.expr -> *)
+  string ->
+  (* fee parameter is !feeparameter in the API code
+  fee_parameter:Injection.fee_parameter -> *)
+  (Kind.origination Kind.manager Injection.result * Contract.t) Answer.t

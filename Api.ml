@@ -820,3 +820,54 @@ let call_contract2 amount src destination ?entrypoint ?arg fee =
        
      )
      end
+
+
+(* val originate: string -> Tez_t.t -> pukh -> string ->
+  (Kind.origination Kind.manager Injection.result * Contract.t) Answer.t *)
+let originate initial_storage balance src contractstring =
+  Client_keys.get_key !ctxt src
+  >>= function
+  | Error err -> catch_error_f err
+  | Ok (_, src_pk, src_sk) ->
+     begin
+      let ctxt_proto = new wrap_full !ctxt in
+      (
+      parse_script contractstring  >>=? fun parsed ->
+      (
+      Client_proto_context.originate_contract
+        ctxt_proto
+        ~chain:!ctxt#chain
+        ~block:!ctxt#block
+        (* ?branch
+        ?confirmations
+        ?dry_run
+        ?fee
+        ?gas_limit
+        ?storage_limit
+        ?verbose_signing *)
+        ~delegate: None
+        ~initial_storage:initial_storage
+        ~balance:balance
+        ~source:src
+        ~src_pk:src_pk
+        ~src_sk:src_sk
+        ~code:parsed.expanded
+        ~fee_parameter:!fee_parameter
+        ()
+
+      )
+      )
+     
+     end
+
+
+(* let parse_script s =
+  Lwt.catch
+    (fun () ->
+      let parsed = Michelson_v1_parser.parse_toplevel s in
+      Lwt.return @@ Micheline_parser.no_parsing_error parsed
+    )
+    exception_handler
+  >>= function
+  | Ok parsed -> Answer.return parsed
+  | Error err -> catch_error_f err *)
