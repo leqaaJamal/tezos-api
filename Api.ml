@@ -853,8 +853,10 @@ let originate initial_storage balance src contractstring =
         ~src_sk:src_sk
         ~code:parsed.expanded
         ~fee_parameter:!fee_parameter
-        ()
-
+        () >>= fun res ->
+              match res with
+              | Ok ans -> Answer.return ans
+              | Error err -> catch_error_f err
       )
       )
      
