@@ -942,7 +942,7 @@ let micheline_string_of_expression expression =
           then
           (
             asprintf "%s"
-            (string_of_node nodes)
+            (* (string_of_node nodes) *)
           )
           else
           (
