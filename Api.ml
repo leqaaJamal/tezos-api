@@ -909,7 +909,7 @@ let originate initial_storage balance src contractstring =
   in
   string_of_node (root expression) *)
 
-let micheline_string_of_expression expression =
+(* let micheline_string_of_expression expression =
   let string_of_list : string list -> string =
    fun xs -> String.concat ?sep:(Some "; ") xs |> asprintf "[%s]"
   in
@@ -948,13 +948,14 @@ let micheline_string_of_expression expression =
           (
           asprintf "%s" 
           (string_of_list @@ List.map string_of_node nodes)
+
           )
           
     |Seq (_, _) ->
         asprintf
           ""
   in
-  searchforstorage (Micheline.root expression)
+  searchforstorage (Micheline.root expression) *)
 
 
 (* let parse_script s =
@@ -967,3 +968,43 @@ let micheline_string_of_expression expression =
   >>= function
   | Ok parsed -> Answer.return parsed
   | Error err -> catch_error_f err *)
+
+
+let micheline_string_of_expression ~zero_loc expression =
+  let string_of_list : string list -> string =
+   fun xs -> String.concat ?sep:(Some "; ") xs |> asprintf "[%s]"
+  in
+  let show_loc loc = if zero_loc then 0 else loc in
+  let rec string_of_node = function
+    | Int (loc, i) ->
+        let z =
+          match Z.to_int i with
+          | 0 ->
+              "Z.zero"
+          | 1 ->
+              "Z.one"
+          | i ->
+              Format.asprintf "Z.of_int %d" i
+        in
+        Format.asprintf "Int (%d, %s)" (show_loc loc) z
+    | String (loc, s) ->
+        Format.asprintf "String (%d, \"%s\")" (show_loc loc) s
+    | Bytes (loc, b) ->
+        Format.asprintf
+          "Bytes (%d, Bytes.of_string \"%s\")"
+          (show_loc loc)
+          Bytes.(escaped b |> to_string)
+    | Prim (loc, prim, nodes, annot) ->
+        Format.asprintf
+          "Prim (%d, %s, %s, %s)"
+          (show_loc loc)
+          (ocaml_constructor_of_prim prim)
+          (string_of_list @@ List.map string_of_node nodes)
+          (string_of_list @@ List.map (Format.asprintf "\"%s\"") annot)
+    | Seq (loc, nodes) ->
+        Format.asprintf
+          "Seq (%d, %s)"
+          (show_loc loc)
+          (string_of_list @@ List.map string_of_node nodes)
+  in
+  string_of_node (root expression)
