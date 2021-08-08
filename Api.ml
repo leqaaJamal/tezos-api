@@ -923,7 +923,7 @@ let micheline_string_of_expression ~zero_loc expression =
           "T_byte"
     | Prim (_, prim, nodes, _) ->
         asprintf
-          "%d %s"
+          "%s %s"
           (Michelson_v1_printer.ocaml_constructor_of_prim prim)
           (string_of_list @@ List.map string_of_node nodes)
     | Seq (_, _) ->
