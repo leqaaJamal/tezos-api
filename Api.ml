@@ -991,5 +991,8 @@ let micheline_string_of_expression expression =
         asprintf
           "%s"
           (string_of_node node2)
+    | Seq (_, (_::[])) | Seq (_, [])->
+        asprintf
+          "T_unit"
   in
   string_of_node (root expression)
