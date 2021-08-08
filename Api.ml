@@ -825,7 +825,7 @@ let call_contract2 amount src destination ?entrypoint ?arg fee =
 
 let print_code s =
   parse_script s  >>=? fun parsed ->
-  Answer.return parsed.storage_type
+  Answer.return parsed.storage
   (* Answer.return parsed.source *)
   (* Answer.return (Michelson_v1_printer.micheline_string_of_expression ~zero_loc:false parsed.expanded) *)
 
