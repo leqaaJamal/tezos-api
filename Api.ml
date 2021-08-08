@@ -976,35 +976,21 @@ let micheline_string_of_expression ~zero_loc expression =
   in
   let show_loc loc = if zero_loc then 0 else loc in
   let rec string_of_node = function
-    | Int (loc, i) ->
-        let z =
-          match Z.to_int i with
-          | 0 ->
-              "Z.zero"
-          | 1 ->
-              "Z.one"
-          | i ->
-              Format.asprintf "Z.of_int %d" i
-        in
-        Format.asprintf "Int (%d, %s)" (show_loc loc) z
-    | String (loc, s) ->
-        Format.asprintf "String (%d, \"%s\")" (show_loc loc) s
-    | Bytes (loc, b) ->
-        Format.asprintf
-          "Bytes (%d, Bytes.of_string \"%s\")"
-          (show_loc loc)
-          Bytes.(escaped b |> to_string)
-    | Prim (loc, prim, nodes, annot) ->
-        Format.asprintf
-          "Prim (%d, %s, %s, %s)"
-          (show_loc loc)
+    | Int (_, _) ->
+        asprintf "Int"
+    | String (_, _) ->
+        asprintf "String"
+    | Bytes (_, _) ->
+        asprintf
+          "Bytes"
+    | Prim (_, prim, nodes, _) ->
+        asprintf
+          "%s %s"
           (ocaml_constructor_of_prim prim)
           (string_of_list @@ List.map string_of_node nodes)
-          (string_of_list @@ List.map (Format.asprintf "\"%s\"") annot)
     | Seq (loc, nodes) ->
-        Format.asprintf
-          "Seq (%d, %s)"
-          (show_loc loc)
+        asprintf
+          "%s"
           (string_of_list @@ List.map string_of_node nodes)
   in
   string_of_node (root expression)
