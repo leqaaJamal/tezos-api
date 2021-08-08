@@ -141,24 +141,6 @@ let run_get_print_code () =
   \    ADD;\n\
   \    NIL operation;\n\
   \    PAIR;\n\
-  \    # Assert that the threshold is less than or equal to the\n\
-  \    # number of valid signatures.\n\
-  \    ASSERT_CMPLE ;\n\
-  \    DROP ; DROP ;\n\n\
-  \    # Increment counter and place in storage\n\
-  \    DIP { UNPAIR ; PUSH nat 1 ; ADD @new_counter ; PAIR} ;\n\n\
-  \    # We have now handled the signature verification part,\n\
-  \    # produce the operation requested by the signers.\n\
-  \    NIL operation ; SWAP ;\n\
-  \    IF_LEFT\n\
-  \      { # Transfer tokens\n\
-  \        UNPAIR ; UNIT ; TRANSFER_TOKENS ; CONS }\n\
-  \      { IF_LEFT {\n\
-  \                  # Change delegate\n\
-  \                  SET_DELEGATE ; CONS }\n\
-  \                {\n\
-  \                  # Change set of signatures\n\
-  \                  DIP { SWAP ; CAR } ; SWAP ; PAIR ; SWAP }} ;\n\
   \    PAIR }\n"
   >>= function 
     | Ok ans -> print_endline ans; print_endline "Ok" ; Lwt.return_ok ()
