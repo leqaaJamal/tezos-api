@@ -141,16 +141,6 @@ let run_get_print_code () =
   \    ADD;\n\
   \    NIL operation;\n\
   \    PAIR;\n\
-  \    DIP\n\
-  \      {\n\
-  \        UNPAIR ;\n\
-  \        # pair the payload with the current contract address, to ensure \
-   signatures\n\
-  \        # can't be replayed across different contracts if a key is reused.\n\
-  \        DUP ; SELF ; ADDRESS ; CHAIN_ID ; PAIR ; PAIR ;\n\
-  \        PACK ; # form the binary payload that we expect to be signed\n\
-  \        DIP { UNPAIR @counter ; DIP { SWAP } } ; SWAP\n\
-  \      } ;\n\n\
   \    # Check that the counters match\n\
   \    UNPAIR @stored_counter; DIP { SWAP };\n\
   \    ASSERT_CMPEQ ;\n\n\
