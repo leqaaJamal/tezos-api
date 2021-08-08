@@ -828,26 +828,50 @@ let micheline_string_of_expression expression =
   (* let string_of_list : string list -> string =
    fun xs -> String.concat ?sep:(Some "; ") xs |> asprintf "[%s]"
   in *)
+  let rec search_for_storage = function
+  [] -> asprintf "T_unit" 
+  | node::nodes -> (
+    match node with 
+    | Int (_, _) ->
+        asprintf "%s" (search_for_storage nodes)
+    | String (_, _) ->
+        asprintf "%s" (search_for_storage nodes)
+    | Bytes (_, _) ->
+        asprintf "%s" (search_for_storage nodes)
+    | Prim (_, prim, _, _) ->
+      if Int64.of_int (String.compare "K_storage" (Michelson_v1_printer.ocaml_constructor_of_prim prim)) = Int64.zero
+      then 
+      (
+        asprintf "%s" (Michelson_v1_printer.ocaml_constructor_of_prim prim)
+      )
+      else
+      (
+        asprintf "%s" (search_for_storage nodes)
+      )      
+    | Seq (_, _) ->
+        asprintf "%s" (search_for_storage nodes)
+  )
+  in
   let rec string_of_node = function
     | Int (_, _) ->
-        asprintf "Int"
+        asprintf "T_int"
     | String (_, _) ->
-        asprintf "String"
+        asprintf "T_string"
     | Bytes (_, _) ->
         asprintf
-          "Bytes"
+          "T_bytes"
     | Prim (_, prim, _, _) ->
         asprintf
           "%s"
           (Michelson_v1_printer.ocaml_constructor_of_prim prim)
           (* (string_of_list @@ List.map string_of_node nodes) *)
-    | Seq (_, (_::node2::_)) ->
+    | Seq (_, nodes) ->
         asprintf
           "%s"
-          (string_of_node node2)
-    | Seq (_, (_::[])) | Seq (_, [])->
+          (search_for_storage nodes)
+    (* | Seq (_, (_::[])) | Seq (_, [])->
         asprintf
-          "T_unit"
+          "T_unit" *)
   in
   string_of_node (root expression)
 
