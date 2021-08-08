@@ -913,40 +913,45 @@ let micheline_string_of_expression ~zero_loc expression =
   let string_of_list : string list -> string =
    fun xs -> String.concat ?sep:(Some "; ") xs |> asprintf "[%s]"
   in
-  let show_loc loc = if zero_loc then 0 else loc in
   let rec string_of_node = function
-    | Int (loc, i) ->
-        let z =
-          match Z.to_int i with
-          | 0 ->
-              "Z.zero"
-          | 1 ->
-              "Z.one"
-          | i ->
-              asprintf "Z.of_int %d" i
-        in
-        asprintf "Int (%d, %s)" (show_loc loc) z
-    | String (loc, s) ->
-        asprintf "String (%d, \"%s\")" (show_loc loc) s
-    | Bytes (loc, b) ->
+    | Int (_, _) ->
+        asprintf "T_int"
+    | String (_, _) ->
+        asprintf "T_string"
+    | Bytes (_, _) ->
         asprintf
-          "Bytes (%d, Bytes.of_string \"%s\")"
-          (show_loc loc)
-          Bytes.(escaped b |> to_string)
-    | Prim (loc, prim, nodes, annot) ->
+          "T_byte"
+    | Prim (_, prim, nodes, _) ->
         asprintf
-          "Prim (%d, %s, %s, %s)"
-          (show_loc loc)
+          "%d %s"
           (ocaml_constructor_of_prim prim)
           (string_of_list @@ List.map string_of_node nodes)
-          (string_of_list @@ List.map (Format.asprintf "\"%s\"") annot)
-    | Seq (loc, nodes) ->
-        asprintf
-          "Seq (%d, %s)"
-          (show_loc loc)
-          (string_of_list @@ List.map string_of_node nodes)
+    | Seq (_, _) ->
+        asprintf "Seq"
   in
-  string_of_node (root expression)
+  let searchforstorage = function
+    |Int (_, _) ->
+        asprintf ""
+    |String (_, _) ->
+        asprintf ""
+    |Bytes (_, _) ->
+        asprintf
+          ""
+    |Prim (_, prim, _, _) ->
+        asprintf
+          ""
+          if Int64.of_int (String.compare "K_storage" (ocaml_constructor_of_prim prim))
+          then
+          (
+            (string_of_list @@ List.map string_of_node nodes)
+          )
+          else
+          asprintf ""
+    |Seq (_, _) ->
+        asprintf
+          ""
+  in
+  searchforstorage (Micheline.root expression)
 
 
 (* let parse_script s =
