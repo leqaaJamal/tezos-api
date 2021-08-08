@@ -130,6 +130,14 @@ let run_get_entrypoints () =
     | Ok entrypoints -> Api.print_elements entrypoints; print_endline "Ok" ; Lwt.return_ok ()
     | Error err -> Lwt.return_error err
 
+let run_get_print_code () =
+  Api.print_code {|parameter (or (pair %A (list int) address) (int %B));
+              storage unit;
+              code {UNIT ; NIL operation ; PAIR }|}
+  >>= function 
+    | Ok ans -> Api.print_elements ans; print_endline "Ok" ; Lwt.return_ok ()
+    | Error err -> Lwt.return_error err
+
 let run_call_contract () =
   Api.get_pukh_from_alias "test3"
   >>=? fun pukh ->
