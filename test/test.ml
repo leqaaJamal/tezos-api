@@ -135,7 +135,7 @@ let run_get_print_code () =
   "parameter (int); \n\
    storage (int); \n\n\
    code\n\
-    {\n\
+   \ {\n\
       CAR;\n\
       PUSH int 1;\n\
       ADD;\n\
