@@ -131,90 +131,16 @@ let run_get_entrypoints () =
     | Error err -> Lwt.return_error err
 
 let run_get_print_code () =
-  Api.print_code "parameter (pair\n\
-  \             (pair :payload\n\
-  \                (nat %counter) # counter, used to prevent replay attacks\n\
-  \                (or :action    # payload to sign, represents the requested \
-   action\n\
-  \                   (pair :transfer    # transfer tokens\n\
-  \                      (mutez %amount) # amount to transfer\n\
-  \                      (contract %dest unit)) # destination to transfer to\n\
-  \                   (or\n\
-  \                      (option %delegate key_hash) # change the delegate to \
-   this address\n\
-  \                      (pair %change_keys          # change the keys \
-   controlling the multisig\n\
-  \                         (nat %threshold)         # new threshold\n\
-  \                         (list %keys key)))))     # new list of keys\n\
-  \             (list %sigs (option signature)));    # signatures\n\n\
-   storage (pair (nat %stored_counter) (pair (nat %threshold) (list %keys \
-   key))) ;\n\n\
+  Api.print_code 
+  "parameter (int); \n\
+   storage (int); \n\n\
    code\n\
-  \  {\n\
-  \    UNPAIR ; SWAP ; DUP ; DIP { SWAP } ;\n\
-  \    DIP\n\
-  \      {\n\
-  \        UNPAIR ;\n\
-  \        # pair the payload with the current contract address, to ensure \
-   signatures\n\
-  \        # can't be replayed across different contracts if a key is reused.\n\
-  \        DUP ; SELF ; ADDRESS ; CHAIN_ID ; PAIR ; PAIR ;\n\
-  \        PACK ; # form the binary payload that we expect to be signed\n\
-  \        DIP { UNPAIR @counter ; DIP { SWAP } } ; SWAP\n\
-  \      } ;\n\n\
-  \    # Check that the counters match\n\
-  \    UNPAIR @stored_counter; DIP { SWAP };\n\
-  \    ASSERT_CMPEQ ;\n\n\
-  \    # Compute the number of valid signatures\n\
-  \    DIP { SWAP } ; UNPAIR @threshold @keys;\n\
-  \    DIP\n\
-  \      {\n\
-  \        # Running count of valid signatures\n\
-  \        PUSH @valid nat 0; SWAP ;\n\
-  \        ITER\n\
-  \          {\n\
-  \            DIP { SWAP } ; SWAP ;\n\
-  \            IF_CONS\n\
-  \              {\n\
-  \                IF_SOME\n\
-  \                  { SWAP ;\n\
-  \                    DIP\n\
-  \                      {\n\
-  \                        SWAP ; DIIP { DUUP } ;\n\
-  \                        # Checks signatures, fails if invalid\n\
-  \                        { DUUUP; DIP {CHECK_SIGNATURE}; SWAP; IF {DROP} \
-   {FAILWITH} };\n\
-  \                        PUSH nat 1 ; ADD @valid } }\n\
-  \                  { SWAP ; DROP }\n\
-  \              }\n\
-  \              {\n\
-  \                # There were fewer signatures in the list\n\
-  \                # than keys. Not all signatures must be present, but\n\
-  \                # they should be marked as absent using the option type.\n\
-  \                FAIL\n\
-  \              } ;\n\
-  \            SWAP\n\
-  \          }\n\
-  \      } ;\n\
-  \    # Assert that the threshold is less than or equal to the\n\
-  \    # number of valid signatures.\n\
-  \    ASSERT_CMPLE ;\n\
-  \    DROP ; DROP ;\n\n\
-  \    # Increment counter and place in storage\n\
-  \    DIP { UNPAIR ; PUSH nat 1 ; ADD @new_counter ; PAIR} ;\n\n\
-  \    # We have now handled the signature verification part,\n\
-  \    # produce the operation requested by the signers.\n\
-  \    NIL operation ; SWAP ;\n\
-  \    IF_LEFT\n\
-  \      { # Transfer tokens\n\
-  \        UNPAIR ; UNIT ; TRANSFER_TOKENS ; CONS }\n\
-  \      { IF_LEFT {\n\
-  \                  # Change delegate\n\
-  \                  SET_DELEGATE ; CONS }\n\
-  \                {\n\
-  \                  # Change set of signatures\n\
-  \                  DIP { SWAP ; CAR } ; SWAP ; PAIR ; SWAP }} ;\n\
-  \    PAIR }\n"
+    {\n\
+      CAR;
+      PUSH int 1;
+      ADD;
+      NIL operation;
+      PAIR};\n"
   >>= function 
     | Ok ans -> print_endline ans; print_endline "Ok" ; Lwt.return_ok ()
     | Error err -> Lwt.return_error err
