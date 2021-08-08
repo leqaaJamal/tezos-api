@@ -140,7 +140,6 @@ let run_get_print_code () =
   \    PUSH int 1;\n\
   \    ADD;\n\
   \    NIL operation;\n\
-  \    PAIR;\n\
   \    PAIR }\n"
   >>= function 
     | Ok ans -> print_endline ans; print_endline "Ok" ; Lwt.return_ok ()
