@@ -946,7 +946,8 @@ let micheline_string_of_expression expression =
           )
           else
           (
-          asprintf "%s" (searchforstorage nodes)
+          asprintf "%s" 
+          List.map string_of_node nodes
           )
           
     |Seq (_, _) ->
