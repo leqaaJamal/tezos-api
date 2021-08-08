@@ -990,6 +990,6 @@ let micheline_string_of_expression expression =
     | Seq (_, (node1::node2::_)) ->
         asprintf
           "%s"
-          string_of_node node2
+          (string_of_node node2)
   in
   string_of_node (root expression)
