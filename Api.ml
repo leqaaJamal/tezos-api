@@ -909,7 +909,7 @@ let originate initial_storage balance src contractstring =
   in
   string_of_node (root expression) *)
 
-let micheline_string_of_expression ~zero_loc expression =
+let micheline_string_of_expression expression =
   (* let string_of_list : string list -> string =
    fun xs -> String.concat ?sep:(Some "; ") xs |> asprintf "[%s]"
   in *)
