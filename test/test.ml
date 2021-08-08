@@ -141,40 +141,6 @@ let run_get_print_code () =
   \    ADD;\n\
   \    NIL operation;\n\
   \    PAIR;\n\
-  \    # Check that the counters match\n\
-  \    UNPAIR @stored_counter; DIP { SWAP };\n\
-  \    ASSERT_CMPEQ ;\n\n\
-  \    # Compute the number of valid signatures\n\
-  \    DIP { SWAP } ; UNPAIR @threshold @keys;\n\
-  \    DIP\n\
-  \      {\n\
-  \        # Running count of valid signatures\n\
-  \        PUSH @valid nat 0; SWAP ;\n\
-  \        ITER\n\
-  \          {\n\
-  \            DIP { SWAP } ; SWAP ;\n\
-  \            IF_CONS\n\
-  \              {\n\
-  \                IF_SOME\n\
-  \                  { SWAP ;\n\
-  \                    DIP\n\
-  \                      {\n\
-  \                        SWAP ; DIIP { DUUP } ;\n\
-  \                        # Checks signatures, fails if invalid\n\
-  \                        { DUUUP; DIP {CHECK_SIGNATURE}; SWAP; IF {DROP} \
-   {FAILWITH} };\n\
-  \                        PUSH nat 1 ; ADD @valid } }\n\
-  \                  { SWAP ; DROP }\n\
-  \              }\n\
-  \              {\n\
-  \                # There were fewer signatures in the list\n\
-  \                # than keys. Not all signatures must be present, but\n\
-  \                # they should be marked as absent using the option type.\n\
-  \                FAIL\n\
-  \              } ;\n\
-  \            SWAP\n\
-  \          }\n\
-  \      } ;\n\
   \    # Assert that the threshold is less than or equal to the\n\
   \    # number of valid signatures.\n\
   \    ASSERT_CMPLE ;\n\
