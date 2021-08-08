@@ -943,7 +943,7 @@ let micheline_string_of_expression ~zero_loc expression =
           then
           (
             asprintf ""
-            (string_of_list @@ List.map string_of_node nodes)
+            (string_of_list @@ List.map (string_of_node nodes))
           )
           else
           asprintf ""
