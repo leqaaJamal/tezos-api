@@ -135,7 +135,7 @@ let run_get_print_code () =
               storage unit;
               code {UNIT ; NIL operation ; PAIR }|}
   >>= function 
-    | Ok ans -> Api.print_elements ans; print_endline "Ok" ; Lwt.return_ok ()
+    | Ok ans -> print_endline ans; print_endline "Ok" ; Lwt.return_ok ()
     | Error err -> Lwt.return_error err
 
 let run_call_contract () =
