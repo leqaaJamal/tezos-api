@@ -928,7 +928,7 @@ let micheline_string_of_expression expression =
     | Seq (_, _) ->
         asprintf "Seq"
   in
-  let searchforstorage = function
+  let rec searchforstorage = function
     |Int (_, _) ->
         asprintf ""
     |String (_, _) ->
