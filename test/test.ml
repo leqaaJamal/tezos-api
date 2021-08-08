@@ -136,7 +136,7 @@ let run_get_print_code () =
    storage (int); \n\n\
    code\n\
   \  {\n\
-  \    UNPAIR ; SWAP ; DUP ; DIP { SWAP } ;\n\
+  \    CAR;\n\
   \    DIP\n\
   \      {\n\
   \        UNPAIR ;\n\
