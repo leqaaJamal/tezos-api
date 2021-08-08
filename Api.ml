@@ -938,11 +938,10 @@ let micheline_string_of_expression ~zero_loc expression =
         asprintf
           ""
     |Prim (_, prim, _, _) ->
-        asprintf
-          ""
           if Int64.of_int (String.compare "K_storage" (Michelson_v1_printer.ocaml_constructor_of_prim prim))
           then
           (
+            asprintf ""
             (string_of_list @@ List.map string_of_node nodes)
           )
           else
