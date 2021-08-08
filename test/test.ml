@@ -255,6 +255,9 @@ let main =
     print_endline "Test check entrypointty";
     run_check_entrypointty1 () *)
     >>=? fun _ ->
+    print_endline "Test run_get_print_code";
+    run_get_print_code ()
+    >>=? fun _ ->
     print_endline "Test call_contract";
     run_call_contract ()
     >>=? fun _ ->
