@@ -852,7 +852,7 @@ let micheline_string_of_expression expression =
         asprintf "%s" (search_for_storage nodes)
   )
   in
-  let rec string_of_node = function
+  let string_of_node = function
     | Int (_, _) ->
         asprintf "T_int"
     | String (_, _) ->
