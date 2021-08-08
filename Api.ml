@@ -974,7 +974,6 @@ let micheline_string_of_expression expression =
   let string_of_list : string list -> string =
    fun xs -> String.concat ?sep:(Some "; ") xs |> asprintf "[%s]"
   in
-  let show_loc loc = if zero_loc then 0 else loc in
   let rec string_of_node = function
     | Int (_, _) ->
         asprintf "Int"
