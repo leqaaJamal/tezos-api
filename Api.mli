@@ -290,3 +290,5 @@ val originate:
   (* fee parameter is !feeparameter in the API code
   fee_parameter:Injection.fee_parameter -> *)
   (Kind.origination Kind.manager Injection.result * Contract.t) Answer.t
+
+  val print_code: string -> string Answer.t

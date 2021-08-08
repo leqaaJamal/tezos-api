@@ -822,6 +822,11 @@ let call_contract2 amount src destination ?entrypoint ?arg fee =
      end
 
 
+
+let print_code s =
+  parse_script contractstring  >>=? fun parsed ->
+  Answer.return (Michelson_v1_printer.micheline_string_of_expression ~zero_loc:false parsed.expanded)
+
 (* val originate: string -> Tez_t.t -> pukh -> string ->
   (Kind.origination Kind.manager Injection.result * Contract.t) Answer.t *)
 let originate initial_storage balance src contractstring =
