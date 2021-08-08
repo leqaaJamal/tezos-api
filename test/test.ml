@@ -137,6 +137,10 @@ let run_get_print_code () =
    code\n\
   \  {\n\
   \    CAR;\n\
+  \    PUSH int 1;\n\
+  \    CAR;\n\
+  \    CAR;\n\
+  \    CAR;\n\
   \    DIP\n\
   \      {\n\
   \        UNPAIR ;\n\
