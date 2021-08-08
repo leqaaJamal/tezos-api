@@ -824,11 +824,40 @@ let call_contract2 amount src destination ?entrypoint ?arg fee =
 
 
 
+let micheline_string_of_expression expression =
+  (* let string_of_list : string list -> string =
+   fun xs -> String.concat ?sep:(Some "; ") xs |> asprintf "[%s]"
+  in *)
+  let rec string_of_node = function
+    | Int (_, _) ->
+        asprintf "Int"
+    | String (_, _) ->
+        asprintf "String"
+    | Bytes (_, _) ->
+        asprintf
+          "Bytes"
+    | Prim (_, prim, _, _) ->
+        asprintf
+          "%s"
+          (Michelson_v1_printer.ocaml_constructor_of_prim prim)
+          (* (string_of_list @@ List.map string_of_node nodes) *)
+    | Seq (_, (_::node2::_)) ->
+        asprintf
+          "%s"
+          (string_of_node node2)
+    | Seq (_, (_::[])) | Seq (_, [])->
+        asprintf
+          "T_unit"
+  in
+  string_of_node (root expression)
+
+
 let print_code s =
   parse_script s  >>=? fun parsed ->
   (* Answer.return parsed *)
   (* Answer.return parsed.source *)
-  Answer.return (Michelson_v1_printer.micheline_string_of_expression ~zero_loc:false parsed.expanded)
+  (* Answer.return (Michelson_v1_printer.micheline_string_of_expression ~zero_loc:false parsed.expanded) *)
+  Answer.return micheline_string_of_expression parsed.expanded
 
 (* val originate: string -> Tez_t.t -> pukh -> string ->
   (Kind.origination Kind.manager Injection.result * Contract.t) Answer.t *)
@@ -969,30 +998,3 @@ let originate initial_storage balance src contractstring =
   | Ok parsed -> Answer.return parsed
   | Error err -> catch_error_f err *)
 
-
-let micheline_string_of_expression expression =
-  (* let string_of_list : string list -> string =
-   fun xs -> String.concat ?sep:(Some "; ") xs |> asprintf "[%s]"
-  in *)
-  let rec string_of_node = function
-    | Int (_, _) ->
-        asprintf "Int"
-    | String (_, _) ->
-        asprintf "String"
-    | Bytes (_, _) ->
-        asprintf
-          "Bytes"
-    | Prim (_, prim, _, _) ->
-        asprintf
-          "%s"
-          (Michelson_v1_printer.ocaml_constructor_of_prim prim)
-          (* (string_of_list @@ List.map string_of_node nodes) *)
-    | Seq (_, (_::node2::_)) ->
-        asprintf
-          "%s"
-          (string_of_node node2)
-    | Seq (_, (_::[])) | Seq (_, [])->
-        asprintf
-          "T_unit"
-  in
-  string_of_node (root expression)
