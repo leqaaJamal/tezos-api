@@ -133,14 +133,7 @@ let run_get_entrypoints () =
 let run_get_print_code () =
   Api.print_code 
   "parameter (int); \n\
-   storage (int); \n\n\
-   code\n\
-    {\n\
-      CAR;
-      PUSH int 1;
-      ADD;
-      NIL operation;
-      PAIR};\n"
+   storage (int); \n\n"
   >>= function 
     | Ok ans -> print_endline ans; print_endline "Ok" ; Lwt.return_ok ()
     | Error err -> Lwt.return_error err
