@@ -131,9 +131,9 @@ let run_get_entrypoints () =
     | Error err -> Lwt.return_error err
 
 let run_get_print_code () =
-  Api.print_code "{|parameter (or (pair %A (list int) address) (int %B));
+  Api.print_code "{parameter (or (pair %A (list int) address) (int %B));
               storage unit;
-              code {UNIT ; NIL operation ; PAIR }|}"
+              code {UNIT ; NIL operation ; PAIR }}"
   >>= function 
     | Ok ans -> print_endline ans; print_endline "Ok" ; Lwt.return_ok ()
     | Error err -> Lwt.return_error err
