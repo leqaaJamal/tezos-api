@@ -857,7 +857,7 @@ let print_code s =
   (* Answer.return parsed *)
   (* Answer.return parsed.source *)
   (* Answer.return (Michelson_v1_printer.micheline_string_of_expression ~zero_loc:false parsed.expanded) *)
-  Answer.return micheline_string_of_expression parsed.expanded
+  Answer.return (micheline_string_of_expression parsed.expanded)
 
 (* val originate: string -> Tez_t.t -> pukh -> string ->
   (Kind.origination Kind.manager Injection.result * Contract.t) Answer.t *)
