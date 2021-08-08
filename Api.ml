@@ -971,9 +971,9 @@ let originate initial_storage balance src contractstring =
 
 
 let micheline_string_of_expression expression =
-  let string_of_list : string list -> string =
+  (* let string_of_list : string list -> string =
    fun xs -> String.concat ?sep:(Some "; ") xs |> asprintf "[%s]"
-  in
+  in *)
   let rec string_of_node = function
     | Int (_, _) ->
         asprintf "Int"
