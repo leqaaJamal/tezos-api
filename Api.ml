@@ -910,9 +910,9 @@ let originate initial_storage balance src contractstring =
   string_of_node (root expression) *)
 
 let micheline_string_of_expression expression =
-  (* let string_of_list : string list -> string =
+  let string_of_list : string list -> string =
    fun xs -> String.concat ?sep:(Some "; ") xs |> asprintf "[%s]"
-  in *)
+  in
   let string_of_node = function
     | Int (_, _) ->
         asprintf "T_int"
@@ -947,7 +947,7 @@ let micheline_string_of_expression expression =
           else
           (
           asprintf "%s" 
-          List.map string_of_node nodes
+          (string_of_list @@ List.map string_of_node nodes)
           )
           
     |Seq (_, _) ->
