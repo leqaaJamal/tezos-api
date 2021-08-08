@@ -982,12 +982,12 @@ let micheline_string_of_expression expression =
     | Bytes (_, _) ->
         asprintf
           "Bytes"
-    | Prim (_, prim, nodes, _) ->
+    | Prim (_, prim, _, _) ->
         asprintf
           "%s"
           (Michelson_v1_printer.ocaml_constructor_of_prim prim)
           (* (string_of_list @@ List.map string_of_node nodes) *)
-    | Seq (_, (node1::node2::_)) ->
+    | Seq (_, (_::node2::_)) ->
         asprintf
           "%s"
           (string_of_node node2)
