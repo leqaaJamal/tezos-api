@@ -910,10 +910,10 @@ let originate initial_storage balance src contractstring =
   string_of_node (root expression) *)
 
 let micheline_string_of_expression ~zero_loc expression =
-  let string_of_list : string list -> string =
+  (* let string_of_list : string list -> string =
    fun xs -> String.concat ?sep:(Some "; ") xs |> asprintf "[%s]"
-  in
-  let rec string_of_node = function
+  in *)
+  let string_of_node = function
     | Int (_, _) ->
         asprintf "T_int"
     | String (_, _) ->
@@ -921,11 +921,10 @@ let micheline_string_of_expression ~zero_loc expression =
     | Bytes (_, _) ->
         asprintf
           "T_byte"
-    | Prim (_, prim, nodes, _) ->
+    | Prim (_, prim, _, _) ->
         asprintf
-          "%s %s"
+          "%s"
           (Michelson_v1_printer.ocaml_constructor_of_prim prim)
-          (string_of_list @@ List.map (string_of_node nodes))
     | Seq (_, _) ->
         asprintf "Seq"
   in
@@ -942,8 +941,8 @@ let micheline_string_of_expression ~zero_loc expression =
           if Int64.of_int (String.compare "K_storage" sprim)
           then
           (
-            asprintf ""
-            (string_of_list @@ List.map (string_of_node nodes))
+            asprintf "%s"
+            (string_of_node nodes)
           )
           else
           asprintf ""
