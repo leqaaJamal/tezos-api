@@ -936,13 +936,13 @@ let micheline_string_of_expression ~zero_loc expression =
     |Bytes (_, _) ->
         asprintf
           ""
-    |Prim (_, prim, nodes, _) ->
+    |Prim (_, prim, (node::_), _) ->
       let sprim = asprintf "%s" (Michelson_v1_printer.ocaml_constructor_of_prim prim) in 
           if Int64.of_int (String.compare "K_storage" sprim) = Int64.zero
           then
           (
             asprintf "%s"
-            (string_of_node nodes)
+            (string_of_node node)
           )
           else
           asprintf ""
