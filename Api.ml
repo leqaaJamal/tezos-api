@@ -986,7 +986,7 @@ let micheline_string_of_expression ~zero_loc expression =
     | Prim (_, prim, nodes, _) ->
         asprintf
           "%s %s"
-          (ocaml_constructor_of_prim prim)
+          (Michelson_v1_printer.ocaml_constructor_of_prim prim)
           (string_of_list @@ List.map string_of_node nodes)
     | Seq (loc, nodes) ->
         asprintf
