@@ -14,6 +14,11 @@ open Base
 open Int64
 open Tezos_micheline
 open Micheline
+open Protocol
+open Alpha_context
+open Tezos_micheline
+open Micheline
+open Micheline_printer
 
 (* "String (%d, \"%s\")" *)
 type puk = Signature.public_key
