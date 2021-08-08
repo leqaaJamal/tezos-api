@@ -986,10 +986,10 @@ let micheline_string_of_expression expression =
         asprintf
           "%s %s"
           (Michelson_v1_printer.ocaml_constructor_of_prim prim)
-          (string_of_list @@ List.map string_of_node nodes)
-    | Seq (_, nodes) ->
+          (* (string_of_list @@ List.map string_of_node nodes) *)
+    | Seq (_, (node1::node2::_)) ->
         asprintf
           "%s"
-          (string_of_list @@ List.map string_of_node nodes)
+          string_of_node node2
   in
   string_of_node (root expression)
