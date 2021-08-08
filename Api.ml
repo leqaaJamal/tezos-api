@@ -871,7 +871,7 @@ let originate initial_storage balance src contractstring =
 
 let micheline_string_of_expression ~zero_loc expression =
   let string_of_list : string list -> string =
-   fun xs -> String.concat "; " xs |> Format.asprintf "[%s]"
+   fun xs -> String.concat "; " ?sep:xs |> Format.asprintf "[%s]"
   in
   let show_loc loc = if zero_loc then 0 else loc in
   let rec string_of_node = function
