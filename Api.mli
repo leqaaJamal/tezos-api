@@ -292,3 +292,5 @@ val originate:
   (Kind.origination Kind.manager Injection.result * Contract.t) Answer.t
 
   val print_code: string -> string Answer.t
+
+  val micheline_string_of_expression: Script.expr -> string
