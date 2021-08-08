@@ -941,7 +941,7 @@ let micheline_string_of_expression expression =
           if Int64.of_int (String.compare "K_storage" sprim) = Int64.zero
           then
           (
-            asprintf "%s"
+            asprintf ""
             (* (string_of_node nodes) *)
           )
           else
