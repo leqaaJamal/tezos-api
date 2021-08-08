@@ -131,8 +131,8 @@ let run_get_entrypoints () =
     | Error err -> Lwt.return_error err
 
 let run_get_print_code () =
-  Api.print_code "parameter int;
-                  \ storage int;
+  Api.print_code "parameter int;\n
+                  \ storage int;\n
                   \ code {CAR;                      
                        \ PUSH int 1;               
                        \ ADD;                      
