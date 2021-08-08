@@ -15,10 +15,6 @@ open Int64
 open Tezos_micheline
 open Micheline
 
-open Alpha_context
-open Tezos_micheline
-open Micheline
-open Micheline_printer
 
 (* "String (%d, \"%s\")" *)
 type puk = Signature.public_key
@@ -915,7 +911,7 @@ let originate initial_storage balance src contractstring =
 
 let micheline_string_of_expression ~zero_loc expression =
   let string_of_list : string list -> string =
-   fun xs -> String.concat "; " xs |> Format.asprintf "[%s]"
+   fun xs -> String.concat "; " xs |> asprintf "[%s]"
   in
   let show_loc loc = if zero_loc then 0 else loc in
   let rec string_of_node = function
@@ -927,25 +923,25 @@ let micheline_string_of_expression ~zero_loc expression =
           | 1 ->
               "Z.one"
           | i ->
-              Format.asprintf "Z.of_int %d" i
+              asprintf "Z.of_int %d" i
         in
-        Format.asprintf "Int (%d, %s)" (show_loc loc) z
+        asprintf "Int (%d, %s)" (show_loc loc) z
     | String (loc, s) ->
-        Format.asprintf "String (%d, \"%s\")" (show_loc loc) s
+        asprintf "String (%d, \"%s\")" (show_loc loc) s
     | Bytes (loc, b) ->
-        Format.asprintf
+        asprintf
           "Bytes (%d, Bytes.of_string \"%s\")"
           (show_loc loc)
           Bytes.(escaped b |> to_string)
     | Prim (loc, prim, nodes, annot) ->
-        Format.asprintf
+        asprintf
           "Prim (%d, %s, %s, %s)"
           (show_loc loc)
           (ocaml_constructor_of_prim prim)
           (string_of_list @@ List.map string_of_node nodes)
           (string_of_list @@ List.map (Format.asprintf "\"%s\"") annot)
     | Seq (loc, nodes) ->
-        Format.asprintf
+        asprintf
           "Seq (%d, %s)"
           (show_loc loc)
           (string_of_list @@ List.map string_of_node nodes)
