@@ -859,6 +859,7 @@ let micheline_string_of_expression expression =
     | Bytes (_, _) ->
         asprintf "%s" (search_for_storage nodes)
     | Prim (_, prim, nodes, _) ->
+      Stdlib.print_endline (asprintf "%s" (Michelson_v1_printer.ocaml_constructor_of_prim prim));
       if Int64.of_int (String.compare "K_storage" (Michelson_v1_printer.ocaml_constructor_of_prim prim)) = Int64.zero
       then 
       (
