@@ -830,20 +830,23 @@ let micheline_string_of_expression expression =
   in *)
   let storage_type_to_string = function
     [] -> "T_unit"
-    |Int (_, _) ->
+    | node::_ ->(
+      match node with
+      |Int (_, _) ->
         asprintf "T_int"
-    |String (_, _) ->
-        asprintf "T_string"
-    |Bytes (_, _) ->
-        asprintf
-          "T_bytes"
-    |Prim (_, prim, _, _) ->
-        asprintf
-          "%s"
-          (Michelson_v1_printer.ocaml_constructor_of_prim prim)
-    |Seq (_, _) ->
-        asprintf
-          "Seq"
+      |String (_, _) ->
+          asprintf "T_string"
+      |Bytes (_, _) ->
+          asprintf
+            "T_bytes"
+      |Prim (_, prim, _, _) ->
+          asprintf
+            "%s"
+            (Michelson_v1_printer.ocaml_constructor_of_prim prim)
+      |Seq (_, _) ->
+          asprintf
+            "Seq"
+    )
   in
   let rec search_for_storage = function
   [] -> asprintf "T_unit" 
