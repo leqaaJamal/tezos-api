@@ -908,7 +908,7 @@ let print_code s =
 let check_storage_type initial_storage code =
   print_code code >>=? fun storage_type  ->
   (
-    try1 ?arg:initial_storage >>=? fun initial_type ->
+    try1 (?arg:(Some initial_storage)) ()>>=? fun initial_type ->
     (
       if Int64.of_int (String.compare storage_type initial_type) = Int64.zero
       then 
