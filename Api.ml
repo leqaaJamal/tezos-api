@@ -864,8 +864,8 @@ let micheline_string_of_expression expression =
       (
         asprintf "%s" (search_for_storage nodes)
       )  
-    | Prim (_, prim, [], _) -> 
-        asprintf "%s" (search_for_storage nodes)   
+    | Prim (_, _, [], _) -> 
+        sprintf "T_unit" 
     | Seq (_, _) ->
         asprintf "%s" (search_for_storage nodes)
   )
