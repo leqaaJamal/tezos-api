@@ -149,7 +149,7 @@ let run_check_storage_type () =
   Api.check_storage_type 
   "\"true\""
   "parameter (nat); \n\
-  storage (pair nat bool); \n\n\
+  storage (string); \n\n\
   code \n\
   \  {\n\
   \    CAR; \n\
