@@ -148,7 +148,7 @@ let run_get_print_code () =
 let run_check_storage_type () =
   Api.check_storage_type 
   "\"true\""
-  "parameter (string); \n\
+  (* "parameter (string); \n\
    storage (string); \n\n\
    code\n\
   \  {\n\
@@ -156,17 +156,17 @@ let run_check_storage_type () =
   \    PUSH int 1;\n\
   \    ADD;\n\
   \    NIL operation;\n\
-  \    PAIR }\n"
-  (* "parameter (string); \n\
-  storage (string); \n\n\
-  code \n\
-  \  {\n\
-  \    CAR; \n\
-  \    PUSH bool True; \n\
-  \    SWAP; \n\
-  \    PAIR; \n\ 
-  \    NIL operation; \n\
   \    PAIR }\n" *)
+  "parameter (string); \n\
+  storage (string); \n\n\
+  code\n\
+  \  {\n\
+  \    CAR;\n\
+  \    PUSH bool True;\n\
+  \    SWAP;\n\
+  \    PAIR;\n\ 
+  \    NIL operation;\n\
+  \    PAIR }\n"
   >>= function 
     | Ok ans -> print_endline ans; print_endline "Ok" ; Lwt.return_ok ()
     | Error err -> Lwt.return_error err
