@@ -904,6 +904,25 @@ let print_code s =
   (* Answer.return (Michelson_v1_printer.micheline_string_of_expression ~zero_loc:false parsed.expanded) *)
   Answer.return (micheline_string_of_expression parsed.expanded)
 
+
+let check_storage_type initial_storage code =
+  print_code code >>=? fun storage_type  ->
+  (
+    try1 ?arg:initial_storage >>=? fun initial_type ->
+    (
+      if Int64.of_int (String.compare storage_type initial_type) = Int64.zero
+      then 
+      (
+        (* asprintf "%s" (Michelson_v1_printer.ocaml_constructor_of_prim prim) *)
+        Answer.return "true"
+      )
+      else
+      (
+        Answer.return "false"
+      )   
+    )
+  )   
+
 (* val originate: string -> Tez_t.t -> pukh -> string ->
   (Kind.origination Kind.manager Injection.result * Contract.t) Answer.t *)
 let originate initial_storage balance src contractstring =
