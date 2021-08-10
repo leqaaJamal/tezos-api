@@ -148,7 +148,7 @@ let run_get_print_code () =
 let run_check_storage_type () =
   Api.check_storage_type 
   "\"true\""
-  "parameter (nat); \n\
+  "parameter (string); \n\
   storage (string); \n\n\
   code \n\
   \  {\n\
