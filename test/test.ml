@@ -148,17 +148,61 @@ let run_get_print_code () =
 let run_check_storage_type () =
   Api.check_storage_type 
   "\"true\""
-  "parameter (int); \n\
-   storage (int); \n\n\
+  "parameter (nat); \n\
+  storage (pair nat bool); \n\n\
+  code \n\
+  \  {\n\
+  \    CAR; \n\
+  \    PUSH bool True; \n\
+  \    SWAP; \n\
+  \    PAIR; \n\ 
+  \    NIL operation; \n\
+  \    PAIR }\n"
+  >>= function 
+    | Ok ans -> print_endline ans; print_endline "Ok" ; Lwt.return_ok ()
+    | Error err -> Lwt.return_error err
+
+(* "parameter (nat); \n\
+ storage (pair nat bool); \n\n\
+ code \n\
+ \  {\n\
+ \    CAR; \n\
+ \    PUSH bool True; \n\
+ \    SWAP; \n\
+ \    PAIR; \n\ 
+ \    NIL operation; \n\
+ \    PAIR }\n" *)
+
+(* "parameter (string); \n\
+   storage (string); \n\n\
    code\n\
   \  {\n\
   \    CAR;\n\
   \    PUSH int 1;\n\
   \    ADD;\n\
   \    NIL operation;\n\
-  \    PAIR }\n"
+  \    PAIR }\n" *)
+
+let run_originate () =
+ Api.get_pukh_from_alias "test3"
+ >>=? fun pukh ->
+ let amount = Api.Tez_t.tez 1.0 in
+ (* let fees = Api.Tez_t.tez 0.0001 in *)
+ let contractcode = 
+ "parameter (nat); \n\
+  storage (pair nat bool); \n\n\
+  code \n\
+  \  {\n\
+  \    CAR; \n\
+  \    PUSH bool True; \n\
+  \    SWAP; \n\
+  \    PAIR; \n\ 
+  \    NIL operation; \n\
+  \    PAIR }\n" in 
+  Api.originate 
+  "\"true\"" amount pukh contractcode
   >>= function 
-    | Ok ans -> print_endline ans; print_endline "Ok" ; Lwt.return_ok ()
+    | Ok _ -> print_endline "Ok" ; Lwt.return_ok ()
     | Error err -> Lwt.return_error err
 
 let run_call_contract () =
