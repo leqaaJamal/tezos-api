@@ -12,26 +12,6 @@ let spec_list = [
     ("-v", Arg.Set debug, ": enables debug mode (prints the whole Tezos error trace)")
   ]
 
-(* let storage_type_to_string = function
-    [] -> "T_unit"
-    | node::_ ->(
-      match node with
-      |Int (_, _) ->
-        asprintf "T_int"
-      |String (_, _) ->
-          asprintf "T_string"
-      |Bytes (_, _) ->
-          asprintf
-            "T_bytes"
-      |Prim (_, prim, _, _) ->
-          asprintf
-            "%s"
-            (Michelson_v1_printer.ocaml_constructor_of_prim prim)
-      |Seq (_, _) ->
-          asprintf
-            "Seq"
-    )
-  in *)
 let str_of_err err = match err with
   | Api_error.Rejection Insufficient_balance -> "Insufficient_balance"
   | Api_error.Rejection Insufficient_fee -> "Insufficient_fee"
