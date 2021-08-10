@@ -193,9 +193,7 @@ let run_originate () =
    storage (string); \n\n\
    code\n\
   \  {\n\
-  \    CAR;\n\
-  \    PUSH int 1;\n\
-  \    ADD;\n\
+  \    CAR;\n\s
   \    NIL operation;\n\
   \    PAIR }\n" in 
   Api.originate 
