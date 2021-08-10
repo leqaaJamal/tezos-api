@@ -888,7 +888,7 @@ let micheline_string_of_expression expression =
           (Michelson_v1_printer.ocaml_constructor_of_prim prim)
           (* (string_of_list @@ List.map string_of_node nodes) *)
     | Seq (_, nodes) ->
-        print_endline "here";
+        Base.print_endline "here";
         asprintf
           "%s"
           (search_for_storage nodes)
