@@ -200,7 +200,7 @@ let run_originate () =
   \    NIL operation;\n\
   \    PAIR }\n" in 
   Api.originate 
-  "String \"true\"" amount pukh contractcode
+  "string \"true\"" amount pukh contractcode
   >>= function 
     | Ok _ -> print_endline "Ok" ; Lwt.return_ok ()
     | Error err -> Lwt.return_error err
