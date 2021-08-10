@@ -863,11 +863,13 @@ let micheline_string_of_expression expression =
       then 
       (
         (* asprintf "%s" (storage_type_to_string nodes) *)
+        Stdlib.print_endline "found K_storage";
         asprintf "%s" (Michelson_v1_printer.ocaml_constructor_of_prim prim)
 
       )
       else
       (
+        Stdlib.print_endline "search for K_storage";
         asprintf "%s" (search_for_storage nodes)
       )
     | Seq (_, _) ->
