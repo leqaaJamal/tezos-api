@@ -842,7 +842,7 @@ let micheline_string_of_expression expression =
       if Int64.of_int (String.compare "K_storage" (Michelson_v1_printer.ocaml_constructor_of_prim prim)) = Int64.zero
       then 
       (
-        asprintf "%s" (string_of_expression node1)
+        asprintf "%s" (string_of_node node1)
       )
       else
       (
