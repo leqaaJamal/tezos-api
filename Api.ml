@@ -828,7 +828,7 @@ let micheline_string_of_expression expression =
   (* let string_of_list : string list -> string =
    fun xs -> String.concat ?sep:(Some "; ") xs |> asprintf "[%s]"
   in *)
-  let storage_type_to_string = function
+  (* let storage_type_to_string = function
     [] -> "T_unit"
     | node::_ ->(
       match node with
@@ -847,7 +847,7 @@ let micheline_string_of_expression expression =
           asprintf
             "Seq"
     )
-  in
+  in *)
   let rec search_for_storage = function
   [] -> asprintf "T_unit" 
   | node::nodes -> (
@@ -862,7 +862,9 @@ let micheline_string_of_expression expression =
       if Int64.of_int (String.compare "K_storage" (Michelson_v1_printer.ocaml_constructor_of_prim prim)) = Int64.zero
       then 
       (
-        asprintf "%s" (storage_type_to_string nodes)
+        (* asprintf "%s" (storage_type_to_string nodes) *)
+        asprintf "%s" (Michelson_v1_printer.ocaml_constructor_of_prim prim)
+
       )
       else
       (
