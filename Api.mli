@@ -279,6 +279,7 @@ val originate:
   (* the transfered balanced from source to the "to be originated" contract, take Tez_t.t*)
   (* balance:Tez.t -> *)
   Tez_t.t ->
+  Tez_t.t ->
   (* pukh, pk, sk for source -> will use pukh instead of the next 3*)
   (* source:public_key_hash ->
   src_pk:public_key ->

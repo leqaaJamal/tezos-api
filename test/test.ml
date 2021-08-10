@@ -188,6 +188,7 @@ let run_originate () =
  >>=? fun pukh ->
  let amount = Api.Tez_t.tez 1.0 in
  (* let fees = Api.Tez_t.tez 0.0001 in *)
+ let fees = Api.Tez_t.tez 0.0001 in
  let contractcode = 
   "parameter (string); \n\
    storage (string); \n\n\
@@ -197,7 +198,7 @@ let run_originate () =
   \    NIL operation;\n\
   \    PAIR }\n" in 
   Api.originate 
-  "\"true\"" amount pukh contractcode
+  "\"true\"" amount fees pukh contractcode
   >>= function 
     | Ok _ -> print_endline "Ok" ; Lwt.return_ok ()
     | Error err -> Lwt.return_error err

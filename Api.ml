@@ -925,7 +925,7 @@ let check_storage_type initial_storage code =
 
 (* val originate: string -> Tez_t.t -> pukh -> string ->
   (Kind.origination Kind.manager Injection.result * Contract.t) Answer.t *)
-let originate initial_storage balance src contractstring =
+let originate initial_storage balance fee src contractstring =
   Client_keys.get_key !ctxt src
   >>= function
   | Error err -> catch_error_f err
@@ -939,6 +939,7 @@ let originate initial_storage balance src contractstring =
         ctxt_proto
         ~chain:!ctxt#chain
         ~block:!ctxt#block
+        ?fee:(Some fee)
         (* ?branch
         ?confirmations
         ?dry_run
