@@ -145,6 +145,22 @@ let run_get_print_code () =
     | Ok ans -> print_endline ans; print_endline "Ok" ; Lwt.return_ok ()
     | Error err -> Lwt.return_error err
 
+let run_check_storage_type () =
+  Api.check_storage_type 
+  "1"
+  "parameter (int); \n\
+   storage (int); \n\n\
+   code\n\
+  \  {\n\
+  \    CAR;\n\
+  \    PUSH int 1;\n\
+  \    ADD;\n\
+  \    NIL operation;\n\
+  \    PAIR }\n"
+  >>= function 
+    | Ok ans -> print_endline ans; print_endline "Ok" ; Lwt.return_ok ()
+    | Error err -> Lwt.return_error err
+
 let run_call_contract () =
   Api.get_pukh_from_alias "test3"
   >>=? fun pukh ->
@@ -267,6 +283,9 @@ let main =
     >>=? fun _ ->
     print_endline "Test run_get_print_code";
     run_get_print_code ()
+    >>=? fun _ ->
+    print_endline "Test run_check_storage_type";
+    run_check_storage_type ()
     >>=? fun _ ->
     print_endline "Test call_contract";
     run_call_contract ()
