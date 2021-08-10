@@ -838,11 +838,11 @@ let micheline_string_of_expression expression =
         asprintf "%s" (search_for_storage nodes)
     | Bytes (_, _) ->
         asprintf "%s" (search_for_storage nodes)
-    | Prim (_, prim, _, _) ->
+    | Prim (_, prim, (node1::_), _) ->
       if Int64.of_int (String.compare "K_storage" (Michelson_v1_printer.ocaml_constructor_of_prim prim)) = Int64.zero
       then 
       (
-        asprintf "%s" (Michelson_v1_printer.ocaml_constructor_of_prim prim)
+        asprintf "%s" (string_of_expression node1)
       )
       else
       (
