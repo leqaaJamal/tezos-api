@@ -935,11 +935,12 @@ let originate initial_storage balance fee src contractstring =
       (
       parse_script contractstring  >>=? fun parsed ->
       (
+      set_fee_parameters ?burn_cap:(Some fee)()();
       Client_proto_context.originate_contract
         ctxt_proto
         ~chain:!ctxt#chain
         ~block:!ctxt#block
-        ?fee:(Some fee)
+        (* ?fee:(Some fee) *)
         (* ?branch
         ?confirmations
         ?dry_run
