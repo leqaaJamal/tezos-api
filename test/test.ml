@@ -301,8 +301,6 @@ let main =
     print_endline "Test get_balance1";
     run_get_balance1 ()
     >>=? fun _ ->
-    print_endline "Test run_originate";
-    run_originate ()
     (* print_endline "Test query";
     run_query ()
     >>=? fun _ -> *)
@@ -332,6 +330,9 @@ let main =
     >>=? fun _ ->
     print_endline "Test run_check_storage_type";
     run_check_storage_type ()
+    >>=? fun _ ->
+    print_endline "Test run_originate";
+    run_originate ()
     >>=? fun _ ->
     print_endline "Test call_contract";
     run_call_contract ()
