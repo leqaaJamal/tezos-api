@@ -147,7 +147,7 @@ let run_get_print_code () =
 
 let run_check_storage_type () =
   Api.check_storage_type 
-  "1"
+  "\"true\""
   "parameter (int); \n\
    storage (int); \n\n\
    code\n\
