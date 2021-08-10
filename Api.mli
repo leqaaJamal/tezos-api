@@ -294,3 +294,5 @@ val originate:
   val print_code: string -> string Answer.t
 
   val micheline_string_of_expression: Script.expr -> string
+
+  val check_storage_type: string -> string -> string Answer.t
