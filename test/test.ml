@@ -198,7 +198,7 @@ let run_originate () =
   \    NIL operation;\n\
   \    PAIR }\n" in 
   Api.originate 
-  "\"true\"" amount fees pukh contractcode
+  "1" amount fees pukh contractcode
   >>= function 
     | Ok _ -> print_endline "Ok" ; Lwt.return_ok ()
     | Error err -> Lwt.return_error err
