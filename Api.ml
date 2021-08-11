@@ -940,10 +940,10 @@ let originate initial_storage balance fee src contractstring =
         ctxt_proto
         ~chain:!ctxt#chain
         ~block:!ctxt#block
+        ?dry_run:(Some true)
         (* ?fee:(Some fee) *)
         (* ?branch
         ?confirmations
-        ?dry_run
         ?fee
         ?gas_limit
         ?storage_limit
