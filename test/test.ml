@@ -196,7 +196,7 @@ let run_originate () =
   \  {\n\
   \    CAR;\n\
   \    PUSH int 1;\n\
-  \    ADD;\n\  
+  \    ADD;\n\
   \    NIL operation;\n\
   \    PAIR }\n" in 
   Api.originate 
