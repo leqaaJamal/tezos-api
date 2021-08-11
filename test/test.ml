@@ -190,11 +190,13 @@ let run_originate () =
  (* let fees = Api.Tez_t.tez 0.0001 in *)
  let fees = Api.Tez_t.tez 0.0755 in
  let contractcode = 
-  "parameter (string); \n\
+  "parameter (int); \n\
    storage (int); \n\n\
    code\n\
   \  {\n\
   \    CAR;\n\
+  \    PUSH int 1;\n\
+  \    ADD;\n\  
   \    NIL operation;\n\
   \    PAIR }\n" in 
   Api.originate 
