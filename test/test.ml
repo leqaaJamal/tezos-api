@@ -188,7 +188,7 @@ let run_originate () =
  >>=? fun pukh ->
  let amount = Api.Tez_t.tez 1.0 in
  (* let fees = Api.Tez_t.tez 0.0001 in *)
- let fees = Api.Tez_t.tez 0.0755 in
+ let fees = Api.Tez_t.tez 0.07575 in
  let contractcode = 
   "parameter (int); \n\
    storage (int); \n\n\
