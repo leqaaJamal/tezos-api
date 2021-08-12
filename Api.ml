@@ -57,7 +57,7 @@ let mtype1_to_string = function
 
 type mtype = 
 | Tstring of string
-| Tint of int
+| <int> of int 
 | Tbool of bool
 | Tunit of unit
 
