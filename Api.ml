@@ -53,14 +53,29 @@ let mtype1_to_string = function
   string_of (mtype1 arg) *)
 
 
-
+(* type ty =
+  | TAddress
+  | TBool
+  | TInt
+  | TNat
+  | TList of ty
+  | TOption of ty
+  | TSet of ty
+  | TMap of ty * ty
+  | TMutez
+  | TOr of ty * ty
+  | TPair of ty * ty
+  | TString
+  | TUnit
+  | TContract of ty
+  | TOperation
+  | TAny *)
 
 type mtype = 
 | Tstring of string
 | Tint of int 
 | Tbool of bool
 | Tunit of unit
-| Tpair of mtype * mtype 
 
 let mtype_to_string = function
 | Tstring _-> "T_string"
