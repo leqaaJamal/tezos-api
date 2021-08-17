@@ -249,7 +249,7 @@ let run_try1 () =
     | Error err -> Lwt.return_error err *)
 
 let run_value_to_string () =
-  Api.value_to_string (Int 1)
+  Api.value_to_string (Tint 1)
   >>= function
     | Ok out -> print_endline "Ok"; print_endline out; Lwt.return_ok ()
     | Error err -> Lwt.return_error err
