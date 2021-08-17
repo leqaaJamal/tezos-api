@@ -251,7 +251,7 @@ let run_try1 () =
 let run_value_to_string () =
   Api.value_to_string (Tint 1)
   >>= function
-    out -> print_endline "Ok"; print_endline out; Lwt.return_ok ()
+    out -> print_endline "Ok"; print_endline out
 
 
 let run_get_code () =
