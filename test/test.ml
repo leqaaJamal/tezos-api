@@ -249,7 +249,7 @@ let run_try1 () =
     | Error err -> Lwt.return_error err *)
 
 let run_value_to_string () =
-  let out = Api.value_to_string (Bool True) in 
+  let out = Api.value_to_string (Bool true) in 
   (
   print_endline "Ok";
   print_endline out;
