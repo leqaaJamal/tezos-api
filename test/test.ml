@@ -252,7 +252,8 @@ let run_value_to_string () =
   let out = Api.value_to_string (Tint 1) in 
   (
   print_endline "Ok";
-  print_endline out; 
+  print_endline out;
+  Lwt.return_ok ()
   )
 
 
