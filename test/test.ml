@@ -249,9 +249,11 @@ let run_try1 () =
     | Error err -> Lwt.return_error err *)
 
 let run_value_to_string () =
-  Api.value_to_string (Tint 1)
-  >>= function
-    out -> print_endline "Ok"; print_endline out
+  let out = Api.value_to_string (Tint 1) in 
+  (
+  print_endline "Ok";
+  print_endline out; 
+  )
 
 
 let run_get_code () =
