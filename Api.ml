@@ -72,8 +72,8 @@ let mtype1_to_string = function
   | TAny *)
 
 type mtype = 
-| String of string
-| Int of int 
+| Tstring of string
+| Tint of int 
 | Bool of bool
 | Unit of unit
 | List of mtype list
@@ -82,8 +82,8 @@ type mtype =
 (* | Or of [‘Left of ’l | ‘Right of ’r] Mtype *)
 
 let mtype_to_string = function
-| String _-> "T_string"
-| Int _-> "T_int"
+| Tstring _-> "T_string"
+| Tint _-> "T_int"
 | Bool _ -> "T_bool"
 | Unit _ -> "T_unit"
 | List _ -> "T_list"
@@ -100,8 +100,8 @@ let rec string_of_list = function
    )
 in 
 match value with 
-| String x -> asprintf "\"%s\"" x
-| Int x -> asprintf "%i" x
+| Tstring x -> asprintf "\"%s\"" x
+| Tint x -> asprintf "%i" x
 | Bool x -> asprintf "bool %b" x
 | Unit x -> asprintf "unit %s" (Unit.to_string x)
 | List x -> 
