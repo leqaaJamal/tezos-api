@@ -54,41 +54,110 @@ let mtype1_to_string = function
 
 
 (* type ty =
-  | TAddress
-  | TBool
+  | TString
   | TInt
+  | TBool
+  | TAddress
   | TNat
+  | TOr of ty * ty
+  | TPair of ty * ty
+  | TUnit
   | TList of ty
   | TOption of ty
   | TSet of ty
   | TMap of ty * ty
   | TMutez
-  | TOr of ty * ty
-  | TPair of ty * ty
-  | TString
-  | TUnit
   | TContract of ty
   | TOperation
   | TAny *)
 
 type mtype = 
-| Tstring of string
-| Tint of int 
-| Tbool of bool
-| Tunit of unit
+| String of string
+| Int of int 
+| Bool of bool
+| Unit of unit
+| List of mtype list
+| Option of mtype option
+(* | Pair of (mtype * mtype) *)
+(* | Or of [‘Left of ’l | ‘Right of ’r] Mtype *)
 
 let mtype_to_string = function
-| Tstring _-> "T_string"
-| Tint _-> "T_int"
-| Tbool _ -> "T_bool"
-| Tunit _ -> "T_unit"
+| String _-> "T_string"
+| Int _-> "T_int"
+| Bool _ -> "T_bool"
+| Unit _ -> "T_unit"
+| List _ -> "T_list"
+| Option _ -> "T_option"
+(* | Pair _ -> "T_pair" *)
 
-let value_to_string = function
-| Tstring x -> asprintf "%s" x
-| Tint x -> asprintf "%i" x
-| Tbool x -> asprintf "%b" x
-| Tunit x -> Unit.to_string x
+let rec value_to_string value =
+let rec string_of_list = function 
+ [] -> asprintf " "
+ | (hd::tl) -> (
+   asprintf "%s %s"
+   (value_to_string hd)
+   (string_of_list tl)
+   )
+in 
+match value with 
+| String x -> asprintf "\"%s\"" x
+| Int x -> asprintf "%i" x
+| Bool x -> asprintf "bool %b" x
+| Unit x -> asprintf "unit %s" (Unit.to_string x)
+| List x -> 
+( asprintf "list %s"
+  (string_of_list x)
+)
+| Option x -> 
+(
+  match x with 
+  | None -> asprintf "option None"
+  | Some v -> asprintf "option Some %s" (value_to_string v)
+)
+(* | Pair x -> "T_pair" *)
     
+(* | T_bool ->
+      "bool"
+  | T_int ->
+      "int"
+  | T_key ->
+      "key"
+  | T_key_hash ->
+      "key_hash"
+  | T_lambda ->
+      "lambda"
+  | T_list ->
+      "list"
+  | T_nat ->
+      "nat"
+  | T_option ->
+      "option"
+  | T_or ->
+      "or"
+  | T_pair ->
+      "pair"
+  | T_signature ->
+      "signature"
+  | T_string ->
+      "string"
+  | T_bytes ->
+      "bytes"
+  | T_mutez ->
+      "mutez"
+  | T_timestamp ->
+      "timestamp"
+  | T_unit ->
+      "unit"
+  | T_operation ->
+      "operation"
+  | T_address ->
+      "address"
+  | T_bls12_381_g1 ->
+      "bls12_381_g1"
+  | T_bls12_381_g2 ->
+      "bls12_381_g2"
+  | T_bls12_381_fr ->
+      "bls12_381_fr"*)
 
 
 
