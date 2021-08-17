@@ -41,6 +41,8 @@ type mtype =
 | Unit of unit
 | List of mtype list
 | Option of mtype option
+| Pair of (mtype * mtype)
+
 
 val mtype_to_string: mtype -> string
 val value_to_string: mtype -> string
