@@ -248,6 +248,12 @@ let run_try1 () =
     | Ok out -> print_endline "Ok"; print_endline out; Lwt.return_ok ()
     | Error err -> Lwt.return_error err *)
 
+let run_value_to_string () =
+  Api.value_to_string (Int 1)
+  >>= function
+    | Ok out -> print_endline "Ok"; print_endline out; Lwt.return_ok ()
+    | Error err -> Lwt.return_error err
+
 
 let run_get_code () =
   Api.get_contract "auction"
@@ -333,6 +339,9 @@ let main =
     >>=? fun _ ->
     print_endline "Test run_originate";
     run_originate ()
+    >>=? fun _ ->
+    print_endline "Test run_value_to_string";
+    run_value_to_string ()
     >>=? fun _ ->
     print_endline "Test call_contract";
     run_call_contract ()
