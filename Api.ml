@@ -102,7 +102,7 @@ in
 match value with 
 | Tstring x -> asprintf "\"%s\"" x
 | Tint x -> asprintf "%i" x
-| Bool x -> asprintf "bool %b" x
+| Bool x -> asprintf "bool \"%b\"" x
 | Unit x -> asprintf "unit %s" (Unit.to_string x)
 | List x -> 
 ( asprintf "list %s"
