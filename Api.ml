@@ -78,7 +78,7 @@ type mtype =
 | Unit of unit
 | List of mtype list
 | Option of mtype option
-(* | Pair of (mtype * mtype) *)
+| Pair of (mtype * mtype)
 (* | Or of [‘Left of ’l | ‘Right of ’r] Mtype *)
 
 let mtype_to_string = function
@@ -88,7 +88,7 @@ let mtype_to_string = function
 | Unit _ -> "T_unit"
 | List _ -> "T_list"
 | Option _ -> "T_option"
-(* | Pair _ -> "T_pair" *)
+| Pair _ -> "T_pair"
 
 let rec value_to_string value =
 let rec string_of_list = function 
@@ -114,7 +114,7 @@ match value with
   | None -> asprintf "option None"
   | Some v -> asprintf "option Some %s" (value_to_string v)
 )
-(* | Pair x -> "T_pair" *)
+| Pair (rightx,leftx) -> asprintf "pair %s %s" (value_to_string rightx) (value_to_string leftx)
     
 (* | T_bool ->
       "bool"
