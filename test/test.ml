@@ -249,7 +249,7 @@ let run_try1 () =
     | Error err -> Lwt.return_error err *)
 
 let run_value_to_string () =
-  let out = Api.value_to_string (List [1;2;3]) in 
+  let out = Api.value_to_string (List [(Tint 1);(Tint 2);(Tint 3)]) in 
   (
   print_endline "Ok";
   print_endline out;
