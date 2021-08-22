@@ -222,7 +222,7 @@ let run_originate2 () =
   \    NIL operation;\n\
   \    PAIR }\n" in 
   Api.originate2 
-  (Int 1) amount fees pukh contractcode
+  (Tint 1) amount fees pukh contractcode
   >>= function 
     | Ok _ -> print_endline "Ok" ; Lwt.return_ok ()
     | Error err -> Lwt.return_error err
