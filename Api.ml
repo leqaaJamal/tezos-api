@@ -903,7 +903,7 @@ let call_contract3 amount src destination ?entrypoint ?arg fee =
   | Ok (_, src_pk, src_sk) ->
      begin
      (* here should check the type and change the arg to string *)
-     let argstring = value_to_string (get_mtype_option ?param:arg ())
+     let argstring = value_to_string (get_mtype_option ?param:arg ()) in 
      let entryp = get_entry ?entrypoint:entrypoint () in 
      (
        check_type2 entryp destination ?arg:argstring () >>= function 
