@@ -27,30 +27,6 @@ type expression_michelson = Script.expr
 type tag = string
 
 
-(* type 'p mtype1 = 
-| Tstring of string
-| Tint of int
-| Tbool of bool
-| Tunit of unit
-
-let mtype1_to_string = function
-| Tstring _-> "T_string"
-| Tint _-> "T_int"
-| Tbool _ -> "T_bool"
-| Tunit _ -> "T_unit" *)
-
-(* let try2 arg =
-  let string_of = function
-    |Tint _ ->
-      asprintf "Int"
-    |Tstring _ ->
-      asprintf "String"
-    |Tbool _ ->
-      asprintf "Bool"
-    |Tunit _ ->
-      asprintf "Unit"
-  in
-  string_of (mtype1 arg) *)
 
 
 (* type ty =
@@ -84,40 +60,40 @@ let mtype_to_string = function
 | Tpair _ -> "T_pair"
 
 let rec value_to_string value =
-let rec string_of_list = function 
- [] -> asprintf ""
- | (hd::[]) ->(
-    asprintf "(%s)%s"
-   (value_to_string hd)
-   (string_of_list [])
-   )
- | (hd::tl) -> (
-   asprintf "(%s) %s"
-   (value_to_string hd)
-   (string_of_list tl)
-   )
-in 
-match value with 
-| Tstring x -> asprintf "\"%s\"" x
-| Tint x -> asprintf "%i" x
-| Tbool x ->
-(
-  if x 
-  then asprintf "bool True" 
-  else asprintf "bool False"
-) 
-| Tunit x -> asprintf "unit \"%s\"" (Unit.to_string x)
-| Tlist x -> 
-( asprintf "list %s"
-  (string_of_list x)
-)
-| Toption x -> 
-(
-  match x with 
-  | None -> asprintf "option None"
-  | Some v -> asprintf "option Some %s" (value_to_string v)
-)
-| Tpair (rightx,leftx) -> asprintf "pair (%s) (%s)" (value_to_string rightx) (value_to_string leftx)
+  let rec string_of_list = function 
+    [] -> asprintf ""
+    | (hd::[]) ->(
+        asprintf "(%s)%s"
+      (value_to_string hd)
+      (string_of_list [])
+      )
+    | (hd::tl) -> (
+      asprintf "(%s) %s"
+      (value_to_string hd)
+      (string_of_list tl)
+      )
+  in 
+  match value with 
+  | Tstring x -> asprintf "\"%s\"" x
+  | Tint x -> asprintf "%i" x
+  | Tbool x ->
+  (
+    if x 
+    then asprintf "bool True" 
+    else asprintf "bool False"
+  ) 
+  | Tunit x -> asprintf "unit \"%s\"" (Unit.to_string x)
+  | Tlist x -> 
+  ( asprintf "list %s"
+    (string_of_list x)
+  )
+  | Toption x -> 
+  (
+    match x with 
+    | None -> asprintf "option None"
+    | Some v -> asprintf "option Some %s" (value_to_string v)
+  )
+  | Tpair (rightx,leftx) -> asprintf "pair (%s) (%s)" (value_to_string rightx) (value_to_string leftx)
     
 (* | T_bool ->
       "bool"
@@ -909,6 +885,70 @@ let call_contract2 amount src destination ?entrypoint ?arg fee =
        
      )
      end
+
+let get_mtype_option ?param () =
+  match param with 
+  | None -> (String "")
+  | Some x -> x
+
+let call_contract3 amount src destination ?entrypoint ?arg fee =
+  let open Answer in
+  (match Contract.is_implicit destination with
+   | None -> Answer.return ()
+   | Some _ -> Answer.fail Not_callable )
+  >>=? fun () ->
+  Client_keys.get_key !ctxt src
+  >>= function
+  | Error err -> catch_error_f err
+  | Ok (_, src_pk, src_sk) ->
+     begin
+     (* here should check the type and change the arg to string *)
+     let argstring = value_to_string (get_mtype_option ?param:arg ())
+     let entryp = get_entry ?entrypoint:entrypoint () in 
+     (
+       check_type2 entryp destination ?arg:argstring () >>= function 
+        | Ok out -> 
+        (
+          if Int64.of_int (String.compare out "true") = Int64.zero 
+          then 
+          (
+            let ctxt_proto = new wrap_full !ctxt in
+            Lwt.catch
+              (fun () ->
+                Client_proto_context.transfer
+                  ctxt_proto
+                  ~chain:!ctxt#chain
+                  ~block:!ctxt#block
+                  ?confirmations:!ctxt#confirmations
+                  ~dry_run:false
+                  ~verbose_signing:false
+                  ~source:src
+                  ~fee
+                  ~src_pk
+                  ~src_sk
+                  ~destination
+                  ?entrypoint
+                  ?arg
+                  ~amount
+                  ~fee_parameter: !fee_parameter
+                  ())
+                exception_handler
+              >>= fun res ->
+              match res with
+              | Ok ((oph,_,_),_) -> Answer.return oph
+              | Error err -> catch_error_f err
+          )
+          else
+          (
+            Answer.fail (Unknown "types of the entrypoint and arg do not match")
+          )
+        )
+        | Error _ -> Answer.fail (Unknown "Cannot find entry point")
+       
+     )
+     end
+
+
 
 
 

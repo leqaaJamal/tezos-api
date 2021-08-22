@@ -26,13 +26,7 @@ type parsed_michelson = Michelson_v1_parser.parsed
 type expression_michelson = Script.expr
 type tag = string
 
-(* type 'p mtype1 = 
-| Tstring of string
-| Tint of int
-| Tbool of bool
-| Tunit of unit
 
-val mtype1_to_string: 'p mtype1 -> string *)
 
 type mtype = 
 | Tstring of string
@@ -46,18 +40,7 @@ type mtype =
 
 val mtype_to_string: mtype -> string
 val value_to_string: mtype -> string
-(* type _ mtype =
-| Tstring : string mtype
-| Tint : int mtype
-| Tbool : bool mtype
-| Tunit : unit mtype *)
 
-(* type mtype =
-| Tstring: string
-| Tint: int
-| Tbool: bool
-| Tunit: unit
-val string_of_argty : mtype -> string *)
 
 (** Representation of Tezos tokens (tez) *)
 module Tez_t : sig
@@ -264,6 +247,10 @@ val check_type2: string -> contract -> ?arg:string -> unit -> string Answer.t
 val get_entry: ?entrypoint:string -> unit -> string
 
 val call_contract2: Tez_t.t -> pukh -> contract -> ?entrypoint:string -> ?arg:string -> Tez_t.t -> oph Answer.t
+
+val call_contract3: Tez_t.t -> pukh -> contract -> ?entrypoint:string -> ?arg:mtype -> Tez_t.t -> oph Answer.t
+
+val get_mtype_option: ?entrypoint:mtype -> unit -> mtype
 
 val originate: 
     (* the next 8 can be not used *)
