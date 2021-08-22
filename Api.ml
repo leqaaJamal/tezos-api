@@ -87,7 +87,7 @@ let rec value_to_string value =
 let rec string_of_list = function 
  [] -> asprintf " "
  | (hd::tl) -> (
-   asprintf "%s %s"
+   asprintf "(%s) %s"
    (value_to_string hd)
    (string_of_list tl)
    )
@@ -95,7 +95,12 @@ in
 match value with 
 | Tstring x -> asprintf "\"%s\"" x
 | Tint x -> asprintf "%i" x
-| Bool x -> asprintf "bool \"%b\"" x
+| Bool x ->
+(
+  if x 
+  then asprintf "bool True" 
+  else asprintf "bool False"
+) 
 | Unit x -> asprintf "unit \"%s\"" (Unit.to_string x)
 | List x -> 
 ( asprintf "list %s"
@@ -107,7 +112,7 @@ match value with
   | None -> asprintf "option None"
   | Some v -> asprintf "option Some %s" (value_to_string v)
 )
-| Pair (rightx,leftx) -> asprintf "pair %s %s" (value_to_string rightx) (value_to_string leftx)
+| Pair (rightx,leftx) -> asprintf "pair (%s) (%s)" (value_to_string rightx) (value_to_string leftx)
     
 (* | T_bool ->
       "bool"
@@ -1054,102 +1059,5 @@ let originate initial_storage balance fee src contractstring =
      
      end
 
-(* let micheline_string_of_expression ~zero_loc expression =
-  let string_of_list : string list -> string =
-   fun xs -> String.concat "; " xs |> Format.asprintf "[%s]"
-  in
-  let show_loc loc = if zero_loc then 0 else loc in
-  let rec string_of_node = function
-    | Int (loc, i) ->
-        let z =
-          match Z.to_int i with
-          | 0 ->
-              "Z.zero"
-          | 1 ->
-              "Z.one"
-          | i ->
-              Format.asprintf "Z.of_int %d" i
-        in
-        Format.asprintf "Int (%d, %s)" (show_loc loc) z
-    | String (loc, s) ->
-        Format.asprintf "String (%d, \"%s\")" (show_loc loc) s
-    | Bytes (loc, b) ->
-        Format.asprintf
-          "Bytes (%d, Bytes.of_string \"%s\")"
-          (show_loc loc)
-          Bytes.(escaped b |> to_string)
-    | Prim (loc, prim, nodes, annot) ->
-        Format.asprintf
-          "Prim (%d, %s, %s, %s)"
-          (show_loc loc)
-          (ocaml_constructor_of_prim prim)
-          (string_of_list @@ List.map string_of_node nodes)
-          (string_of_list @@ List.map (Format.asprintf "\"%s\"") annot)
-    | Seq (loc, nodes) ->
-        Format.asprintf
-          "Seq (%d, %s)"
-          (show_loc loc)
-          (string_of_list @@ List.map string_of_node nodes)
-  in
-  string_of_node (root expression) *)
 
-(* let micheline_string_of_expression expression =
-  let string_of_list : string list -> string =
-   fun xs -> String.concat ?sep:(Some "; ") xs |> asprintf "[%s]"
-  in
-  let string_of_node = function
-    | Int (_, _) ->
-        asprintf "T_int"
-    | String (_, _) ->
-        asprintf "T_string"
-    | Bytes (_, _) ->
-        asprintf
-          "T_byte"
-    | Prim (_, prim, _, _) ->
-        asprintf
-          "%s"
-          (Michelson_v1_printer.ocaml_constructor_of_prim prim)
-    | Seq (_, _) ->
-        asprintf "Seq"
-  in
-  let rec searchforstorage = function
-    |Int (_, _) ->
-        asprintf ""
-    |String (_, _) ->
-        asprintf ""
-    |Bytes (_, _) ->
-        asprintf
-          ""
-    |Prim (_, prim, nodes, _) ->
-      let sprim = asprintf "%s" (Michelson_v1_printer.ocaml_constructor_of_prim prim) in 
-          if Int64.of_int (String.compare "K_storage" sprim) = Int64.zero
-          then
-          (
-            asprintf ""
-            (* (string_of_node nodes) *)
-          )
-          else
-          (
-          asprintf "%s" 
-          (string_of_list @@ List.map string_of_node nodes)
-
-          )
-          
-    |Seq (_, _) ->
-        asprintf
-          ""
-  in
-  searchforstorage (Micheline.root expression) *)
-
-
-(* let parse_script s =
-  Lwt.catch
-    (fun () ->
-      let parsed = Michelson_v1_parser.parse_toplevel s in
-      Lwt.return @@ Micheline_parser.no_parsing_error parsed
-    )
-    exception_handler
-  >>= function
-  | Ok parsed -> Answer.return parsed
-  | Error err -> catch_error_f err *)
 
