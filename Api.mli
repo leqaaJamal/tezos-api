@@ -37,11 +37,11 @@ val mtype1_to_string: 'p mtype1 -> string *)
 type mtype = 
 | Tstring of string
 | Tint of int 
-| Bool of bool
-| Unit of unit
-| List of mtype list
-| Option of mtype option
-| Pair of (mtype * mtype)
+| Tbool of bool
+| Tunit of unit
+| Tlist of mtype list
+| Toption of mtype option
+| Tpair of (mtype * mtype)
 
 
 val mtype_to_string: mtype -> string

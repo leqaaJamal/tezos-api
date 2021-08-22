@@ -67,21 +67,21 @@ let mtype1_to_string = function
 type mtype = 
 | Tstring of string
 | Tint of int 
-| Bool of bool
-| Unit of unit
-| List of mtype list
-| Option of mtype option
-| Pair of (mtype * mtype)
+| Tbool of bool
+| Tunit of unit
+| Tlist of mtype list
+| Toption of mtype option
+| Tpair of (mtype * mtype)
 (* | Or of [‘Left of ’l | ‘Right of ’r] Mtype *)
 
 let mtype_to_string = function
 | Tstring _-> "T_string"
 | Tint _-> "T_int"
-| Bool _ -> "T_bool"
-| Unit _ -> "T_unit"
-| List _ -> "T_list"
-| Option _ -> "T_option"
-| Pair _ -> "T_pair"
+| Tbool _ -> "T_bool"
+| Tunit _ -> "T_unit"
+| Tlist _ -> "T_list"
+| Toption _ -> "T_option"
+| Tpair _ -> "T_pair"
 
 let rec value_to_string value =
 let rec string_of_list = function 
@@ -100,24 +100,24 @@ in
 match value with 
 | Tstring x -> asprintf "\"%s\"" x
 | Tint x -> asprintf "%i" x
-| Bool x ->
+| Tbool x ->
 (
   if x 
   then asprintf "bool True" 
   else asprintf "bool False"
 ) 
-| Unit x -> asprintf "unit \"%s\"" (Unit.to_string x)
-| List x -> 
+| Tunit x -> asprintf "unit \"%s\"" (Unit.to_string x)
+| Tlist x -> 
 ( asprintf "list %s"
   (string_of_list x)
 )
-| Option x -> 
+| Toption x -> 
 (
   match x with 
   | None -> asprintf "option None"
   | Some v -> asprintf "option Some %s" (value_to_string v)
 )
-| Pair (rightx,leftx) -> asprintf "pair (%s) (%s)" (value_to_string rightx) (value_to_string leftx)
+| Tpair (rightx,leftx) -> asprintf "pair (%s) (%s)" (value_to_string rightx) (value_to_string leftx)
     
 (* | T_bool ->
       "bool"
