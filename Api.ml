@@ -906,7 +906,11 @@ let call_contract3 amount src destination ?entrypoint ?arg fee =
      let argstring = value_to_string (get_mtype_option ?param:arg ()) in 
      let entryp = get_entry ?entrypoint:entrypoint () in 
      (
-       check_type2 entryp destination ?arg:(Some argstring) () >>= function 
+       let argstringoption = (Some argstring) in 
+       ( if Int64.of_int (String.compare out "true") = Int64.zero 
+          then argstringoption=None)
+
+       check_type2 entryp destination ?arg:(argstringoption) () >>= function 
         | Ok out -> 
         (
           if Int64.of_int (String.compare out "true") = Int64.zero 
@@ -928,7 +932,7 @@ let call_contract3 amount src destination ?entrypoint ?arg fee =
                   ~src_sk
                   ~destination
                   ?entrypoint
-                  ?arg
+                  ?arg:argstringoption
                   ~amount
                   ~fee_parameter: !fee_parameter
                   ())
