@@ -374,12 +374,12 @@ let main =
     >>=? fun _ ->
     print_endline "Test run_check_storage_type";
     run_check_storage_type ()
-    (* >>=? fun _ ->
-    print_endline "Test call_contract";
-    run_call_contract () *)
     >>=? fun _ ->
+    print_endline "Test call_contract";
+    run_call_contract ()
+    (* >>=? fun _ ->
     print_endline "Test call_contract2";
-    run_call_contract2 ()
+    run_call_contract2 () *)
     >>=? fun _ ->
     print_endline "Test run_originate";
     run_originate ()
