@@ -205,6 +205,7 @@ let run_originate () =
     | Ok _ -> print_endline "Ok" ; Lwt.return_ok ()
     | Error err -> Lwt.return_error err
 
+
 let run_call_contract () =
   Api.get_pukh_from_alias "test3"
   >>=? fun pukh ->

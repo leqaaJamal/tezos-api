@@ -54,16 +54,9 @@ let mtype1_to_string = function
 
 
 (* type ty =
-  | TString
-  | TInt
-  | TBool
   | TAddress
   | TNat
   | TOr of ty * ty
-  | TPair of ty * ty
-  | TUnit
-  | TList of ty
-  | TOption of ty
   | TSet of ty
   | TMap of ty * ty
   | TMutez
