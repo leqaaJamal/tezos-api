@@ -1105,8 +1105,59 @@ let originate initial_storage balance fee src contractstring =
           )
         )
       )
-     
      end
 
+
+let originate2 initial_storage balance fee src contractstring =
+  Client_keys.get_key !ctxt src
+  >>= function
+  | Error err -> catch_error_f err
+  | Ok (_, src_pk, src_sk) ->
+     begin
+      let ctxt_proto = new wrap_full !ctxt in
+      (
+        parse_script contractstring  >>=? fun parsed ->
+        (
+          let string_of_initial_storage = value_to_string initial_storage
+          check_storage_type string_of_initial_storage contractstring >>=? fun out ->
+          (
+            if Int64.of_int (String.compare out "true") = Int64.zero
+            then 
+            (
+            set_fee_parameters ?burn_cap:(Some fee)();
+            Client_proto_context.originate_contract
+              ctxt_proto
+              ~chain:!ctxt#chain
+              ~block:!ctxt#block
+              (* ?dry_run:(Some true) *)
+              (* ?fee:(Some fee) *)
+              (* ?branch
+              ?confirmations
+              ?fee
+              ?gas_limit
+              ?storage_limit
+              ?verbose_signing *)
+              ~delegate: None
+              ~initial_storage:string_of_initial_storage
+              ~balance:balance
+              ~source:src
+              ~src_pk:src_pk
+              ~src_sk:src_sk
+              ~code:parsed.expanded
+              ~fee_parameter:!fee_parameter
+              () >>= fun res ->
+                    match res with
+                    | Ok ans -> Answer.return ans
+                    | Error err -> catch_error_f err
+            )
+            else
+            (
+              Answer.fail (Unknown "types of the storage and initial storage do not match")
+            )
+          )
+        )
+      )
+     
+     end
 
 

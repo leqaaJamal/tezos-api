@@ -253,6 +253,12 @@ val call_contract3: Tez_t.t -> pukh -> contract -> ?entrypoint:string -> ?arg:mt
 val get_mtype_option: ?param:mtype -> unit -> mtype
 
 val originate: 
+  string ->
+  Tez_t.t ->
+  Tez_t.t ->
+  pukh ->
+  string ->
+  (Kind.origination Kind.manager Injection.result * Contract.t) Answer.t
     (* the next 8 can be not used *)
   (* ?confirmations:int ->
   ?dry_run:bool ->
@@ -266,21 +272,23 @@ val originate:
   (* I am not really sure but maybe this will be compared to the storage type from the script of the contract code, 
   take a string with the initial storage *)
   (* initial_storage:string -> *)
-  string ->
   (* the transfered balanced from source to the "to be originated" contract, take Tez_t.t*)
   (* balance:Tez.t -> *)
-  Tez_t.t ->
-  Tez_t.t ->
   (* pukh, pk, sk for source -> will use pukh instead of the next 3*)
   (* source:public_key_hash ->
   src_pk:public_key ->
   src_sk:Client_keys.sk_uri -> *)
-  pukh ->
   (* the code of the contract in the script code of the contract instead of it I will take the string of the michelson contract*)
   (* code:Script.expr -> *)
-  string ->
   (* fee parameter is !feeparameter in the API code
   fee_parameter:Injection.fee_parameter -> *)
+
+  val originate2: 
+  mtype ->
+  Tez_t.t ->
+  Tez_t.t ->
+  pukh ->
+  string ->
   (Kind.origination Kind.manager Injection.result * Contract.t) Answer.t
 
   val print_code: string -> string Answer.t
