@@ -1118,7 +1118,7 @@ let originate2 initial_storage balance fee src contractstring =
       (
         parse_script contractstring  >>=? fun parsed ->
         (
-          let string_of_initial_storage = value_to_string initial_storage
+          let string_of_initial_storage = value_to_string initial_storage in 
           check_storage_type string_of_initial_storage contractstring >>=? fun out ->
           (
             if Int64.of_int (String.compare out "true") = Int64.zero
