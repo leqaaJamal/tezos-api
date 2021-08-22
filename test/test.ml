@@ -205,6 +205,28 @@ let run_originate () =
     | Ok _ -> print_endline "Ok" ; Lwt.return_ok ()
     | Error err -> Lwt.return_error err
 
+let run_originate2 () =
+ Api.get_pukh_from_alias "test3"
+ >>=? fun pukh ->
+ let amount = Api.Tez_t.tez 1.0 in
+ (* let fees = Api.Tez_t.tez 0.0001 in *)
+ let fees = Api.Tez_t.tez 0.07575 in
+ let contractcode = 
+  "parameter (int); \n\
+   storage (int); \n\n\
+   code\n\
+  \  {\n\
+  \    CAR;\n\
+  \    PUSH int 1;\n\
+  \    ADD;\n\
+  \    NIL operation;\n\
+  \    PAIR }\n" in 
+  Api.originate2 
+  (Int 1) amount fees pukh contractcode
+  >>= function 
+    | Ok _ -> print_endline "Ok" ; Lwt.return_ok ()
+    | Error err -> Lwt.return_error err
+
 
 let run_call_contract () =
   Api.get_pukh_from_alias "test3"
@@ -343,6 +365,9 @@ let main =
     >>=? fun _ ->
     print_endline "Test run_originate";
     run_originate ()
+    >>=? fun _ ->
+    print_endline "Test run_originate2";
+    run_originate2 ()
     >>=? fun _ ->
     print_endline "Test run_value_to_string";
     run_value_to_string ()
