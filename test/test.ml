@@ -240,6 +240,18 @@ let run_call_contract () =
     | Ok _ -> print_endline "Ok" ; Lwt.return_ok ()
     | Error err -> Lwt.return_error err
 
+let run_call_contract2 () =
+  Api.get_pukh_from_alias "test3"
+  >>=? fun pukh ->
+  Api.get_contract "id1"
+  >>=? fun contr ->
+  let amount = Api.Tez_t.tez 10.0 in
+  let fees = Api.Tez_t.tez 0.001 in
+  Api.call_contract3 amount pukh contr ?entrypoint:(Some "default") ?arg:(Some (Tstring "xxx")) fees
+  >>= function
+    | Ok _ -> print_endline "Ok" ; Lwt.return_ok ()
+    | Error err -> Lwt.return_error err
+
 let run_check_entrypointty () =
   Api.get_contract "id1"
   >>=? fun contr ->
@@ -371,6 +383,9 @@ let main =
     >>=? fun _ ->
     print_endline "Test run_value_to_string";
     run_value_to_string ()
+    >>=? fun _ ->
+    print_endline "Test call_contract2";
+    run_call_contract2 ()
     >>=? fun _ ->
     print_endline "Test call_contract";
     run_call_contract ()
