@@ -888,7 +888,7 @@ let call_contract2 amount src destination ?entrypoint ?arg fee =
 
 let get_mtype_option ?param () =
   match param with 
-  | None -> (String "")
+  | None -> (Tstring "")
   | Some x -> x
 
 let call_contract3 amount src destination ?entrypoint ?arg fee =
