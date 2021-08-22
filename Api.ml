@@ -906,7 +906,7 @@ let call_contract3 amount src destination ?entrypoint ?arg fee =
      let get_stringoption_of_mtype = function 
      | (Tstring "") -> None
      | x -> (Some (value_to_string x))
-     
+     in
      let argstringoption = get_stringoption_of_mtype (get_mtype_option ?param:arg ()) in 
      let entryp = get_entry ?entrypoint:entrypoint () in 
      (
