@@ -903,13 +903,13 @@ let call_contract3 amount src destination ?entrypoint ?arg fee =
   | Ok (_, src_pk, src_sk) ->
      begin
      (* here should check the type and change the arg to string *)
-     let argstring = value_to_string (get_mtype_option ?param:arg ()) in 
+     let get_stringoption_of_mtype = function 
+     | (Tstring "") -> None
+     | x -> (Some (value_to_string x))
+     
+     let argstringoption = get_stringoption_of_mtype (get_mtype_option ?param:arg ()) in 
      let entryp = get_entry ?entrypoint:entrypoint () in 
      (
-       let argstringoption = (Some argstring) in 
-       ( if Int64.of_int (String.compare argstring "\"\"") = Int64.zero 
-          then argstringoption:=None)
-
        check_type2 entryp destination ?arg:(argstringoption) () >>= function 
         | Ok out -> 
         (
