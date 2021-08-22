@@ -383,9 +383,9 @@ let main =
     >>=? fun _ ->
     print_endline "Test run_value_to_string";
     run_value_to_string ()
-    >>=? fun _ ->
+    (* >>=? fun _ ->
     print_endline "Test call_contract2";
-    run_call_contract2 ()
+    run_call_contract2 () *)
     >>=? fun _ ->
     print_endline "Test call_contract";
     run_call_contract ()
