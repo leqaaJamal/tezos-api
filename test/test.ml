@@ -251,7 +251,7 @@ let run_try1 () =
 
 let run_value_to_string () =
   (* let out = Api.value_to_string (List [(Tint 1);(Tint 2);(Tint 3)]) in  *)
-  let out = Api.value_to_string (Pair (Tint 1, Tint 2)) in 
+  let out = Api.value_to_string (Pair (List [Tint 1,Tint 2], Tint 2)) in 
   (
   print_endline "Ok";
   print_endline out;
