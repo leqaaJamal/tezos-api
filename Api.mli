@@ -250,7 +250,7 @@ val call_contract2: Tez_t.t -> pukh -> contract -> ?entrypoint:string -> ?arg:st
 
 val call_contract3: Tez_t.t -> pukh -> contract -> ?entrypoint:string -> ?arg:mtype -> Tez_t.t -> oph Answer.t
 
-val get_mtype_option: ?entrypoint:mtype -> unit -> mtype
+val get_mtype_option: ?param:mtype -> unit -> mtype
 
 val originate: 
     (* the next 8 can be not used *)
