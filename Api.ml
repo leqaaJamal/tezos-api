@@ -85,7 +85,7 @@ let mtype_to_string = function
 
 let rec value_to_string value =
 let rec string_of_list = function 
- [] -> asprintf " "
+ [] -> asprintf ""
  | (hd::tl) -> (
    asprintf "(%s) %s"
    (value_to_string hd)
