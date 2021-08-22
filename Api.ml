@@ -907,7 +907,7 @@ let call_contract3 amount src destination ?entrypoint ?arg fee =
      let entryp = get_entry ?entrypoint:entrypoint () in 
      (
        let argstringoption = (Some argstring) in 
-       ( if Int64.of_int (String.compare out "true") = Int64.zero 
+       ( if Int64.of_int (String.compare argstring "\"\"") = Int64.zero 
           then argstringoption=None)
 
        check_type2 entryp destination ?arg:(argstringoption) () >>= function 
