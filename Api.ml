@@ -924,7 +924,7 @@ let call_contract3 amount src destination ?entrypoint ?arg fee =
                   ~chain:!ctxt#chain
                   ~block:!ctxt#block
                   ?confirmations:!ctxt#confirmations
-                  ~dry_run:false
+                  ~dry_run:true
                   ~verbose_signing:false
                   ~source:src
                   ~fee
