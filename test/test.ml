@@ -374,12 +374,12 @@ let main =
     >>=? fun _ ->
     print_endline "Test run_check_storage_type";
     run_check_storage_type ()
-    >>=? fun _ ->
+    (* >>=? fun _ ->
     print_endline "Test run_originate";
     run_originate ()
     >>=? fun _ ->
     print_endline "Test run_originate2";
-    run_originate2 ()
+    run_originate2 () *)
     >>=? fun _ ->
     print_endline "Test run_value_to_string";
     run_value_to_string ()
