@@ -235,7 +235,7 @@ let run_call_contract () =
   >>=? fun contr ->
   let amount = Api.Tez_t.tez 10.0 in
   let fees = Api.Tez_t.tez 0.001 in
-  Api.call_contract2 amount pukh contr ?entrypoint:(Some "default") ?arg:(Some "bool \"true\"") fees
+  Api.call_contract2 amount pukh contr ?entrypoint:(Some "default") ?arg:(Some "\"true\"") fees
   >>= function
     | Ok _ -> print_endline "Ok" ; Lwt.return_ok ()
     | Error err -> Lwt.return_error err
