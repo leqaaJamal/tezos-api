@@ -31,15 +31,8 @@ type tag = string
 
 
 (*  
-    byte starts with 0x ->  
-    key -> Signature.public_key
-    key_hash -> Signature.public_key_hash
-    signature -> Signature.t
     lambda ty1 ty2 -> mtype mtype
     or ty1 ty2 -> mtype mtype
-    bls12_381_g1 is a byte ->
-    bls12_381_g2 is a byte ->
-    never
     address of untyped contract ->
     bls12_381_fr it can be int or byte ->
     chain_id 
@@ -54,16 +47,6 @@ type tag = string
     *)
 
     *)
-(* type ty =
-  | TAddress
-  | TNat
-  | TOr of ty * ty
-  | TSet of ty
-  | TMap of ty * ty
-  | TMutez
-  | TContract of ty
-  | TOperation
-  | TAny *)
 
 type mtype = 
 | Tstring of string
