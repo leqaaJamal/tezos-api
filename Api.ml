@@ -29,6 +29,31 @@ type tag = string
 
 
 
+
+(*  
+    byte starts with 0x ->  
+    key -> Signature.public_key
+    key_hash -> Signature.public_key_hash
+    signature -> Signature.t
+    lambda ty1 ty2 -> mtype mtype
+    or ty1 ty2 -> mtype mtype
+    bls12_381_g1 is a byte ->
+    bls12_381_g2 is a byte ->
+    never
+    address of untyped contract ->
+    bls12_381_fr it can be int or byte ->
+    chain_id 
+    mutez ->
+    nat natural numbers ->
+    timestamp ->
+    (* 
+    sapling_state n
+    sapling_transaction n
+    set cty 
+    ticket cty
+    *)
+
+    *)
 (* type ty =
   | TAddress
   | TNat
@@ -48,6 +73,15 @@ type mtype =
 | Tlist of mtype list
 | Toption of mtype option
 | Tpair of (mtype * mtype)
+| Tbytes (*starts with 0x*) of Bytes.t  
+| Tkey of Signature.public_key
+| Tkey_hash of Signature.public_key_hash
+| Tsignature of Signature.t
+| Tbls12_381_g1 (*is a byte*) of Bytes.t
+| Tbls12_381_g2 (*is a byte*) of Bytes.t
+| Tnever
+(* | Tlambda -> mtype mtype *)
+(* | Tor of mtype|mtype *)
 (* | Or of [‘Left of ’l | ‘Right of ’r] Mtype *)
 
 let mtype_to_string = function
@@ -58,6 +92,14 @@ let mtype_to_string = function
 | Tlist _ -> "T_list"
 | Toption _ -> "T_option"
 | Tpair _ -> "T_pair"
+| Tbytes _ -> "T_bytes"  
+| Tkey _ -> "T_key"
+| Tkey_hash _ -> "T_key_hash"
+| Tsignature _ -> "T_signature"
+| Tbls12_381_g1 _ -> "T_bls12_381_g1"
+| Tbls12_381_g2 _ -> "T_bls12_381_g2"
+| Tnever -> "T_never"
+
 
 let rec value_to_string value =
   let rec string_of_list = function 
@@ -94,6 +136,14 @@ let rec value_to_string value =
     | Some v -> asprintf "option Some %s" (value_to_string v)
   )
   | Tpair (rightx,leftx) -> asprintf "pair (%s) (%s)" (value_to_string rightx) (value_to_string leftx)
+  | Tbytes x -> asprintf "%s" (Bytes.to_string x)
+  | Tkey x -> asprintf "key %s" (Signature.Public_key.to_string x)
+  | Tkey_hash x -> asprintf "key_hash %s" (Signature.Public_key_hash.to_string x)
+  | Tsignature x -> asprintf "signature %s" (Signature.to_string x)
+  | Tbls12_381_g1 x -> asprintf "bls12_381_g1 %s" (Bytes.to_string x)
+  | Tbls12_381_g2 x -> asprintf "bls12_381_g2 %s" (Bytes.to_string x)
+  | Tnever -> asprintf "never"
+
     
 (* | T_bool ->
       "bool"
