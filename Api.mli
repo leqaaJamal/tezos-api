@@ -36,6 +36,13 @@ type mtype =
 | Tlist of mtype list
 | Toption of mtype option
 | Tpair of (mtype * mtype)
+| Tbytes (*starts with 0x*) of Bytes.t  
+| Tkey of Signature.public_key
+| Tkey_hash of Signature.public_key_hash
+| Tsignature of Signature.t
+| Tbls12_381_g1 (*is a byte*) of Bytes.t
+| Tbls12_381_g2 (*is a byte*) of Bytes.t
+| Tnever
 
 
 val mtype_to_string: mtype -> string
