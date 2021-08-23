@@ -137,13 +137,13 @@ let rec value_to_string value =
   )
   | Tpair (rightx,leftx) -> asprintf "pair (%s) (%s)" (value_to_string rightx) (value_to_string leftx)
   | Tbytes x -> asprintf "%s" (Bytes.to_string x)
-  | Tkey _ -> asprintf "key %a"  (Signature.Public_key.encoding x)
+  | Tkey _ -> asprintf "key %s"  (Signature.Public_key.to_b58check x)
   | Tkey_hash x -> asprintf "key_hash %s" (Signature.Public_key_hash.to_string x)
   | Tsignature x -> asprintf "signature %s" (Signature.to_string x)
   | Tbls12_381_g1 x -> asprintf "bls12_381_g1 %s" (Bytes.to_string x)
   | Tbls12_381_g2 x -> asprintf "bls12_381_g2 %s" (Bytes.to_string x)
   | Tnever -> asprintf "never"
-
+(* Bytes.to_string (to_bytes s) *)
     
 (* | T_bool ->
       "bool"
