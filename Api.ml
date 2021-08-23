@@ -34,7 +34,6 @@ type tag = string
     lambda ty1 ty2 -> mtype mtype
     or ty1 ty2 -> mtype mtype
     address of untyped contract ->
-    bls12_381_fr it can be int or byte ->
     chain_id 
     mutez ->
     nat natural numbers ->
