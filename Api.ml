@@ -130,48 +130,19 @@ let rec value_to_string value =
   | Tnever -> asprintf "never"
 (* Bytes.to_string (to_bytes s) *)
     
-(* | T_bool ->
-      "bool"
-  | T_int ->
-      "int"
-  | T_key ->
-      "key"
-  | T_key_hash ->
-      "key_hash"
+(* 
   | T_lambda ->
       "lambda"
-  | T_list ->
-      "list"
   | T_nat ->
       "nat"
-  | T_option ->
-      "option"
   | T_or ->
       "or"
-  | T_pair ->
-      "pair"
-  | T_signature ->
-      "signature"
-  | T_string ->
-      "string"
-  | T_bytes ->
-      "bytes"
   | T_mutez ->
       "mutez"
   | T_timestamp ->
       "timestamp"
-  | T_unit ->
-      "unit"
-  | T_operation ->
-      "operation"
   | T_address ->
       "address"
-  | T_bls12_381_g1 ->
-      "bls12_381_g1"
-  | T_bls12_381_g2 ->
-      "bls12_381_g2"
-  | T_bls12_381_fr ->
-      "bls12_381_fr"*)
 
 
 
