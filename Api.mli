@@ -42,6 +42,7 @@ type mtype =
 | Tsignature of Signature.t
 | Tbls12_381_g1 (*is a byte*) of Bytes.t
 | Tbls12_381_g2 (*is a byte*) of Bytes.t
+| Tbls12_381_fr of Bls12_381.Fr.t
 | Tnever
 
 

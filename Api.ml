@@ -62,6 +62,7 @@ type mtype =
 | Tsignature of Signature.t
 | Tbls12_381_g1 (*is a byte*) of Bytes.t
 | Tbls12_381_g2 (*is a byte*) of Bytes.t
+| Tbls12_381_fr of Bls12_381.Fr.t
 | Tnever
 (* | Tlambda -> mtype mtype *)
 (* | Tor of mtype|mtype *)
@@ -81,6 +82,7 @@ let mtype_to_string = function
 | Tsignature _ -> "T_signature"
 | Tbls12_381_g1 _ -> "T_bls12_381_g1"
 | Tbls12_381_g2 _ -> "T_bls12_381_g2"
+| Tbls12_381_fr _ -> "T_bls12_381_fr"
 | Tnever -> "T_never"
 
 
@@ -125,6 +127,7 @@ let rec value_to_string value =
   | Tsignature x -> asprintf "signature \"%s\"" (Signature.to_string x)
   | Tbls12_381_g1 x -> asprintf "bls12_381_g1 %s" (Bytes.to_string x)
   | Tbls12_381_g2 x -> asprintf "bls12_381_g2 %s" (Bytes.to_string x)
+  | Tbls12_381_fr x -> asprintf "bls12_381_fr %s" (Bls12_381.Fr.to_string x)
   | Tnever -> asprintf "never"
 (* Bytes.to_string (to_bytes s) *)
     
