@@ -704,9 +704,9 @@ let rec print_elements mylist =
   | (entrypoint,_)::l -> Stdlib.print_endline entrypoint;print_elements l
 
 
-let print_entrypoints entrylist =
+(* let print_entrypoints entrylist =
   let cctxt = new wrap_full !ctxt in 
-  Michelson_v1_entrypoints.print_entrypoints_list cctxt ~emacs:false entrylist
+  Michelson_v1_entrypoints.print_entrypoints_list cctxt ~emacs:false entrylist *)
 
 
 let string_of_expression expression =

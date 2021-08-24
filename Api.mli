@@ -243,12 +243,16 @@ val get_entrypoints: string -> (string * Script.expr) list Answer.t
 val print_elements: (tag * Script.expr) list -> unit 
 
 
-val print_entrypoints: (tag * Script.expr) list tzresult -> unit tzresult Lwt.t
+(* val print_entrypoints: (tag * Script.expr) list tzresult -> unit tzresult Lwt.t *)
 
-(* val print_elements_types: (tag * Script.expr) list -> (expression_michelson -> unit) *)
+(*  gets the string of an expression
+    @param the expression
+    @return string fromat of expression *)
 val string_of_expression: Script.expr -> string
 
-
+(*  gets the expression of a lazy expression 
+    @param lazy_expr
+    @retuen expr *)
 val get_expr_from_lexpr: Script.lazy_expr -> Script.expr Answer.t
 
 
