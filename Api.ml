@@ -28,7 +28,8 @@ type tag = string
 
 
 
-
+(* get_contract_address_maybe_chain_id
+Contract.to_b58check *)
 
 (*  
     lambda ty1 ty2 -> mtype mtype
@@ -143,7 +144,7 @@ let rec value_to_string value =
       "timestamp"
   | T_address ->
       "address"
-
+*)
 
 
 

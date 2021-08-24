@@ -27,7 +27,7 @@ type expression_michelson = Script.expr
 type tag = string
 
 
-
+(* mtype is the michelson types for the arg and initial_storage *)
 type mtype = 
 | Tstring of string
 | Tint of int 
@@ -47,6 +47,8 @@ type mtype =
 
 
 val mtype_to_string: mtype -> string
+
+(* gets the value of mtype in a string format that can be passed to the originate and call_contract functions *)
 val value_to_string: mtype -> string
 
 
@@ -225,15 +227,21 @@ val parse_expression : string -> parsed_michelson Answer.t
  *)
 val list_entrypoints : parsed_michelson -> (tag * expression_michelson) list Answer.t
 
-
+(* gets the balance of a given alias *)
 val get_balance1 : string -> Tez_t.t Answer.t
 
+(* prints the tez_t.t *)
 val get_float : Tez_t.t -> unit
 
-
+(*  gets all of the entrypoint for a contract 
+    @param a string having the puplic_key_hash of a conract
+    @return list of paris entrypoints containing the name of the entrypoint and its type *)
 val get_entrypoints: string -> (string * Script.expr) list Answer.t
 
+(*  prints the names of the given entrypoints
+    @param list of pairs entrypoints *)
 val print_elements: (tag * Script.expr) list -> unit 
+
 
 val print_entrypoints: (tag * Script.expr) list tzresult -> unit tzresult Lwt.t
 
