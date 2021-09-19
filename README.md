@@ -1,9 +1,9 @@
 # Tezos API
 
-This OCaml API provides functions to interact with a Tezos node. It uses the Tezos libraries released on ```opam``` and
-wraps them inside a more simplified and easy-to-use interface. The API heavily utilizes the tezos-client library with
+This typed OCaml API provides functions to interact with a Tezos smart contract. It uses the Tezos libraries released on ```opam``` and
+wraps them inside a more simplified and easy-to-use interface in addition to a typed invoking and originating functions that checks the types before starting the blockchain opertaions. The typed API heavily utilizes the tezos-client library with
 its built-in input verification and prevalidation of operations in order to provide instant feedback and thus avoiding injections
-of invalid operations.  
+of invalid operations.
 The source code of the Tezos libraries can be found on [Gitlab](https://gitlab.com/tezos/tezos/).
 ## Using Tezos_Api
 To install the Tezos libraries with opam:  
@@ -48,80 +48,112 @@ Your dune-projects file should contain the following line:
 ``` (lang dune 1.11) ```
 
 Build your project with  
-``` dune build my_exe.exe```
-
-## Code examples
-### Example 1: Query the balance of an implicit account
+``` dune build test.exe```
+## The Michelson Types that we Included in this typed OCaml API version
 ```ocaml
-  SyncAPIV1.get_contract "MickeyMouse"
-  >>=? fun c->
-  SyncAPIV1.get_balance c
-  >>=? fun balance ->
+type mtype = 
+| Tstring of string
+| Tint of int 
+| Tbool of bool
+| Tunit of unit
+| Tlist of mtype list
+| Toption of mtype option
+| Tpair of (mtype * mtype)
+| Tbytes (*starts with 0x*) of Bytes.t  
+| Tkey of Signature.public_key
+| Tkey_hash of Signature.public_key_hash
+| Tsignature of Signature.t
+| Tbls12_381_g1 (*is a byte*) of Bytes.t
+| Tbls12_381_g2 (*is a byte*) of Bytes.t
+| Tbls12_381_fr of Bls12_381.Fr.t
+| Tnever
+```
+## Code examples
+### Example 1: Get to know all of the entrypoints and their types in a smart contract 
+```ocaml
+  Api.get_entrypoints "id1"
+  >>= function 
+    ....
+```
+
+### Example 2: Invoking a smart contract using the typed arguments for entrypoints 
+```ocaml
+Api.get_pukh_from_alias "test3"
+  >>=? fun pukh ->
+  Api.get_contract "id1"
+  >>=? fun contr ->
+  let amount = Api.Tez_t.tez 10.0 in
+  let fees = Api.Tez_t.tez 0.001 in
+  Api.call_contract3 amount pukh contr ?entrypoint:(Some "default") ?arg:(Some (Tstring "xxx")) fees
+  >>= function
+    ....
+```
+
+### Example 3: Originating a smart contract with a typed initial_storage
+```ocaml
+Api.get_pukh_from_alias "test3"
+ >>=? fun pukh ->
+ let amount = Api.Tez_t.tez 1.0 in
+ (* let fees = Api.Tez_t.tez 0.0001 in *)
+ let fees = Api.Tez_t.tez 0.07575 in
+ let contractcode = 
+  "parameter (int); \n\
+   storage (int); \n\n\
+   code\n\
+  \  {\n\
+  \    CAR;\n\
+  \    PUSH int 1;\n\
+  \    ADD;\n\
+  \    NIL operation;\n\
+  \    PAIR }\n" in 
+  Api.originate2 
+  (Tint 1) amount fees pukh contractcode
+  >>= function 
+....
+```
+
+### Example 4: Type-checking before starting invoking the smart contract for a string argument 
+```ocaml
+Api.get_pukh_from_alias "test3"
+  >>=? fun pukh ->
+  Api.get_contract "id1"
+  >>=? fun contr ->
+  let amount = Api.Tez_t.tez 10.0 in
+  let fees = Api.Tez_t.tez 0.001 in
+  Api.call_contract2 amount pukh contr ?entrypoint:(Some "default") ?arg:(Some "\"true\"") fees
+  >>= function
   ....
 ```
 
-### Example 2: Transfer tokens from one account to another
+### Example 5: Type-checking before starting originating the smart contract for a string initial_storage
 ```ocaml
-SyncAPIV1.get_pukh_from_alias "MickeyMouse"
->>=? fun pukh_mickey ->
-SyncAPIV1.get_contract "MinnieMouse"
->>=? fun c_minnie ->
-let amount = SyncAPIV1.Tez_t.tez 1.0 in
-let fee = SyncAPIV1.Tez_t.tez 0.02 in
-SyncAPIV1.transfer amount pukh_mickey c_minnie fee
->>=? fun oph ->
-....
-```
-
-### Example 3: Calling a contract
-```ocaml
-SyncAPIV1.get_pukh_from_alias "MickeyMouse"
->>=? fun pukh_mickey ->
-SyncAPIV1.get_contract "KT1VZGyuHDLpUaL67VkZ8gzhmXdn1yXxSwqi"
->>=? fun c ->
-let amount = SyncAPIV1.Tez_t.tez 1.0 in
-let fee = SyncAPIV1.Tez_t.tez 0.02 in
-let entrypoint = "someEntrypoint" in
-let arg = "Some arguments" in
-SyncAPIV1.call_contract amount pukh_mickey c ~entrypoint ~arg fee
->>=? fun oph ->
-....
-```
-
-### Example 4: Query an operation status
-```ocaml
-...
->>=? fun oph ->
-SyncAPIV1.query oph
->>=? function
-| Accepted result -> print_endline ("Consumed gas: " ^ string_of_int res.consumed_gas) ; ...
-| Still_pending -> ...
-| Rejected (Reason Insufficient_fee) -> ...
-| ....
-```
-
-### Example 5: Error handling
-```ocaml
-begin
-  SyncAPIV1.get_pukh_from_alias "MickeyMouse"
-  >>=? fun pukh_mickey ->
-  SyncAPIV1.get_contract "KT1VZGyuHDLpUaL67VkZ8gzhmXdn1yXxSwqi"
-  >>=? fun c ->
-  SyncAPIV1.call_contract amount pukh_mickey c ~entrypoint ~arg fee
-end
->>= function
-| Ok oph -> ...
-| Error Node_connection_failed -> ...
-| Error (Rejection Insufficient_fee) -> ...
-| ....
+Api.get_pukh_from_alias "test3"
+ >>=? fun pukh ->
+ let amount = Api.Tez_t.tez 1.0 in
+ (* let fees = Api.Tez_t.tez 0.0001 in *)
+ let fees = Api.Tez_t.tez 0.07575 in
+ let contractcode = 
+  "parameter (int); \n\
+   storage (int); \n\n\
+   code\n\
+  \  {\n\
+  \    CAR;\n\
+  \    PUSH int 1;\n\
+  \    ADD;\n\
+  \    NIL operation;\n\
+  \    PAIR }\n" in 
+  Api.originate 
+  "1" amount fees pukh contractcode
+  >>= function 
+  ....
 ```
 
 ## Running the quick tests
 Inside the ```test/``` directory you can find an executable to quick test all functions of the API. For most of the tests, it needs to establish a connection to a local node and needs the following setup:
-- Activate a faucet account ```testuser``` and adapt the public key hash in the test file accordingly
-- Originate a dummy contract ```auction``` (or use another name and adapt the test file)
-
+- you need to have an implicit account and a contract and adapt them in the test file accordingly, for some functions like the origination function you can keep the dummy contract as it is or you can adapt the file with one of your choice. 
+- you should also adapt the basedir to your tezos_client directory location.
+- the port is set to default which is 8732 so you need to adapt it if you will change the default port of the node. 
 Build the test file within the ```test/``` directory:
 ```dune build ./test.exe```
 Run the tests:
-```dune exec --- ./test.exe -d <tezos client directory> -p <rpc port of the node>```
+```dune exec ./test.exe```
